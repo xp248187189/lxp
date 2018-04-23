@@ -16,10 +16,10 @@ class CreateUserLoginTable extends Migration
         //用户登录
         Schema::create('user_login', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('ip',50);//登录ip
-            $table->unsignedInteger('time');//登录时间
-            $table->string('account',50);//登录名
-            $table->text('browser');//浏览器信息
+            $table->string('ip',50)->comment('登录ip');
+            $table->unsignedInteger('time')->comment('登录时间');
+            $table->string('account',50)->comment('登录名');
+            $table->text('browser')->comment('浏览器信息');
             $table->timestamps();
         });
     }

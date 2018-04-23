@@ -16,15 +16,15 @@ class CreateTimeAxisTable extends Migration
         //时间轴
         Schema::create('time_axis', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedSmallInteger('year');//年
-            $table->unsignedTinyInteger('month');//月
-            $table->unsignedTinyInteger('day');//日
-            $table->unsignedTinyInteger('hour');//时
-            $table->unsignedTinyInteger('minute');//分
-            $table->text('content');//内容
-            $table->unsignedTinyInteger('status');//状态 0/1[禁用/启用]
-            $table->unsignedTinyInteger('isHome');//首页显示
-            $table->unsignedInteger('time');//时间戳
+            $table->unsignedSmallInteger('year')->comment('年');
+            $table->unsignedTinyInteger('month')->comment('月');
+            $table->unsignedTinyInteger('day')->comment('日');
+            $table->unsignedTinyInteger('hour')->comment('时');
+            $table->unsignedTinyInteger('minute')->comment('分');
+            $table->text('content')->comment('内容');
+            $table->unsignedTinyInteger('status')->comment('状态')->default(1);
+            $table->unsignedTinyInteger('isHome')->comment('首页显示')->default(0);
+            $table->unsignedInteger('time')->comment('时间戳');
             $table->timestamps();
         });
     }

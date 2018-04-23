@@ -16,10 +16,10 @@ class CreateUserCommentTable extends Migration
         //留言内容
         Schema::create('user_comment', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('user_id');//用户id
-            $table->string('user_account',50);//用户名
-            $table->unsignedInteger('time');//留言时间
-            $table->text('connect');//留言内容
+            $table->unsignedInteger('user_id')->comment('用户id')->default(0);
+            $table->string('user_account',50)->comment('用户名');
+            $table->unsignedInteger('time')->comment('留言时间');
+            $table->text('connect')->comment('留言内容');
             $table->timestamps();
         });
     }

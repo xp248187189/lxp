@@ -16,10 +16,10 @@ class CreateLinkTable extends Migration
         //友情链接
         Schema::create('link', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name',50);//链接名称
-            $table->string('url',50);//链接地址
-            $table->unsignedTinyInteger('status');//状态 0/1[禁用/启用]
-            $table->unsignedInteger('sort');//排序
+            $table->string('name',50)->comment('链接名称');
+            $table->string('url',50)->comment('链接地址');
+            $table->unsignedTinyInteger('status')->comment('状态')->default(1);
+            $table->unsignedInteger('sort')->comment('排序')->default(99);
             $table->timestamps();
         });
     }

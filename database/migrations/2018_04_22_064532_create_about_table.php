@@ -16,11 +16,11 @@ class CreateAboutTable extends Migration
         //博客信息
         Schema::create('about', function (Blueprint $table) {
             $table->increments('id');//id
-            $table->string('name','50');//名称
-            $table->string('introduce','255');//简介
-            $table->text('detail');//详情
-            $table->string('label','255');//标签
-            $table->string('img','255');//图片
+            $table->string('name','50')->comment('名称');
+            $table->string('introduce','255')->comment('简介');
+            $table->text('detail')->comment('详情');
+            $table->string('label','255')->comment('标签');
+            $table->string('img','255')->comment('图片');
             $table->timestamps();
         });
     }

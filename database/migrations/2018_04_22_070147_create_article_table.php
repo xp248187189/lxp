@@ -16,19 +16,19 @@ class CreateArticleTable extends Migration
         //文章管理
         Schema::create('article', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('img',255);//文章主图
-            $table->string('title',50);//文章标题
-            $table->string('outline',255);//文章概要
-            $table->mediumText('content');//文章内容
-            $table->unsignedInteger('category_id');//分类id
-            $table->string('category_name',50);//分类名称
-            $table->unsignedTinyInteger('isHome');//是否首页
-            $table->unsignedTinyInteger('isRecommend');//是否推荐
-            $table->unsignedInteger('sort');//排序
-            $table->unsignedTinyInteger('status');//状态 0/1[禁用/启用]
-            $table->string('author',50);//作者
-            $table->unsignedInteger('addTime');//添加时间戳
-            $table->unsignedInteger('showNum');//浏览次数
+            $table->string('img',255)->comment('文章主图');
+            $table->string('title',50)->comment('文章标题');
+            $table->string('outline',255)->comment('文章概要');
+            $table->mediumText('content')->comment('文章内容');
+            $table->unsignedInteger('category_id')->comment('分类id')->default(0);
+            $table->string('category_name',50)->comment('分类名称');
+            $table->unsignedTinyInteger('isHome')->comment('是否首页')->default(0);
+            $table->unsignedTinyInteger('isRecommend')->comment('是否推荐')->default(0);
+            $table->unsignedInteger('sort')->comment('排序')->default(99);
+            $table->unsignedTinyInteger('status')->comment('状态')->default(1);
+            $table->string('author',50)->comment('作者');
+            $table->unsignedInteger('addTime')->comment('添加时间戳');
+            $table->unsignedInteger('showNum')->comment('浏览次数')->default(0);
             $table->timestamps();
         });
     }

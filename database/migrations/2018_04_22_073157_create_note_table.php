@@ -16,10 +16,10 @@ class CreateNoteTable extends Migration
         //笔记
         Schema::create('note', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('title',255);//标题
-            $table->string('url',255);//url地址
-            $table->string('account',255);//账号
-            $table->string('password',255);//密码
+            $table->string('title',255)->comment('标题');
+            $table->string('url',255)->comment('url地址');
+            $table->string('account',255)->comment('账号');
+            $table->string('password',255)->comment('密码');
             $table->timestamps();
         });
     }

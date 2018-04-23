@@ -16,12 +16,12 @@ class CreateUserTable extends Migration
         //用户
         Schema::create('user', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('account',50);//用户名
-            $table->string('sex',5);//性别
-            $table->string('head',100);//头像
-            $table->unsignedInteger('connectid');//qq登录返回的id
-            $table->unsignedInteger('addTime');//加入时间
-            $table->unsignedTinyInteger('status');//状态 0/1[禁用/启用]
+            $table->string('account',50)->comment('用户名');
+            $table->string('sex',5)->comment('性别');
+            $table->string('head',100)->comment('头像');
+            $table->unsignedInteger('connectid')->comment('qq登录返回的id');
+            $table->unsignedInteger('addTime')->comment('加入时间');
+            $table->unsignedTinyInteger('status')->comment('状态')->default(1);
             $table->timestamps();
         });
     }
