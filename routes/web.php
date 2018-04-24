@@ -14,3 +14,26 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+/**
+ * 后台
+ */
+Route::namespace('Admin')->prefix('myadmin')->group(function () {
+    //登陆页面
+    Route::get('login','LoginController@login');
+    //执行登陆
+    Route::post('doLogin','LoginController@doLogin');
+    //退出登陆
+    Route::get('doLogOut','LoginController@doLogOut');
+    //Index控制器
+    Route::middleware('AdminAuth')->prefix('Index')->group(function (){
+        //首页
+        Route::get('/index','IndexController@index');
+        //welcome页
+        Route::get('/welcome','IndexController@welcome');
+        //修改个人信息
+        Route::get('/editMe','IndexController@editMe');
+        //ajax执行修改个人信息
+        Route::post('/ajaxEdit','IndexController@ajaxEdit');
+    });
+});
