@@ -1,0 +1,22 @@
+/**
+ * 设置顶部条div的外边距
+ */
+#nav_blockquote .layui-inline{
+    margin: 0 20px 0 0;
+}
+/**
+ * 设置顶部条input框
+ */
+#nav_blockquote input{
+    height: 30px;
+    display: inline-block;
+}
+/**
+ * 设置搜索下拉框宽度
+ */
+#nav_blockquote .layui-form-select{
+    width: 120px;
+}
+#nav_blockquote .layui-form-select input{
+    width: 120px !important;
+}

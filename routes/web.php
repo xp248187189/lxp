@@ -25,6 +25,8 @@ Route::namespace('Admin')->prefix('myadmin')->group(function () {
     Route::post('doLogin','LoginController@doLogin');
     //退出登陆
     Route::get('doLogOut','LoginController@doLogOut');
+    //登录验证码
+    // Route::get();
     //Index控制器
     Route::middleware('AdminAuth')->prefix('Index')->group(function (){
         //首页
