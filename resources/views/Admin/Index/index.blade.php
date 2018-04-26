@@ -36,9 +36,9 @@
 		<div class="layui-side layui-bg-black">
 			<div class="layui-side-scroll">
 				<!-- 左侧导航区域（可配合layui已有的垂直导航） -->
-				<ul class="layui-nav layui-nav-tree" lay-filter="leftnav">
+				<ul class="layui-nav layui-nav-tree" lay-filter="leftnav" lay-shrink="all">
 					<li class="layui-nav-item layui-this">
-						<a href="javascript:;" data-id="0" onclick="changIndex(0);"><i class="fa fa-fw fa-home"></i>首页</a>
+                        <a href="javascript:;" data-id="0" onclick="changIndex(0);"><i class="fa fa-fw fa-home"></i> <span>首页</span></a>
 					</li>
                     <?php foreach ($authList as $key => $value) { ?>
 					<li class="layui-nav-item">
@@ -102,27 +102,16 @@
 {{--js内容--}}
 @section('script')
 	<script type="text/javascript">
-        //左侧导航菜单展开一个，关闭另一个
-        $('.layui-nav-tree li').on('click',function () {
-            //只有一级的话，因为class不一样，所以需要排除
-            if ($(this).find('dd').length>0) {
-                //因为layui本身有一个点击展开事件，而且会先执行layui的点击事件
-                //所以这里判断的是执行了layui点击事件后的状态
-                if ($(this).attr('class')=='layui-nav-item layui-nav-itemed') {
-                    $('.layui-nav-tree li').attr('class','layui-nav-item');
-                    $(this).attr('class','layui-nav-item layui-nav-itemed');
-                }else{
-                    $('.layui-nav-tree li').attr('class','layui-nav-item');
-                }
-            };
-        });
         //监听导航菜单的点击（只能监听二级菜单）
         element.on('nav(leftnav)', function(elem){
             // console.log(elem); //得到当前点击的DOM对象
             // 获取左侧导航的一些属性
-            var url = $(elem).children('a').attr('data-url');   //页面url
-            var id = $(elem).children('a').attr('data-id');     //tab唯一Id
-            var title = $(elem).children('a').children('span').text();           //菜单名称
+            // var url = $(elem).children('a').attr('data-url');   //页面url
+            // var id = $(elem).children('a').attr('data-id');     //tab唯一Id
+            // var title = $(elem).children('a').children('span').text();           //菜单名称
+            var url = $(elem).attr('data-url');   //页面url
+            var id = $(elem).attr('data-id');     //tab唯一Id
+            var title = $(elem).children('span').text();           //菜单名称
             if(title == "首页"){
                 element.tabChange('tab',0);
                 return;
@@ -281,7 +270,7 @@
         function signOut(){
             layer.confirm('真的退出么', function(index) {
                 $.get('{{ url('myadmin/doLogOut') }}',{},function(resule){
-                    if (resule.state) {
+                    if (resule.status) {
                         window.location.href = "{{ url('myadmin/login') }}";
                     };
                 },'json');
