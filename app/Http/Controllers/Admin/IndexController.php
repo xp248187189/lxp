@@ -72,12 +72,12 @@ class IndexController extends Controller
             ->take(2)
             ->get();
         if ($lastLoginInfo->count()==2){
-            if(getIpLookup($lastLoginInfo[0]->ip)){
-                $lastLoginInfo[0]->province = getIpLookup($lastLoginInfo[0]->ip)['province'];
-                $lastLoginInfo[0]->city = getIpLookup($lastLoginInfo[0]->ip)['city'];
+            if(getIpLookup($lastLoginInfo[1]->ip)){
+                $lastLoginInfo[1]->province = getIpLookup($lastLoginInfo[1]->ip)['province'];
+                $lastLoginInfo[1]->city = getIpLookup($lastLoginInfo[1]->ip)['city'];
             }else{
-                $lastLoginInfo[0]->province = '未知';
-                $lastLoginInfo[0]->city = '';
+                $lastLoginInfo[1]->province = '未知';
+                $lastLoginInfo[1]->city = '';
             }
         }
         //文章数

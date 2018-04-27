@@ -50,12 +50,12 @@ class LoginController extends Controller
             exit(json_encode($res));
         }
         //判断账号是否禁用
-        if ($adminInfo['status']==0) {
+        if ($adminInfo->status==0) {
             $res['echo'] = '此账号已被禁用';
             exit(json_encode($res));
         }
         //判断密码是否正确
-        if($adminInfo['password'] != md5($request->input('password'))){
+        if($adminInfo->password != md5($request->input('password'))){
             $res['echo'] = '用户名或密码错误';
             exit(json_encode($res));
         }

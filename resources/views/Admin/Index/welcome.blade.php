@@ -25,9 +25,9 @@
     <p style="padding: 10px 15px; margin-bottom: 20px; margin-top: 10px; border:1px solid #ddd;display:inline-block;">
         @if($lastLoginInfo->count()==2)
             上次登陆
-            <span style="padding-left:1em;">IP：{{$lastLoginInfo[0]->ip}}</span>
-            <span style="padding-left:1em;">地点：{{$lastLoginInfo[0]->province.$lastLoginInfo[0]->city}}</span>
-            <span style="padding-left:1em;">时间：{{date('Y-m-d H:i',$lastLoginInfo[0]->time)}}</span>
+            <span style="padding-left:1em;">IP：{{$lastLoginInfo[1]->ip}}</span>
+            <span style="padding-left:1em;">地点：{{$lastLoginInfo[1]->province.$lastLoginInfo[1]->city}}</span>
+            <span style="padding-left:1em;">时间：{{date('Y-m-d H:i',$lastLoginInfo[1]->time)}}</span>
         @else
             未查到您上一次登陆信息，也许您是第一次登陆
         @endif
