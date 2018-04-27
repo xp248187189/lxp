@@ -65,10 +65,7 @@ class AdminAuth
                         exit(json_encode(array('status'=>false,'echo'=>'(●′ω`●) 对不起... 您无权进行此操作！！！')));
                         //return response()->json(array('status'=>false,'echo'=>'(●′ω`●) 对不起... 您无权进行此操作！！！'));
                     }else{
-                        $echo  = '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd"><html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>这个.. 页面出错了！！！</title></head><body>';
-                        $echo .= '<div style="text-align:center;overflow:hidden;height:120px;margin: auto;position: absolute;top: 0; left: 0; bottom: 0; right: 0; ">';
-                        $echo .= '<h1>(●′ω`●) 对不起... 您无权进行此操作！！！</h1>';
-                        $echo .= '</div></body></html>';
+                        $echo = '<!DOCTYPE html><html><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible"content="IE=edge"><meta name="viewport"content="width=device-width, initial-scale=1"><title>这个..页面出错了！！！</title><!--Fonts--><link href="https://fonts.googleapis.com/css?family=Raleway:100,600"rel="stylesheet"type="text/css"><!--Styles--><style>html,body{background-color:#fff;color:#636b6f;font-family:\'Raleway\',sans-serif;font-weight:100;height:100vh;margin:0}.full-height{height:100vh}.flex-center{align-items:center;display:flex;justify-content:center}.position-ref{position:relative}.content{text-align:center}.title{font-size:36px;padding:20px}</style></head><body><div class="flex-center position-ref full-height"><div class="content"><div class="title">(●′ω`●) 对不起... 您无权进行此操作！！！</div></div></div></body></html>';
                         exit($echo);
                     }
                 }
