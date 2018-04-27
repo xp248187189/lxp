@@ -63,6 +63,7 @@ CREATE TABLE IF NOT EXISTS `lxp_admin_login` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `ip` varchar(50) COLLATE utf8_unicode_ci NOT NULL COMMENT '登录ip',
   `time` int(10) unsigned NOT NULL COMMENT '登录时间',
+  `account_id` int(10) unsigned NOT NULL COMMENT '登陆id',
   `account` varchar(50) COLLATE utf8_unicode_ci NOT NULL COMMENT '登录名',
   `browser` text COLLATE utf8_unicode_ci NOT NULL COMMENT '浏览器信息',
   `created_at` timestamp NULL DEFAULT NULL,
@@ -421,6 +422,34 @@ CREATE TRIGGER `admin_insert` BEFORE INSERT ON `lxp_admin` FOR EACH ROW BEGIN
 	if new.role_id>0 then 
 		select name into @sel_role_name from lxp_role where new.role_id=id;
 		set new.role_name = @sel_role_name;
+	end if;
+END//
+DELIMITER ;
+SET SQL_MODE=@OLDTMP_SQL_MODE;
+
+
+-- 导出  触发器 lxp.admin_login_insert 结构
+SET @OLDTMP_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION';
+DELIMITER //
+CREATE TRIGGER `admin_login_insert` BEFORE INSERT ON `lxp_admin_login` FOR EACH ROW BEGIN
+	set @sel_account_name='';
+	if new.account_id>0 then 
+		select account into @sel_account_name from lxp_admin where new.account_id=id;
+		set new.account = @sel_account_name;
+	end if;
+END//
+DELIMITER ;
+SET SQL_MODE=@OLDTMP_SQL_MODE;
+
+
+-- 导出  触发器 lxp.admin_login_update 结构
+SET @OLDTMP_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION';
+DELIMITER //
+CREATE TRIGGER `admin_login_update` BEFORE UPDATE ON `lxp_admin_login` FOR EACH ROW BEGIN
+	set @sel_account_name='';
+	if new.account_id>0 then 
+		select account into @sel_account_name from lxp_admin where new.account_id=id;
+		set new.account = @sel_account_name;
 	end if;
 END//
 DELIMITER ;

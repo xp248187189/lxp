@@ -67,15 +67,18 @@ class IndexController extends Controller
     //welcome页
     public function welcome(){
         //最后登陆信息
-        $lastLoginInfo = AdminLogin::where('id','=',session()->get('adminInfo')['id'])
+        $lastLoginInfo = AdminLogin::where('account_id','=',session()->get('adminInfo')['id'])
             ->orderBy('time','desc')
-            ->first();
-        if(getIpLookup($lastLoginInfo['ip'])){
-            $lastLoginInfo['province'] = getIpLookup($lastLoginInfo['ip'])['province'];
-            $lastLoginInfo['city'] = getIpLookup($lastLoginInfo['ip'])['city'];
-        }else{
-            $lastLoginInfo['province'] = '未知';
-            $lastLoginInfo['city'] = '';
+            ->take(2)
+            ->get();
+        if ($lastLoginInfo->count()==2){
+            if(getIpLookup($lastLoginInfo[0]->ip)){
+                $lastLoginInfo[0]->province = getIpLookup($lastLoginInfo[0]->ip)['province'];
+                $lastLoginInfo[0]->city = getIpLookup($lastLoginInfo[0]->ip)['city'];
+            }else{
+                $lastLoginInfo[0]->province = '未知';
+                $lastLoginInfo[0]->city = '';
+            }
         }
         //文章数
         $articleCount = Article::count();
@@ -115,7 +118,7 @@ class IndexController extends Controller
         if($request->input('account')){
             $isAccount = 0;
             foreach ($info as $key=>$value){
-                if ($request->input('account') == $value['account']){
+                if ($request->input('account') == $value->account){
                     $isAccount = 1;
                     break;
                 }

@@ -69,6 +69,7 @@ class LoginController extends Controller
         $adminLoginOrm = new AdminLogin();
         $adminLoginOrm->ip = \Request::getClientIp();
         $adminLoginOrm->time = time();
+        $adminLoginOrm->account_id = $adminInfo['id'];
         $adminLoginOrm->account = $adminInfo['account'];
         $adminLoginOrm->browser = $_SERVER['HTTP_USER_AGENT'];
         $adminLoginOrm->save();
