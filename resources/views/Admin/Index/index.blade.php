@@ -38,7 +38,7 @@
 				<!-- 左侧导航区域（可配合layui已有的垂直导航） -->
 				<ul class="layui-nav layui-nav-tree" lay-filter="leftnav" lay-shrink="all">
 					<li class="layui-nav-item layui-this">
-                        <a href="javascript:;" data-id="0"><i class="fa fa-fw fa-home"></i> <span>首页</span></a>
+                        <a href="javascript:;" data-id="0" onclick="changIndex(0);"><i class="fa fa-fw fa-home"></i> <span>首页</span></a>
 					</li>
                     <?php foreach ($authList as $key => $value) { ?>
 					<li class="layui-nav-item">
@@ -224,6 +224,13 @@
         function setIframeHeight(obj){
             var height = $(document).height()-101;
             $(obj).attr('style','height:'+height+'px;width:100%;border:none;outline:none;');
+        }
+        //一级菜单切换
+        function changIndex(lay_id){
+            //把展开的左侧导航菜单关闭
+            $('.layui-nav-tree li').attr('class','layui-nav-item');
+            //切换到选项卡
+            // element.tabChange('tab',lay_id);
         }
         //浏览器窗口绑定resize事件,浏览器窗口大小改变，重新设置iframe高度
         $(window).on('resize',function(){

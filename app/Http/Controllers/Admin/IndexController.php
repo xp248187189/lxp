@@ -28,7 +28,7 @@ class IndexController extends Controller
                 $s_authList = Auth::where('pid',$value['id'])
                     ->where('level',1)
                     ->get();
-                if (empty($s_authList)) {
+                if ($s_authList->isEmpty()) {
                     //没有二级权限，那么一级权限也不显示
                     unset($authList[$key]);
                 }else{
@@ -51,7 +51,7 @@ class IndexController extends Controller
                         ->where('pid',$value['id'])
                         ->where('level',1)
                         ->get();
-                    if (empty($s_authList)) {
+                    if ($s_authList->isEmpty()) {
                         //没有二级权限，那么一级权限也不显示
                         unset($authList[$key]);
                     }else{
