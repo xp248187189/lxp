@@ -19,7 +19,7 @@
 	<div class="layui-layout layui-layout-admin">
 		<!--顶部-->
 		<div class="layui-header">
-			<div class="layui-logo" style="cursor:pointer" onclick="window.location.reload();"><h2 id="blogName"><?php echo $blogInfo['name'];?></h2></div>
+			<div class="layui-logo" style="cursor:pointer" onclick="window.location.reload();"><h2 id="blogName">{{$blogInfo->name}}</h2></div>
 			<ul class="layui-nav layui-layout-right" id="top_nav">
 				<li class="layui-nav-item">
 					<a href="javascript:;" id="adminInfoName">
@@ -40,22 +40,22 @@
 					<li class="layui-nav-item layui-this">
                         <a href="javascript:;" data-id="0" onclick="changIndex(0);"><i class="fa fa-fw fa-home"></i> <span>首页</span></a>
 					</li>
-                    <?php foreach ($authList as $key => $value) { ?>
+                    @foreach ($authList as $key => $value)
 					<li class="layui-nav-item">
 						<a href="javascript:;">
-                            <?php echo empty($value['icon'])?'<i class="fa fa-fw fa-search"></i>':'<i class="fa fa-fw '.$value['icon'].'"></i>';?> <span><?php echo $value['name']?></span>
+                            @php echo empty($value->icon)?'<i class="fa fa-fw fa-search"></i>':'<i class="fa fa-fw '.$value->icon.'"></i>'@endphp <span>{{$value->name}}</span>
 						</a>
 						<dl class="layui-nav-child">
-                            <?php foreach ($value['s_authList'] as $k => $v) { ?>
+                            @foreach ($value->s_authList as $k => $v)
 							<dd>
-								<a href="javascript:;" data-url="{{ url('myadmin/'.$v['controller'].'/'.$v['action']) }}" data-id="<?php echo $v['id']?>">
-									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo empty($v['icon'])?'<i class="fa fa-fw fa-search"></i>':'<i class="fa fa-fw '.$v['icon'].'"></i>';?> <span><?php echo $v['name']?></span>
+								<a href="javascript:;" data-url="{{ url('myadmin/'.$v->controller.'/'.$v->action) }}" data-id="{{$v->id}}">
+                                    @php echo empty($v->icon)?'<i class="fa fa-fw fa-search"></i>':'<i class="fa fa-fw '.$v->icon.'"></i>';@endphp <span>{{$v->name}}</span>
 								</a>
 							</dd>
-                            <?php }?>
+                            @endforeach
 						</dl>
 					</li>
-                    <?php }?>
+                    @endforeach
 				</ul>
 			</div>
 		</div>

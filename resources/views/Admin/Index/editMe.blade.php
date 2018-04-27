@@ -18,13 +18,11 @@
 			<div class="layui-inline">
 				<label class="layui-form-label">角色</label>
 				<div class="layui-input-inline">
-                    <?php
-                    if (session()->get('adminInfo')['role_id']==0) {
-                        echo '<input type="text" class="layui-input" value="超级管理员" readonly style="border:none;">';
-                    }else{
-                        echo '<input type="text" class="layui-input" value="'.$roleInfo['name'].'" readonly style="border:none;">';
-                    }
-                    ?>
+					@if(session()->get('adminInfo')['role_id']==0)
+						<input type="text" class="layui-input" value="超级管理员" readonly style="border:none;">
+					@else
+						<input type="text" class="layui-input" value="{{$roleInfo->name}}" readonly style="border:none;">
+					@endif
 				</div>
 			</div>
 			<div class="layui-inline">
@@ -58,8 +56,8 @@
 			<div class="layui-inline">
 				<label class="layui-form-label">性别</label>
 				<div class="layui-input-inline">
-					<input type="radio" name="sex" value="男" title="男" <?php echo session()->get('adminInfo')['sex']=='男'?'checked':'';?>>
-					<input type="radio" name="sex" value="女" title="女" <?php echo session()->get('adminInfo')['sex']=='女'?'checked':'';?>>
+					<input type="radio" name="sex" value="男" title="男" @php echo session()->get('adminInfo')['sex']=='男'?'checked':''@endphp>
+					<input type="radio" name="sex" value="女" title="女" @php echo session()->get('adminInfo')['sex']=='女'?'checked':''@endphp>
 				</div>
 			</div>
 		</div>

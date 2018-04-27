@@ -67,7 +67,8 @@ class IndexController extends Controller
     //welcome页
     public function welcome(){
         //最后登陆信息
-        $lastLoginInfo = AdminLogin::orderBy('time','desc')
+        $lastLoginInfo = AdminLogin::where('id','=',session()->get('adminInfo')['id'])
+            ->orderBy('time','desc')
             ->first();
         if(getIpLookup($lastLoginInfo['ip'])){
             $lastLoginInfo['province'] = getIpLookup($lastLoginInfo['ip'])['province'];
