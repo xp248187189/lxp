@@ -13,9 +13,9 @@
 {{--body内容--}}
 @section('body')
     <form class="layui-form" action="">
-        <input type="hidden" name="pid" value="<?php echo $pid?>" />
-        <input type="hidden" name="level" value="<?php echo $level?>" />
-        <input type="hidden" name="id_list" value="<?php echo $id_list?>" />
+        <input type="hidden" name="pid" value="{{$pid}}" />
+        <input type="hidden" name="level" value="{{$level}}" />
+        <input type="hidden" name="id_list" value="{{$id_list}}" />
         <div class="layui-form-item">
             <label class="layui-form-label">名称</label>
             <div class="layui-input-block">
@@ -26,14 +26,14 @@
         <div class="layui-form-item">
             <label class="layui-form-label">控制器</label>
             <div class="layui-input-block">
-                <input type="text" name="controller" <?php echo $pid==0?'disabled placeholder="无需填写"':'lay-verify="required"';?> autocomplete="off" class="layui-input">
+                <input type="text" name="controller" @php echo $pid==0?'disabled placeholder="无需填写"':'lay-verify="required"'@endphp autocomplete="off" class="layui-input">
             </div>
             <div class="layui-form-mid layui-word-aux"></div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">方法</label>
             <div class="layui-input-block">
-                <input type="text" name="action" <?php echo $pid==0?'disabled placeholder="无需填写"':'lay-verify="required"';?> autocomplete="off" class="layui-input">
+                <input type="text" name="action" @php echo $pid==0?'disabled placeholder="无需填写"':'lay-verify="required"'@endphp autocomplete="off" class="layui-input">
             </div>
             <div class="layui-form-mid layui-word-aux"></div>
         </div>
@@ -43,16 +43,16 @@
                 <input type="text" name="sort" lay-verify="number" autocomplete="off" class="layui-input" value="99">
             </div>
         </div>
-        <?php if($level<2){?>
+        @if($level<2)
         <div class="layui-form-item">
             <label class="layui-form-label">图标</label>
             <div class="layui-input-block" style="height:150px;overflow:auto;">
-                <?php foreach ($iconClass as $key => $value) {
-                    echo '<input type="radio" name="icon" value="'.$value.'" title="<i class=\'fa fa-fw '.$value.'\'></i>">';
-                }?>
+                @foreach($iconClass as $key => $value)
+                        <input type="radio" name="icon" value="{{$value}}" title="<i class='fa fa-fw {{$value}}'></i>">
+                @endforeach
             </div>
         </div>
-        <?php }?>
+        @endif
         <div class="layui-form-item">
             <div class="layui-input-block">
                 <button class="layui-btn" lay-submit lay-filter="submit">立即提交</button>
@@ -66,7 +66,7 @@
     <script type="text/javascript">
         form.on('submit(submit)', function(data){
             $.ajax({
-                url:"<?php echo url('myadmin/Auth/ajaxAdd');?>",
+                url:"{{url('myadmin/Auth/ajaxAdd')}}",
                 type:'post',
                 data:data.field,
                 dataType:'json',

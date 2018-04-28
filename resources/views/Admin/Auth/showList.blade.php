@@ -87,10 +87,10 @@
                     type:2,
                     area:['800px', '450px'],
                     maxmin: true,
-                    content: '<?php echo url("myadmin/Auth/edit/'+data.id+'");?>',
+                    content: '@php echo url("myadmin/Auth/edit/'+data.id+'")@endphp',
                     end:function(){
                         tableIns.reload({
-                            url: '<?php echo url("myadmin/Auth/showList/getData/'+current_id+'")?>'
+                            url: '@php echo url("myadmin/Auth/showList/getData/'+current_id+'")@endphp'
                         });
                     }
                 });
@@ -108,7 +108,7 @@
             $('input[name="name"]').val('');
             tableIns.reload({
                 where: {name:''},
-                url: '<?php echo url("myadmin/Auth/showList/getData/'+id+'")?>'
+                url: '@php echo url("myadmin/Auth/showList/getData/'+id+'")@endphp'
             });
         }
         //添加
@@ -118,10 +118,10 @@
                 type:2,
                 area:['800px', '450px'],
                 maxmin: true,
-                content: '<?php echo url("myadmin/Auth/add/'+current_id+'/'+current_level+'/'+current_id_list+'");?>',
+                content: '@php echo url("myadmin/Auth/add/'+current_id+'/'+current_level+'/'+current_id_list+'")@endphp',
                 end:function(){
                     tableIns.reload({
-                        url: '<?php echo url("myadmin/Auth/showList/getData/'+current_id+'")?>'
+                        url: '@php echo url("myadmin/Auth/showList/getData/'+current_id+'")@endphp'
                     });
                 }
             });
@@ -139,7 +139,7 @@
                     del_id += item.id+',';
                 });
                 del_id = del_id.substring(0,del_id.length-1);
-                $.get('<?php echo url("myadmin/Auth/ajaxDel")?>',{id:del_id},function(result){
+                $.get('@php echo url("myadmin/Auth/ajaxDel")@endphp',{id:del_id},function(result){
                     layer.msg(result.echo);
                     if(result.state){
                         layer.close(index);

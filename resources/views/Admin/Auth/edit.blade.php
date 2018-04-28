@@ -13,44 +13,44 @@
 {{--body内容--}}
 @section('body')
     <form class="layui-form" action="">
-        <input type="hidden" name="id" value="<?php echo $authInfo['id'];?>" />
+        <input type="hidden" name="id" value="{{$authInfo->id}}" />
         <div class="layui-form-item">
             <label class="layui-form-label">名称</label>
             <div class="layui-input-block">
-                <input type="text" name="name" lay-verify="required" autocomplete="off" class="layui-input" value="<?php echo $authInfo['name'];?>">
+                <input type="text" name="name" lay-verify="required" autocomplete="off" class="layui-input" value="{{$authInfo->name}}">
             </div>
             <div class="layui-form-mid layui-word-aux"></div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">控制器</label>
             <div class="layui-input-block">
-                <input type="text" name="controller" <?php echo $authInfo['pid']==0?'disabled placeholder="无需填写"':'lay-verify="required"';?> autocomplete="off" class="layui-input" value="<?php echo $authInfo['controller'];?>">
+                <input type="text" name="controller" @php echo $authInfo['pid']==0?'disabled placeholder="无需填写"':'lay-verify="required"'@endphp autocomplete="off" class="layui-input" value="{{$authInfo->controller}}">
             </div>
             <div class="layui-form-mid layui-word-aux"></div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">方法</label>
             <div class="layui-input-block">
-                <input type="text" name="action" <?php echo $authInfo['pid']==0?'disabled placeholder="无需填写"':'lay-verify="required"';?> autocomplete="off" class="layui-input" value="<?php echo $authInfo['action'];?>">
+                <input type="text" name="action" @php echo $authInfo['pid']==0?'disabled placeholder="无需填写"':'lay-verify="required"'@endphp autocomplete="off" class="layui-input" value="{{$authInfo->action}}">
             </div>
             <div class="layui-form-mid layui-word-aux"></div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">排序</label>
             <div class="layui-input-block">
-                <input type="text" name="sort" lay-verify="number" autocomplete="off" class="layui-input" value="<?php echo $authInfo['sort'];?>">
+                <input type="text" name="sort" lay-verify="number" autocomplete="off" class="layui-input" value="{{$authInfo->sort}}">
             </div>
         </div>
-        <?php if($authInfo['level']<2){?>
+        @if($authInfo->level<2)
         <div class="layui-form-item">
             <label class="layui-form-label">图标</label>
             <div class="layui-input-block" style="height:150px;overflow:auto;" id="icon_div">
-                <?php foreach ($iconClass as $key => $value) {
-                    echo '<input type="radio" name="icon" value="'.$value.'" '.($authInfo['icon']==$value?'checked':'').' title="<i class=\'fa fa-fw '.$value.'\'></i>">';
-                }?>
+                @foreach($iconClass as $key => $value)
+                        <input type="radio" name="icon" value="{{$value}}" @php echo $authInfo['icon']==$value?'checked':''@endphp title="<i class='fa fa-fw {{$value}}'></i>">
+                @endforeach
             </div>
         </div>
-        <?php }?>
+        @endif
         <div class="layui-form-item">
             <div class="layui-input-block">
                 <button class="layui-btn" lay-submit lay-filter="submit">立即提交</button>
@@ -68,7 +68,7 @@
         };
         form.on('submit(submit)', function(data){
             $.ajax({
-                url:"<?php echo url('myadmin/Auth/ajaxEdit');?>",
+                url:"{{url('myadmin/Auth/ajaxEdit')}}",
                 type:'post',
                 data:data.field,
                 dataType:'json',
