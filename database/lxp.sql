@@ -54,7 +54,7 @@ CREATE TABLE IF NOT EXISTS `lxp_admin` (
 /*!40000 ALTER TABLE `lxp_admin` DISABLE KEYS */;
 INSERT INTO `lxp_admin` (`id`, `account`, `name`, `password`, `phone`, `email`, `status`, `sex`, `role_id`, `role_name`, `created_at`, `updated_at`) VALUES
 	(1, 'xp248187189', 'éternel', '1453c23ab2ccd5a99672b1fae32dfb78', '15882180558', '248187189@qq.com', 1, '男', 0, '超级管理员', NULL, NULL),
-	(2, 'test', '测试账号', '47ec2dd791e31e2ef2076caf64ed9b3d', '12345678912', '123456789@qq.com', 1, '男', 1, '副号', NULL, NULL);
+	(2, 'test', '测试账号', 'e10adc3949ba59abbe56e057f20f883e', '12345678901', '123456789@qq.com', 1, '男', 1, '副号', '2018-04-28 22:28:24', '2018-04-28 22:28:24');
 /*!40000 ALTER TABLE `lxp_admin` ENABLE KEYS */;
 
 
@@ -236,7 +236,7 @@ CREATE TABLE IF NOT EXISTS `lxp_category` (
 INSERT INTO `lxp_category` (`id`, `name`, `sort`, `status`, `created_at`, `updated_at`) VALUES
 	(1, 'PHP', 99, 1, NULL, NULL),
 	(2, 'JavaScript', 99, 1, NULL, NULL),
-	(3, 'HTML', 99, 1, NULL, NULL),
+	(3, 'HTML', 99, 1, '2018-04-28 22:38:38', '2018-04-28 22:38:38'),
 	(4, 'Linux', 99, 1, NULL, NULL),
 	(5, '杂谈', 99, 1, NULL, NULL);
 /*!40000 ALTER TABLE `lxp_category` ENABLE KEYS */;
@@ -335,7 +335,7 @@ CREATE TABLE IF NOT EXISTS `lxp_role` (
 -- 正在导出表  lxp.lxp_role 的数据：1 rows
 /*!40000 ALTER TABLE `lxp_role` DISABLE KEYS */;
 INSERT INTO `lxp_role` (`id`, `name`, `auth_ids`, `sort`, `created_at`, `updated_at`) VALUES
-	(1, '副号', '38,39,64,66,40,69,71,46,74,76,58,48,49,80,82,50,51,86,88,52,60,53,54,55,56,57,59', 99, NULL, NULL);
+	(1, '副号', '38,39,64,66,40,69,71,46,74,76,58,48,49,80,82,50,51,86,88,52,60,53,54,55,56,57,59', 99, NULL, '2018-04-28 22:06:20');
 /*!40000 ALTER TABLE `lxp_role` ENABLE KEYS */;
 
 
@@ -373,10 +373,15 @@ CREATE TABLE IF NOT EXISTS `lxp_user` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- 正在导出表  lxp.lxp_user 的数据：0 rows
+-- 正在导出表  lxp.lxp_user 的数据：4 rows
 /*!40000 ALTER TABLE `lxp_user` DISABLE KEYS */;
+INSERT INTO `lxp_user` (`id`, `account`, `sex`, `head`, `connectid`, `addTime`, `status`, `created_at`, `updated_at`) VALUES
+	(1, '废物', '男', 'http://q.qlogo.cn/qqapp/101449564/8608A261A9C9966595E6E277A8B23C5B/100', 8608, 1513234117, 1, NULL, NULL),
+	(2, 'éternel', '男', 'http://thirdqq.qlogo.cn/qqapp/101449564/62C78CCDADF3D953C48BB69D367BD721/100', 62, 1513230253, 1, NULL, NULL),
+	(3, '.', '男', 'http://q.qlogo.cn/qqapp/101449564/0E7C4E8477AC2BEFB30CBFEFD92A2775/100', 0, 1513234188, 1, NULL, NULL),
+	(4, 'eee', '女', 'http://thirdqq.qlogo.cn/qqapp/101449564/9677D42CE9C01B30FA8FCBC544B54005/100', 9677, 1522806312, 1, NULL, NULL);
 /*!40000 ALTER TABLE `lxp_user` ENABLE KEYS */;
 
 
@@ -402,6 +407,7 @@ CREATE TABLE IF NOT EXISTS `lxp_user_login` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `ip` varchar(50) COLLATE utf8_unicode_ci NOT NULL COMMENT '登录ip',
   `time` int(10) unsigned NOT NULL COMMENT '登录时间',
+  `account_id` int(10) unsigned NOT NULL COMMENT '登陆id',
   `account` varchar(50) COLLATE utf8_unicode_ci NOT NULL COMMENT '登录名',
   `browser` text COLLATE utf8_unicode_ci NOT NULL COMMENT '浏览器信息',
   `created_at` timestamp NULL DEFAULT NULL,
@@ -414,10 +420,22 @@ CREATE TABLE IF NOT EXISTS `lxp_user_login` (
 /*!40000 ALTER TABLE `lxp_user_login` ENABLE KEYS */;
 
 
+-- 导出  触发器 lxp.admin_delete_after 结构
+SET @OLDTMP_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION';
+DELIMITER //
+CREATE TRIGGER `admin_delete_after` AFTER DELETE ON `lxp_admin` FOR EACH ROW BEGIN
+	#删除admin_login表
+	delete from lxp_admin_login where account_id = old.id;
+END//
+DELIMITER ;
+SET SQL_MODE=@OLDTMP_SQL_MODE;
+
+
 -- 导出  触发器 lxp.admin_insert 结构
 SET @OLDTMP_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION';
 DELIMITER //
 CREATE TRIGGER `admin_insert` BEFORE INSERT ON `lxp_admin` FOR EACH ROW BEGIN
+	#根据角色id设置角色名称
 	set @sel_role_name='';
 	if new.role_id>0 then 
 		select name into @sel_role_name from lxp_role where new.role_id=id;
@@ -432,6 +450,7 @@ SET SQL_MODE=@OLDTMP_SQL_MODE;
 SET @OLDTMP_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION';
 DELIMITER //
 CREATE TRIGGER `admin_login_insert` BEFORE INSERT ON `lxp_admin_login` FOR EACH ROW BEGIN
+	#根据管理员id设置管理员名称
 	set @sel_account_name='';
 	if new.account_id>0 then 
 		select account into @sel_account_name from lxp_admin where new.account_id=id;
@@ -446,6 +465,7 @@ SET SQL_MODE=@OLDTMP_SQL_MODE;
 SET @OLDTMP_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION';
 DELIMITER //
 CREATE TRIGGER `admin_login_update` BEFORE UPDATE ON `lxp_admin_login` FOR EACH ROW BEGIN
+	#根据管理员id设置管理员名称
 	set @sel_account_name='';
 	if new.account_id>0 then 
 		select account into @sel_account_name from lxp_admin where new.account_id=id;
@@ -460,11 +480,25 @@ SET SQL_MODE=@OLDTMP_SQL_MODE;
 SET @OLDTMP_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION';
 DELIMITER //
 CREATE TRIGGER `admin_update` BEFORE UPDATE ON `lxp_admin` FOR EACH ROW BEGIN
+	#根据角色id设置角色名称
 	set @sel_role_name='';
 	if new.role_id>0 then 
 		select name into @sel_role_name from lxp_role where new.role_id=id;
 		set new.role_name = @sel_role_name;
 	end if;
+	#改变admin_login表
+	update lxp_admin_login set account = new.account where account_id = new.id;
+END//
+DELIMITER ;
+SET SQL_MODE=@OLDTMP_SQL_MODE;
+
+
+-- 导出  触发器 lxp.admin_update_after 结构
+SET @OLDTMP_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION';
+DELIMITER //
+CREATE TRIGGER `admin_update_after` AFTER UPDATE ON `lxp_admin` FOR EACH ROW BEGIN
+	#改变admin_login表
+	update lxp_admin_login set account = new.account where account_id = new.id;
 END//
 DELIMITER ;
 SET SQL_MODE=@OLDTMP_SQL_MODE;
@@ -476,10 +510,12 @@ DELIMITER //
 CREATE TRIGGER `article_comment_insert` BEFORE INSERT ON `lxp_article_comment` FOR EACH ROW BEGIN
 	set @sel_article_name='';
 	set @sel_user_account='';
+	#根据文章id设置文章名称
 	if new.article_id>0 then 
 		select title into @sel_article_name from lxp_article where new.article_id=id;
 		set new.article_name = @sel_article_name;
 	end if;
+	#根据用户id设置用户名称
 	if new.user_id>0 then 
 		select account into @sel_user_account from lxp_user where new.user_id=id;
 		set new.user_account = @sel_user_account;
@@ -495,14 +531,27 @@ DELIMITER //
 CREATE TRIGGER `article_comment_update` BEFORE UPDATE ON `lxp_article_comment` FOR EACH ROW BEGIN
 	set @sel_article_name='';
 	set @sel_user_account='';
+	#根据文章id设置文章名称
 	if new.article_id>0 then 
 		select title into @sel_article_name from lxp_article where new.article_id=id;
 		set new.article_name = @sel_article_name;
 	end if;
+	#根据用户id设置用户名称
 	if new.user_id>0 then 
 		select account into @sel_user_account from lxp_user where new.user_id=id;
 		set new.user_account = @sel_user_account;
 	end if;
+END//
+DELIMITER ;
+SET SQL_MODE=@OLDTMP_SQL_MODE;
+
+
+-- 导出  触发器 lxp.article_delete_after 结构
+SET @OLDTMP_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION';
+DELIMITER //
+CREATE TRIGGER `article_delete_after` AFTER DELETE ON `lxp_article` FOR EACH ROW BEGIN
+	#删除article_comment
+	delete from lxp_article_comment where article_id = old.id;
 END//
 DELIMITER ;
 SET SQL_MODE=@OLDTMP_SQL_MODE;
@@ -513,6 +562,7 @@ SET @OLDTMP_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTIT
 DELIMITER //
 CREATE TRIGGER `article_insert` BEFORE INSERT ON `lxp_article` FOR EACH ROW BEGIN
 	set @sel_category_name='';
+	#根据分类id设置分类名称
 	if new.category_id>0 then 
 		select name into @sel_category_name from lxp_category where new.category_id=id;
 		set new.category_name = @sel_category_name;
@@ -527,10 +577,44 @@ SET @OLDTMP_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTIT
 DELIMITER //
 CREATE TRIGGER `article_update` BEFORE UPDATE ON `lxp_article` FOR EACH ROW BEGIN
 	set @sel_category_name='';
+	#根据分类id设置分类名称
 	if new.category_id>0 then 
 		select name into @sel_category_name from lxp_category where new.category_id=id;
 		set new.category_name = @sel_category_name;
 	end if;
+END//
+DELIMITER ;
+SET SQL_MODE=@OLDTMP_SQL_MODE;
+
+
+-- 导出  触发器 lxp.article_update_after 结构
+SET @OLDTMP_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION';
+DELIMITER //
+CREATE TRIGGER `article_update_after` AFTER UPDATE ON `lxp_article` FOR EACH ROW BEGIN
+	#更改article_comment
+	update lxp_article_comment set article_name = new.title where article_id = new.id; 
+END//
+DELIMITER ;
+SET SQL_MODE=@OLDTMP_SQL_MODE;
+
+
+-- 导出  触发器 lxp.category_update_after 结构
+SET @OLDTMP_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION';
+DELIMITER //
+CREATE TRIGGER `category_update_after` AFTER UPDATE ON `lxp_category` FOR EACH ROW BEGIN
+	#更改artice
+	update lxp_article set category_name = new.name where category_id = new.id;
+END//
+DELIMITER ;
+SET SQL_MODE=@OLDTMP_SQL_MODE;
+
+
+-- 导出  触发器 lxp.role_update_after 结构
+SET @OLDTMP_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION';
+DELIMITER //
+CREATE TRIGGER `role_update_after` AFTER UPDATE ON `lxp_role` FOR EACH ROW BEGIN
+	#更改admin
+	update lxp_admin set role_name = new.name where role_id = new.id;
 END//
 DELIMITER ;
 SET SQL_MODE=@OLDTMP_SQL_MODE;
@@ -541,6 +625,7 @@ SET @OLDTMP_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTIT
 DELIMITER //
 CREATE TRIGGER `user_comment_insert` BEFORE INSERT ON `lxp_user_comment` FOR EACH ROW BEGIN
 	set @sel_account='';
+	#根据用户id设置用户名称
 	if new.user_id>0 then 
 		select account into @sel_account from lxp_user where new.user_id=id;
 		set new.user_account = @sel_account;
@@ -555,10 +640,54 @@ SET @OLDTMP_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTIT
 DELIMITER //
 CREATE TRIGGER `user_comment_update` BEFORE UPDATE ON `lxp_user_comment` FOR EACH ROW BEGIN
 	set @sel_account='';
+	#根据用户id设置用户名称
 	if new.user_id>0 then 
 		select account into @sel_account from lxp_user where new.user_id=id;
 		set new.user_account = @sel_account;
 	end if;
+END//
+DELIMITER ;
+SET SQL_MODE=@OLDTMP_SQL_MODE;
+
+
+-- 导出  触发器 lxp.user_login_insert 结构
+SET @OLDTMP_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION';
+DELIMITER //
+CREATE TRIGGER `user_login_insert` BEFORE INSERT ON `lxp_user_login` FOR EACH ROW BEGIN
+	set @sel_account='';
+	#根据用户id设置用户名称
+	if new.account_id>0 then 
+		select account into @sel_account from lxp_user where new.account_id=id;
+		set new.account = @sel_account;
+	end if;
+END//
+DELIMITER ;
+SET SQL_MODE=@OLDTMP_SQL_MODE;
+
+
+-- 导出  触发器 lxp.user_login_update 结构
+SET @OLDTMP_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION';
+DELIMITER //
+CREATE TRIGGER `user_login_update` BEFORE UPDATE ON `lxp_user_login` FOR EACH ROW BEGIN
+	set @sel_account='';
+	#根据用户id设置用户名称
+	if new.account_id>0 then 
+		select account into @sel_account from lxp_user where new.account_id=id;
+		set new.account = @sel_account;
+	end if;
+END//
+DELIMITER ;
+SET SQL_MODE=@OLDTMP_SQL_MODE;
+
+
+-- 导出  触发器 lxp.user_update_after 结构
+SET @OLDTMP_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION';
+DELIMITER //
+CREATE TRIGGER `user_update_after` AFTER UPDATE ON `lxp_user` FOR EACH ROW BEGIN
+	#更改user_comment
+	update lxp_user_comment set user_account = new.account where user_id = new.id;
+	#更改user_login
+	update lxp_user_login set account = new.account where account_id = new.id;
 END//
 DELIMITER ;
 SET SQL_MODE=@OLDTMP_SQL_MODE;
