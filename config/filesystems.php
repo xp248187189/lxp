@@ -63,6 +63,12 @@ return [
             'bucket' => env('AWS_BUCKET'),
         ],
 
+        //自定义文件上传
+        'myUploads' => [
+            'driver' => 'local',
+            'root' => public_path('uploads'),
+        ],
+
     ],
 
 ];
