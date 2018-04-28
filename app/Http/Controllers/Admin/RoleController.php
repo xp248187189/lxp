@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Model\Admin;
 use App\Model\Auth;
 use App\Model\Role;
 use Illuminate\Http\Request;
@@ -94,17 +95,24 @@ class RoleController extends Controller
         exit(json_encode($res));
     }
 
-    //删除
+    //删除 - 不可批量删除
     public function ajaxDel(){
         $res = array(
             'status' => false,
             'echo'  => ''
         );
         $ids = $_GET['id'];
-        $ids = trim($ids,',');
-        Role::destroy(explode(',',$ids));
-        $res['status'] = true;
-        $res['echo'] = '删除成功';
+        //$ids = trim($ids,',');
+        //Role::destroy(explode(',',$ids));
+        $admins = Admin::where('role_id',$ids)->get();
+        if ($admins->isEmpty()){
+            Role::where('id',$ids)->delete();
+            $res['status'] = true;
+            $res['echo'] = '删除成功';
+        }else{
+            $res['status'] = false;
+            $res['echo'] = '有 '.$admins->count().' 个管理员属于此角色，无法删除';
+        }
         exit(json_encode($res));
     }
 }

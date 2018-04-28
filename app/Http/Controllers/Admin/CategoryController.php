@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Model\Article;
 use App\Model\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -74,17 +75,24 @@ class CategoryController extends Controller
         exit(json_encode($res));
     }
 
-    //删除
+    //删除 - 不可批量删除
     public function ajaxDel(){
         $res = array(
             'status' => false,
             'echo'  => ''
         );
         $ids = $_GET['id'];
-        $ids = trim($ids,',');
-        Category::destroy(explode(',',$ids));
-        $res['status'] = true;
-        $res['echo'] = '删除成功';
+        //$ids = trim($ids,',');
+        //Category::destroy(explode(',',$ids));
+        $articles = Article::where('category_id',$ids)->get();
+        if ($articles->isEmpty()){
+            Category::where('id',$ids)->delete();
+            $res['status'] = true;
+            $res['echo'] = '删除成功';
+        }else{
+            $res['status'] = false;
+            $res['echo'] = '有 '.$articles->count().' 篇文章属于此分类，无法删除';
+        }
         exit(json_encode($res));
     }
 }
