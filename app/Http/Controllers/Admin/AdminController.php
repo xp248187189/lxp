@@ -79,6 +79,7 @@ class AdminController extends Controller
         $adminOrm = new Admin();
         $adminOrm->account = $request->input('account');
         $adminOrm->role_id = $request->input('role_id');
+        $adminOrm->role_name = '';
         $adminOrm->password = md5($request->input('password'));
         $adminOrm->name = $request->input('name');
         $adminOrm->sex = $request->input('sex');
@@ -128,6 +129,7 @@ class AdminController extends Controller
         }
         if ($request->input('role_id')){
             $adminOrm->role_id = $request->input('role_id');
+            $adminOrm->role_name = '';
         }
         if ($request->input('password')){
             $adminOrm->password = md5($request->input('password'));

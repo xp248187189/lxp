@@ -128,7 +128,7 @@
                     type:2,
                     area:['700px', '350px'],
                     maxmin: true,
-                    content: '<@php echo url("myadmin/Admin/edit/'+data.id+'");@endphp',
+                    content: '@php echo url("myadmin/Admin/edit/'+data.id+'");@endphp',
                     end:function(){
                         $('#searchForm')[0].reset();
                         form.render();
