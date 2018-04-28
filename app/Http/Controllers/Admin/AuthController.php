@@ -62,7 +62,7 @@ class AuthController extends Controller
     //ajax执行添加
     public function ajaxAdd(Request $request){
         $res = array(
-            'state' => false,
+            'status' => false,
             'echo'  => ''
         );
         $authOrm = new Auth();
@@ -84,7 +84,7 @@ class AuthController extends Controller
             $authOrmFind->id_list = $request->input('id_list').','.$insertTd;
         }
         $authOrmFind->save();
-        $res['state'] = true;
+        $res['status'] = true;
         $res['echo'] = '添加成功';
         exit(json_encode($res));
     }
@@ -104,7 +104,7 @@ class AuthController extends Controller
     //ajax执行编辑
     public function ajaxEdit(Request $request){
         $res = array(
-            'state' => false,
+            'status' => false,
             'echo'  => ''
         );
         $id = $request->input('id');
@@ -115,7 +115,7 @@ class AuthController extends Controller
         $authOrm->sort = is_null($request->input('sort'))?'':$request->input('sort');
         $authOrm->icon = is_null($request->input('icon'))?'':$request->input('icon');
         $authOrm->save();
-        $res['state'] = true;
+        $res['status'] = true;
         $res['echo'] = '修改成功';
         exit(json_encode($res));
     }
@@ -123,12 +123,12 @@ class AuthController extends Controller
     //删除
     public function ajaxDel(){
         $res = array(
-            'state' => false,
+            'status' => false,
             'echo'  => ''
         );
         $ids = $_GET['id'];
         $this->delAllSon($ids);
-        $res['state'] = true;
+        $res['status'] = true;
         $res['echo'] = '删除成功';
         exit(json_encode($res));
     }

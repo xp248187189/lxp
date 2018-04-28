@@ -75,7 +75,7 @@
                     var del_id = data.id;
                     $.get('{{ url('/myadmin/Auth/ajaxDel') }}',{id:del_id},function(result){
                         layer.msg(result.echo);
-                        if(result.state){
+                        if(result.status){
                             obj.del(); //删除对应行（tr）的DOM结构
                             layer.close(index);
                         }
@@ -141,7 +141,7 @@
                 del_id = del_id.substring(0,del_id.length-1);
                 $.get('@php echo url("myadmin/Auth/ajaxDel")@endphp',{id:del_id},function(result){
                     layer.msg(result.echo);
-                    if(result.state){
+                    if(result.status){
                         layer.close(index);
                         tableIns.reload({
                             where: {name:$('input[name="name"]').val()},

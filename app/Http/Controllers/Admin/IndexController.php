@@ -109,7 +109,7 @@ class IndexController extends Controller
     //ajax执行修改个人信息
     public function ajaxEdit(Request $request){
         $res = array(
-            'state' => false,
+            'status' => false,
             'echo'  => '',
             'name'  => '',
         );
@@ -139,7 +139,7 @@ class IndexController extends Controller
             $adminOrm->password = md5($request->input('password'));
         }
         if ($adminOrm->save()){
-            $res['state'] = true;
+            $res['status'] = true;
             $res['echo'] = '修改成功';
             $res['name'] = $request->input('name');
         }else{
