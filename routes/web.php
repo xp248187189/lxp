@@ -172,4 +172,11 @@ Route::namespace('Admin')->prefix('myadmin')->group(function () {
         //删除
         Route::get('/ajaxDel','NoticeController@ajaxDel');
     });
+    //Blog控制器
+    Route::middleware('AdminAuth')->prefix('Blog')->group(function (){
+        //修改页
+        Route::get('/show','BlogController@show');
+        //执行修改
+        Route::post('/ajaxEdit','BlogController@ajaxEdit');
+    });
 });
