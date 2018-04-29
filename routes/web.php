@@ -179,4 +179,11 @@ Route::namespace('Admin')->prefix('myadmin')->group(function () {
         //执行修改
         Route::post('/ajaxEdit','BlogController@ajaxEdit');
     });
+    //Seo控制器
+    Route::middleware('AdminAuth')->prefix('Seo')->group(function (){
+        //修改页
+        Route::get('/show','SeoController@show');
+        //执行修改
+        Route::post('/ajaxEdit','SeoController@ajaxEdit');
+    });
 });
