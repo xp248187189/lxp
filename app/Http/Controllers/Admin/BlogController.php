@@ -27,7 +27,7 @@ class BlogController extends Controller
             $orm->img = $path;
         }
         $orm->save();
-        $res['state'] = true;
+        $res['status'] = true;
         $res['echo'] = '修改成功';
         exit(json_encode($res));
     }
