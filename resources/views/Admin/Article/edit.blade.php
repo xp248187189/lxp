@@ -48,22 +48,22 @@
             <div class="layui-inline">
                 <label class="layui-form-label">状态</label>
                 <div class="layui-input-inline">
-                    <input type="radio" name="status" value="1" class="layui-input" title="启用" @php echo $articleInfo['status']==1?'checked':''@endphp>
-                    <input type="radio" name="status" value="0" class="layui-input" title="禁止" @php echo $articleInfo['status']==0?'checked':''@endphp>
+                    <input type="radio" name="status" value="1" class="layui-input" title="启用" @php echo $articleInfo->status==1?'checked':''@endphp>
+                    <input type="radio" name="status" value="0" class="layui-input" title="禁止" @php echo $articleInfo->status==0?'checked':''@endphp>
                 </div>
             </div>
             <div class="layui-inline">
                 <label class="layui-form-label">首页显示</label>
                 <div class="layui-input-inline">
-                    <input type="radio" name="isHome" value="1" class="layui-input" title="是" @php echo $articleInfo['isHome']==1?'checked':''@endphp>
-                    <input type="radio" name="isHome" value="0" class="layui-input" title="否" @php echo $articleInfo['isHome']==0?'checked':''@endphp>
+                    <input type="radio" name="isHome" value="1" class="layui-input" title="是" @php echo $articleInfo->isHome==1?'checked':''@endphp>
+                    <input type="radio" name="isHome" value="0" class="layui-input" title="否" @php echo $articleInfo->isHome==0?'checked':''@endphp>
                 </div>
             </div>
             <div class="layui-inline">
                 <label class="layui-form-label">推荐显示</label>
                 <div class="layui-input-inline">
-                    <input type="radio" name="isRecommend" value="1" class="layui-input" title="是" @php echo $articleInfo['isRecommend']==1?'checked':''@endphp>
-                    <input type="radio" name="isRecommend" value="0" class="layui-input" title="否" @php echo $articleInfo['isRecommend']==0?'checked':''@endphp>
+                    <input type="radio" name="isRecommend" value="1" class="layui-input" title="是" @php echo $articleInfo->isRecommend==1?'checked':''@endphp>
+                    <input type="radio" name="isRecommend" value="0" class="layui-input" title="否" @php echo $articleInfo->isRecommend==0?'checked':''@endphp>
                 </div>
             </div>
         </div>

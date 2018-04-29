@@ -20,7 +20,7 @@
                 <div class="layui-input-inline">
                     <select name="role_id">
                         @foreach($roleList as $key=>$value)
-                            <option value="{{$value->id}}" @php echo $adminInfo['role_id']==$value['id']?'selected':'';@endphp>{{$value->name}}</option>
+                            <option value="{{$value->id}}" @php echo $adminInfo->role_id==$value->id?'selected':'';@endphp>{{$value->name}}</option>
                         @endforeach
                     </select>
                 </div>
@@ -56,8 +56,8 @@
             <div class="layui-inline">
                 <label class="layui-form-label">性别</label>
                 <div class="layui-input-inline">
-                    <input type="radio" name="sex" value="男" title="男" @php echo $adminInfo['sex']=='男'?'checked':''@endphp>
-                    <input type="radio" name="sex" value="女" title="女" @php echo $adminInfo['sex']=='女'?'checked':''@endphp>
+                    <input type="radio" name="sex" value="男" title="男" @php echo $adminInfo->sex=='男'?'checked':''@endphp>
+                    <input type="radio" name="sex" value="女" title="女" @php echo $adminInfo->sex=='女'?'checked':''@endphp>
                 </div>
             </div>
         </div>

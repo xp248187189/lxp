@@ -21,8 +21,8 @@
         <div class="layui-form-item">
             <label class="layui-form-label">状态</label>
             <div class="layui-input-block">
-                <input type="radio" name="status" value="1" title="启用" @php echo $CategoryInfo['status']=='1'?'checked':''@endphp>
-                <input type="radio" name="status" value="0" title="禁止" @php echo $CategoryInfo['status']=='0'?'checked':''@endphp>
+                <input type="radio" name="status" value="1" title="启用" @php echo $CategoryInfo->status=='1'?'checked':''@endphp>
+                <input type="radio" name="status" value="0" title="禁止" @php echo $CategoryInfo->status=='0'?'checked':''@endphp>
             </div>
         </div>
         <div class="layui-form-item">

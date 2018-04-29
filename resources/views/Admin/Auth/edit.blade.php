@@ -24,14 +24,14 @@
         <div class="layui-form-item">
             <label class="layui-form-label">控制器</label>
             <div class="layui-input-block">
-                <input type="text" name="controller" @php echo $authInfo['pid']==0?'disabled placeholder="无需填写"':'lay-verify="required"'@endphp autocomplete="off" class="layui-input" value="{{$authInfo->controller}}">
+                <input type="text" name="controller" @php echo $authInfo->pid==0?'disabled placeholder="无需填写"':'lay-verify="required"'@endphp autocomplete="off" class="layui-input" value="{{$authInfo->controller}}">
             </div>
             <div class="layui-form-mid layui-word-aux"></div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">方法</label>
             <div class="layui-input-block">
-                <input type="text" name="action" @php echo $authInfo['pid']==0?'disabled placeholder="无需填写"':'lay-verify="required"'@endphp autocomplete="off" class="layui-input" value="{{$authInfo->action}}">
+                <input type="text" name="action" @php echo $authInfo->pid==0?'disabled placeholder="无需填写"':'lay-verify="required"'@endphp autocomplete="off" class="layui-input" value="{{$authInfo->action}}">
             </div>
             <div class="layui-form-mid layui-word-aux"></div>
         </div>
@@ -46,7 +46,7 @@
             <label class="layui-form-label">图标</label>
             <div class="layui-input-block" style="height:150px;overflow:auto;" id="icon_div">
                 @foreach($iconClass as $key => $value)
-                        <input type="radio" name="icon" value="{{$value}}" @php echo $authInfo['icon']==$value?'checked':''@endphp title="<i class='fa fa-fw {{$value}}'></i>">
+                        <input type="radio" name="icon" value="{{$value}}" @php echo $authInfo->icon==$value?'checked':''@endphp title="<i class='fa fa-fw {{$value}}'></i>">
                 @endforeach
             </div>
         </div>
