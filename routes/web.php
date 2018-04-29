@@ -201,4 +201,11 @@ Route::namespace('Admin')->prefix('myadmin')->group(function () {
         //删除
         Route::get('/ajaxDel','NoteController@ajaxDel');
     });
+    //adminLogin控制器
+    Route::middleware('AdminAuth')->prefix('AdminLogin')->group(function (){
+        //首页
+        Route::any('/showList/{action?}','AdminLoginController@showList');
+        //删除
+        Route::get('/ajaxDel','AdminLoginController@ajaxDel');
+    });
 });
