@@ -215,4 +215,11 @@ Route::namespace('Admin')->prefix('myadmin')->group(function () {
         //删除
         Route::get('/ajaxDel','UserLoginController@ajaxDel');
     });
+    //User控制器
+    Route::middleware('AdminAuth')->prefix('User')->group(function (){
+        //首页
+        Route::any('/showList/{action?}','UserController@showList');
+        //执行修改
+        Route::post('/ajaxEdit','UserController@ajaxEdit');
+    });
 });
