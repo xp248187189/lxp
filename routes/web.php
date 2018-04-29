@@ -208,4 +208,11 @@ Route::namespace('Admin')->prefix('myadmin')->group(function () {
         //删除
         Route::get('/ajaxDel','AdminLoginController@ajaxDel');
     });
+    //userLogin控制器
+    Route::middleware('AdminAuth')->prefix('UserLogin')->group(function (){
+        //首页
+        Route::any('/showList/{action?}','UserLoginController@showList');
+        //删除
+        Route::get('/ajaxDel','UserLoginController@ajaxDel');
+    });
 });
