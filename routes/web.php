@@ -222,4 +222,11 @@ Route::namespace('Admin')->prefix('myadmin')->group(function () {
         //执行修改
         Route::post('/ajaxEdit','UserController@ajaxEdit');
     });
+    //UserComment控制器
+    Route::middleware('AdminAuth')->prefix('UserComment')->group(function (){
+        //首页
+        Route::any('/showList/{action?}','UserCommentController@showList');
+        //删除
+        Route::get('/ajaxDel','UserCommentController@ajaxDel');
+    });
 });
