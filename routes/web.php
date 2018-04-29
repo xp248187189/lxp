@@ -186,4 +186,19 @@ Route::namespace('Admin')->prefix('myadmin')->group(function () {
         //执行修改
         Route::post('/ajaxEdit','SeoController@ajaxEdit');
     });
+    //Note控制器
+    Route::middleware('AdminAuth')->prefix('Note')->group(function (){
+        //首页
+        Route::any('/showList/{action?}','NoteController@showList');
+        //添加页
+        Route::get('/add','NoteController@add');
+        //执行添加
+        Route::post('/ajaxAdd','NoteController@ajaxAdd');
+        //修改页
+        Route::get('/edit/{id}','NoteController@edit');
+        //执行修改
+        Route::post('/ajaxEdit','NoteController@ajaxEdit');
+        //删除
+        Route::get('/ajaxDel','NoteController@ajaxDel');
+    });
 });
