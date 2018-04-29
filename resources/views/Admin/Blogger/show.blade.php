@@ -40,7 +40,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label"></label>
             <div class="layui-input-block">
-                <img style="width:150px;" id="show_img" src="@php echo asset('uploads').'/'.$info['img']@endphp">
+                <img style="width:150px;" id="show_img" src="@php echo asset('uploads').'/'.$info->img@endphp">
             </div>
         </div>
         <div class="layui-form-item">
