@@ -688,6 +688,8 @@ CREATE TRIGGER `user_update_after` AFTER UPDATE ON `lxp_user` FOR EACH ROW BEGIN
 	update lxp_user_comment set user_account = new.account where user_id = new.id;
 	#更改user_login
 	update lxp_user_login set account = new.account where account_id = new.id;
+	#更改article_comment
+	update lxp_article_comment set user_account = new.account where user_id = new.id;
 END//
 DELIMITER ;
 SET SQL_MODE=@OLDTMP_SQL_MODE;
