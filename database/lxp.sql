@@ -26,10 +26,10 @@ CREATE TABLE IF NOT EXISTS `lxp_about` (
 -- 正在导出表  lxp.lxp_about 的数据：4 rows
 /*!40000 ALTER TABLE `lxp_about` DISABLE KEYS */;
 INSERT INTO `lxp_about` (`id`, `name`, `introduce`, `detail`, `label`, `img`, `created_at`, `updated_at`) VALUES
-	(1, 'éternel', '一枚90后程序员，PHP开发工程师', '', '四川-成都', '', NULL, NULL),
-	(2, '记忆碎片', '一个PHP程序员的个人博客', '', 'http://www.xp.com', '', NULL, NULL),
-	(3, '关键字', '', '', '记忆碎片,个人博客,php技术分享,程序员博客', '', NULL, NULL),
-	(4, '描述', '', '', '记忆碎片，记录博主学习和成长之路，记录php方面遇到的问题以及解决方法', '', NULL, NULL);
+	(1, 'éternel', '一枚90后程序员，PHP开发工程师', '', '四川-成都', '', '2018-05-01 20:59:04', '2018-05-01 20:59:04'),
+	(2, '记忆碎片', '一个PHP程序员的个人博客', '', 'http://www.xp.com', '', '2018-05-01 20:59:08', '2018-05-01 20:59:08'),
+	(3, '关键字', '', '', '记忆碎片,个人博客,php技术分享,程序员博客', '', '2018-05-01 20:59:09', '2018-05-01 20:59:09'),
+	(4, '描述', '', '', '记忆碎片，记录博主学习和成长之路，记录php方面遇到的问题以及解决方法', '', '2018-05-01 20:59:11', '2018-05-01 20:59:11');
 /*!40000 ALTER TABLE `lxp_about` ENABLE KEYS */;
 
 
@@ -53,7 +53,7 @@ CREATE TABLE IF NOT EXISTS `lxp_admin` (
 -- 正在导出表  lxp.lxp_admin 的数据：2 rows
 /*!40000 ALTER TABLE `lxp_admin` DISABLE KEYS */;
 INSERT INTO `lxp_admin` (`id`, `account`, `name`, `password`, `phone`, `email`, `status`, `sex`, `role_id`, `role_name`, `created_at`, `updated_at`) VALUES
-	(1, 'xp248187189', 'éternel', '1453c23ab2ccd5a99672b1fae32dfb78', '15882180558', '248187189@qq.com', 1, '男', 0, '超级管理员', NULL, NULL),
+	(1, 'xp248187189', 'éternel', '1453c23ab2ccd5a99672b1fae32dfb78', '15882180558', '248187189@qq.com', 1, '男', 0, '超级管理员', '2018-05-01 21:00:22', '2018-05-01 21:00:22'),
 	(2, 'test', '测试账号', 'e10adc3949ba59abbe56e057f20f883e', '12345678901', '123456789@qq.com', 1, '男', 1, '副号', '2018-04-28 22:28:24', '2018-04-28 22:28:24');
 /*!40000 ALTER TABLE `lxp_admin` ENABLE KEYS */;
 
@@ -137,7 +137,7 @@ CREATE TABLE IF NOT EXISTS `lxp_auth` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=107 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- 正在导出表  lxp.lxp_auth 的数据：77 rows
+-- 正在导出表  lxp.lxp_auth 的数据：76 rows
 /*!40000 ALTER TABLE `lxp_auth` DISABLE KEYS */;
 INSERT INTO `lxp_auth` (`id`, `pid`, `id_list`, `level`, `sort`, `name`, `controller`, `action`, `icon`, `created_at`, `updated_at`) VALUES
 	(11, 10, '10,11', 1, 1, '权限管理', 'Auth', 'showList', 'fa-cog', NULL, NULL),
@@ -215,8 +215,7 @@ INSERT INTO `lxp_auth` (`id`, `pid`, `id_list`, `level`, `sort`, `name`, `contro
 	(98, 61, '48,61,98', 2, 99, '删除网站记录', 'Note', 'ajaxDel', '', NULL, NULL),
 	(103, 59, '56,59,103', 2, 99, '删除用户留言', 'UserComment', 'ajaxDel', '', NULL, NULL),
 	(102, 57, '56,57,102', 2, 99, '修改用户', 'User', 'ajaxEdit', '', NULL, NULL),
-	(101, 57, '56,57,101', 2, 99, '删除用户', 'User', 'ajaxDel', '', NULL, NULL),
-	(106, 48, '48,106', 1, 99, '网站日志', 'Runtime', 'show', 'fa-vk', NULL, NULL);
+	(101, 57, '56,57,101', 2, 99, '删除用户', 'User', 'ajaxDel', '', NULL, NULL);
 /*!40000 ALTER TABLE `lxp_auth` ENABLE KEYS */;
 
 
@@ -234,11 +233,11 @@ CREATE TABLE IF NOT EXISTS `lxp_category` (
 -- 正在导出表  lxp.lxp_category 的数据：5 rows
 /*!40000 ALTER TABLE `lxp_category` DISABLE KEYS */;
 INSERT INTO `lxp_category` (`id`, `name`, `sort`, `status`, `created_at`, `updated_at`) VALUES
-	(1, 'PHP', 99, 1, NULL, NULL),
-	(2, 'JavaScript', 99, 1, NULL, NULL),
-	(3, 'HTML', 99, 1, '2018-04-28 22:38:38', '2018-04-28 22:38:38'),
-	(4, 'Linux', 99, 1, NULL, NULL),
-	(5, '杂谈', 99, 1, NULL, NULL);
+	(1, 'PHP', 99, 1, '2018-05-01 21:03:15', '2018-05-01 21:03:15'),
+	(2, 'JavaScript', 99, 1, '2018-05-01 21:03:16', '2018-05-01 21:03:16'),
+	(3, 'HTML', 99, 1, '2018-05-01 21:04:33', '2018-05-01 21:04:33'),
+	(4, 'Linux', 99, 1, '2018-05-01 21:04:42', '2018-05-01 21:04:42'),
+	(5, '杂谈', 99, 1, '2018-05-01 21:04:44', '2018-05-01 21:04:44');
 /*!40000 ALTER TABLE `lxp_category` ENABLE KEYS */;
 
 
@@ -335,7 +334,7 @@ CREATE TABLE IF NOT EXISTS `lxp_role` (
 -- 正在导出表  lxp.lxp_role 的数据：1 rows
 /*!40000 ALTER TABLE `lxp_role` DISABLE KEYS */;
 INSERT INTO `lxp_role` (`id`, `name`, `auth_ids`, `sort`, `created_at`, `updated_at`) VALUES
-	(1, '副号', '38,39,64,66,40,69,71,46,74,76,58,48,49,80,82,50,51,86,88,52,60,53,54,55,56,57,59', 99, NULL, '2018-04-28 22:06:20');
+	(1, '副号', '38,39,64,66,40,69,71,46,74,76,58,48,49,80,82,50,51,86,88,52,60,53,54,55,56,57,59', 99, '2018-05-01 21:06:19', '2018-05-01 21:06:19');
 /*!40000 ALTER TABLE `lxp_role` ENABLE KEYS */;
 
 
@@ -378,10 +377,10 @@ CREATE TABLE IF NOT EXISTS `lxp_user` (
 -- 正在导出表  lxp.lxp_user 的数据：4 rows
 /*!40000 ALTER TABLE `lxp_user` DISABLE KEYS */;
 INSERT INTO `lxp_user` (`id`, `account`, `sex`, `head`, `connectid`, `addTime`, `status`, `created_at`, `updated_at`) VALUES
-	(1, '废物', '男', 'http://q.qlogo.cn/qqapp/101449564/8608A261A9C9966595E6E277A8B23C5B/100', 8608, 1513234117, 1, NULL, NULL),
-	(2, 'éternel', '男', 'http://thirdqq.qlogo.cn/qqapp/101449564/62C78CCDADF3D953C48BB69D367BD721/100', 62, 1513230253, 1, NULL, NULL),
-	(3, '.', '男', 'http://q.qlogo.cn/qqapp/101449564/0E7C4E8477AC2BEFB30CBFEFD92A2775/100', 0, 1513234188, 1, NULL, NULL),
-	(4, 'eee', '女', 'http://thirdqq.qlogo.cn/qqapp/101449564/9677D42CE9C01B30FA8FCBC544B54005/100', 9677, 1522806312, 1, NULL, NULL);
+	(1, '废物', '男', 'http://q.qlogo.cn/qqapp/101449564/8608A261A9C9966595E6E277A8B23C5B/100', 8608, 1513234117, 1, '2018-04-29 14:23:09', '2018-04-29 14:23:09'),
+	(2, 'éternel', '男', 'http://thirdqq.qlogo.cn/qqapp/101449564/62C78CCDADF3D953C48BB69D367BD721/100', 62, 1513230253, 1, '2018-04-29 14:23:05', '2018-04-29 14:23:05'),
+	(3, '.', '男', 'http://q.qlogo.cn/qqapp/101449564/0E7C4E8477AC2BEFB30CBFEFD92A2775/100', 0, 1513234188, 1, '2018-04-29 14:23:05', '2018-04-29 14:23:05'),
+	(4, 'eee', '女', 'http://thirdqq.qlogo.cn/qqapp/101449564/9677D42CE9C01B30FA8FCBC544B54005/100', 9677, 1524983947, 1, '2018-04-29 14:23:04', '2018-04-29 14:23:04');
 /*!40000 ALTER TABLE `lxp_user` ENABLE KEYS */;
 
 
