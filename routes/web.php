@@ -6,8 +6,18 @@
 Route::namespace('Home')->group(function (){
     //首页
     Route::get('/','IndexController@index');
-    // 首页ajax获取数据
-    Route::get('/getDataForIndex/{page}','IndexController@getDataForIndex');
+    //首页ajax获取数据
+    Route::get('/getDataForIndex','IndexController@getDataForIndex');
+    //文章列表
+    Route::get('Article','ArticleController@articleList');
+    Route::get('Category/{category}','ArticleController@articleList')->where('category','[0-9]+');
+    Route::get('Search/{keyWord}','ArticleController@articleList');
+    //文章ajax获取数据
+    Route::get('getData/{keyWord?}/{category?}','ArticleController@getData')->where('category','[0-9]+');
+    //文章详情
+    Route::get('Detail/{id}','ArticleController@detail')->where('id','[0-9]+');
+    //获取评论
+    Route::get('getArticleComment/{articleId}','ArticleController@getArticleComment')->where('articleId','[0-9]+');
 });
 
 /**

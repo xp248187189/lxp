@@ -41,10 +41,11 @@ class ArticleController extends Controller
             ->orderBy('sort','asc')
             ->orderBy('addTime','desc')
             ->select('id','title')
-            ->paginate(8);
-            // ->get();
+            ->take(8)
+            ->get();
         //随便看看
-        $suijiList = Article::inRandomOrder()
+        $suijiList = Article::where('status','=','1')
+            ->inRandomOrder()
             ->select('id','title')
             ->take(8)
             ->get();
@@ -89,5 +90,58 @@ class ArticleController extends Controller
             $list[$key]['commentCount'] = ArticleComment::where('article_id','=',$value['id'])->count();
         }
         exit(json_encode(array('data'=>$list,'pageCount'=>$pageCount)));
+    }
+
+    //详情
+    public function detail(){
+        $id = intval(\Route::input('id'));
+        $info = Article::find($id);
+        if (empty($info)){
+            abort(404);
+        }
+        Article::where('id','=',$id)->increment('showNum');
+        //关键字
+        $keyWordsInfo = About::find(3);
+        //描述
+        $descriptionInfo = About::find(4);
+        //关于博客
+        $blogInfo = About::find(2);
+        //分类
+        $categoryList = Category::where('status','=','1')
+            ->get();
+        //相似推荐
+        $xiangshiList = Article::where('status','=','1')
+            ->where('category_id','=',$info->category_id)
+            ->orderBy('sort','asc')
+            ->orderBy('addTime','desc')
+            ->select('id','title')
+            ->take(8)
+            ->get();
+        //随便看看
+        $suijiList = Article::where('status','=','1')
+            ->inRandomOrder()
+            ->select('id','title')
+            ->take(8)
+            ->get();
+        return view('Home.Article.detail')->with('blogInfo',$blogInfo)
+            ->with('categoryList',$categoryList)
+            ->with('xiangshiList',$xiangshiList)
+            ->with('suijiList',$suijiList)
+            ->with('info',$info)
+            ->with('keyWordsInfo',$keyWordsInfo)
+            ->with('descriptionInfo',$descriptionInfo)
+            ->with('controllerName','Article');
+    }
+
+    //获取评论
+    public function getArticleComment(){
+        $articleId = intval(\Route::input('articleId'));
+        $count = ArticleComment::where('article_id','=',$articleId)->count();
+        $articleComment = ArticleComment::where('article_id','=',$articleId)
+            ->orderBy('time','desc')
+            ->paginate(8)
+            ->toArray()['data'];
+        $pageCount = ceil($count/8);
+        exit(json_encode(array('data'=>$articleComment,'pageCount'=>$pageCount)));
     }
 }

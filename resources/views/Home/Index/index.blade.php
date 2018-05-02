@@ -3,9 +3,9 @@
 {{--设置title--}}
 @section('title', $blogInfo->name.'-'.$blogInfo->introduce)
 {{--设置关键字--}}
-@section('title', $keyWordsInfo->label)
+@section('keywords', $keyWordsInfo->label)
 {{--设置描述--}}
-@section('title', $descriptionInfo->label)
+@section('description', $descriptionInfo->label)
 {{--引入css文件--}}
 @section('loadCss')
     <link rel="stylesheet" type="text/css" href="{{ asset('Home/css/home.css') }}">

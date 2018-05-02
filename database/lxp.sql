@@ -109,6 +109,7 @@ CREATE TABLE IF NOT EXISTS `lxp_article_comment` (
   `article_name` varchar(50) COLLATE utf8_unicode_ci NOT NULL COMMENT '文章标题',
   `user_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '用户id',
   `user_account` varchar(50) COLLATE utf8_unicode_ci NOT NULL COMMENT '用户名',
+  `user_head` varchar(100) COLLATE utf8_unicode_ci NOT NULL COMMENT '用户头像',
   `time` int(10) unsigned NOT NULL COMMENT '评论时间',
   `connect` text COLLATE utf8_unicode_ci NOT NULL COMMENT '评论内容',
   `created_at` timestamp NULL DEFAULT NULL,
@@ -389,6 +390,7 @@ CREATE TABLE IF NOT EXISTS `lxp_user_comment` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `user_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '用户id',
   `user_account` varchar(50) COLLATE utf8_unicode_ci NOT NULL COMMENT '用户名',
+  `user_head` varchar(100) COLLATE utf8_unicode_ci NOT NULL COMMENT '用户头像',
   `time` int(10) unsigned NOT NULL COMMENT '留言时间',
   `connect` text COLLATE utf8_unicode_ci NOT NULL COMMENT '留言内容',
   `created_at` timestamp NULL DEFAULT NULL,
@@ -509,6 +511,7 @@ DELIMITER //
 CREATE TRIGGER `article_comment_insert` BEFORE INSERT ON `lxp_article_comment` FOR EACH ROW BEGIN
 	set @sel_article_name='';
 	set @sel_user_account='';
+	set @sel_user_head='';
 	#根据文章id设置文章名称
 	if new.article_id>0 then 
 		select title into @sel_article_name from lxp_article where new.article_id=id;
@@ -518,6 +521,11 @@ CREATE TRIGGER `article_comment_insert` BEFORE INSERT ON `lxp_article_comment` F
 	if new.user_id>0 then 
 		select account into @sel_user_account from lxp_user where new.user_id=id;
 		set new.user_account = @sel_user_account;
+	end if;
+	#根据用户id设置用户头像
+	if new.user_id>0 then 
+		select head into @sel_user_head from lxp_user where new.user_id=id;
+		set new.user_head = @sel_user_head;
 	end if;
 END//
 DELIMITER ;
@@ -530,6 +538,7 @@ DELIMITER //
 CREATE TRIGGER `article_comment_update` BEFORE UPDATE ON `lxp_article_comment` FOR EACH ROW BEGIN
 	set @sel_article_name='';
 	set @sel_user_account='';
+	set @sel_user_head='';
 	#根据文章id设置文章名称
 	if new.article_id>0 then 
 		select title into @sel_article_name from lxp_article where new.article_id=id;
@@ -539,6 +548,11 @@ CREATE TRIGGER `article_comment_update` BEFORE UPDATE ON `lxp_article_comment` F
 	if new.user_id>0 then 
 		select account into @sel_user_account from lxp_user where new.user_id=id;
 		set new.user_account = @sel_user_account;
+	end if;
+	#根据用户id设置用户头像
+	if new.user_id>0 then 
+		select head into @sel_user_head from lxp_user where new.user_id=id;
+		set new.user_head = @sel_user_head;
 	end if;
 END//
 DELIMITER ;
@@ -624,10 +638,16 @@ SET @OLDTMP_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTIT
 DELIMITER //
 CREATE TRIGGER `user_comment_insert` BEFORE INSERT ON `lxp_user_comment` FOR EACH ROW BEGIN
 	set @sel_account='';
+	set @sel_head='';
 	#根据用户id设置用户名称
 	if new.user_id>0 then 
 		select account into @sel_account from lxp_user where new.user_id=id;
 		set new.user_account = @sel_account;
+	end if;
+	#根据用户id设置用户头像
+	if new.user_id>0 then 
+		select head into @sel_head from lxp_user where new.user_id=id;
+		set new.user_head = @sel_head;
 	end if;
 END//
 DELIMITER ;
@@ -639,10 +659,16 @@ SET @OLDTMP_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTIT
 DELIMITER //
 CREATE TRIGGER `user_comment_update` BEFORE UPDATE ON `lxp_user_comment` FOR EACH ROW BEGIN
 	set @sel_account='';
+	set @sel_head='';
 	#根据用户id设置用户名称
 	if new.user_id>0 then 
 		select account into @sel_account from lxp_user where new.user_id=id;
 		set new.user_account = @sel_account;
+	end if;
+	#根据用户id设置用户头像
+	if new.user_id>0 then 
+		select head into @sel_head from lxp_user where new.user_id=id;
+		set new.user_head = @sel_head;
 	end if;
 END//
 DELIMITER ;
