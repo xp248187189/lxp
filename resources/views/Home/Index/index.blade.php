@@ -133,7 +133,7 @@
             isLazyimg:true,
             done: function(page, next){
                 var lis = [];
-                $.get('{{url('/getDataForIndex')}}'+'/'+page, function(res){
+                $.get('{{url('/getDataForIndex')}}'+'?page='+page, function(res){
                     layui.each(res.data, function(index, item){
                         var str ='<div class="article shadow">';
                         str+=	'<div class="article-left">'
