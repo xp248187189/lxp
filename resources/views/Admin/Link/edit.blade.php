@@ -42,7 +42,6 @@
 {{--js内容--}}
 @section('script')
     <script type="text/javascript">
-        $.ajaxSetup({headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});
         form.on('submit(submit)', function(data){
             $.ajax({
                 url:"{{url('myadmin/Link/ajaxEdit')}}",
