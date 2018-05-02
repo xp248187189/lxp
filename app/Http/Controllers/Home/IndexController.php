@@ -79,13 +79,13 @@ class IndexController extends Controller
             ->get();
         if ($isHomeList->isEmpty()){//inRandomOrder
             $isHomeList = Article::inRandomOrder()
+                ->where('status','=','1')
                 ->take(8)
                 ->get();
         }
         foreach ($isHomeList as $key => $value){
             $isHomeList[$key]['commentCount'] = ArticleComment::where('article_id','=',$value->id)->count();
         }
-
         exit(json_encode(array('data'=>$isHomeList,'pageCount'=>1)));
     }
 }
