@@ -342,11 +342,11 @@ INSERT INTO `lxp_role` (`id`, `name`, `auth_ids`, `sort`, `created_at`, `updated
 -- 导出  表 lxp.lxp_time_axis 结构
 CREATE TABLE IF NOT EXISTS `lxp_time_axis` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `year` smallint(5) unsigned zerofill NOT NULL COMMENT '年',
-  `month` tinyint(3) unsigned zerofill NOT NULL COMMENT '月',
-  `day` tinyint(3) unsigned zerofill NOT NULL COMMENT '日',
-  `hour` tinyint(3) unsigned zerofill NOT NULL COMMENT '时',
-  `minute` tinyint(3) unsigned zerofill NOT NULL COMMENT '分',
+  `year` smallint(5) unsigned NOT NULL COMMENT '年',
+  `month` tinyint(3) unsigned NOT NULL COMMENT '月',
+  `day` tinyint(3) unsigned NOT NULL COMMENT '日',
+  `hour` tinyint(3) unsigned NOT NULL COMMENT '时',
+  `minute` tinyint(3) unsigned NOT NULL COMMENT '分',
   `content` text COLLATE utf8_unicode_ci NOT NULL COMMENT '内容',
   `status` tinyint(3) unsigned NOT NULL DEFAULT '1' COMMENT '状态',
   `isHome` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '首页显示',
