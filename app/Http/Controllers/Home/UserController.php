@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Home;
 
+use App\Model\User;
+use App\Model\UserLogin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -47,24 +49,117 @@ class UserController extends Controller
                 parse_str($result_str, $json_r);
             }
             $token = $json_r['access_token'];
-            //获取openid
+            // 根据access_token获取openid
             $params=array(
                 'access_token'=>$token
             );
             $url='https://graph.qq.com/oauth2.0/me?'.http_build_query($params);
             $result_str=$this->http($url);
-
             $json_r=array();
             if($result_str!=''){
                 preg_match('/callback\(\s+(.*?)\s+\)/i', $result_str, $result_a);
                 $json_r=json_decode($result_a[1], true);
             }
             $openid = $json_r['openid'];
-            var_dump($json_r);
+            $r = User::where('connectid','=',$openid)
+                ->first();
+            if (!empty($r)){
+                //存在此用户
+                if ($r->status==0) {
+                    //禁止登录
+                    $exit = '<script src="'.__COMMON__.'/layui/layui.all.js"></script>';
+                    $exit.= '<script src="'.__COMMON__.'/layui/layuiGlobal.js"></script>';
+                    $exit.= '<script type="text/javascript">';
+                    $exit.= 'layer.msg("对不起，您已被限制登录！", function(){location.href="'.session()->get('previous').'"});';
+                    $exit.= '</script>';
+                    exit($exit);
+                }else{
+                    //用户已经存在，更新用户信息(避免用户修改qq昵称或者头像时，本网站不同步)
+                    $params=array(
+                        'oauth_consumer_key'=>$app_id,
+                        'access_token'=>$token,
+                        'openid'=>$openid,
+                        'format'=>'json'
+                    );
+                    $url='https://graph.qq.com/user/get_user_info?'.http_build_query($params);
+                    $result_str=$this->http($url);
+                    $result=array();
+                    if($result_str!=''){
+                        $result=json_decode($result_str, true);
+                    }
+                    $r->account = $result['nickname'];
+                    $r->sex = $result['gender'];
+                    $r->head = $result['figureurl_qq_2'];
+                    $r->save();
+                    //存cookie
+                    \Cookie::queue('user_openid',$openid,60*24*7);
+                    \Cookie::queue('user_head',$result['figureurl_qq_2'],60*24*7);
+                    //添加登录信息
+                    $userLoginOrm = new UserLogin();
+                    $userLoginOrm->ip = \Request::getClientIp();
+                    $userLoginOrm->time = time();
+                    $userLoginOrm->account_id = $r->id;
+                    $userLoginOrm->account = '';
+                    $userLoginOrm->browser = $_SERVER['HTTP_USER_AGENT'];
+                    $userLoginOrm->save();
+                    if (session()->get('previous') != ''){
+                        // header("location:".session()->get('previous'));
+                        return redirect(session()->get('previous'));
+                    }else{
+                        return redirect()->action('Home\IndexController@index');
+                    }
+                    exit;
+                }
+            }else{
+                //用户不存在，添加用户信息
+                $params=array(
+                    'oauth_consumer_key'=>$app_id,
+                    'access_token'=>$token,
+                    'openid'=>$openid,
+                    'format'=>'json'
+                );
+                $url='https://graph.qq.com/user/get_user_info?'.http_build_query($params);
+                $result_str=$this->http($url);
+                $result=array();
+                if($result_str!=''){
+                    $result=json_decode($result_str, true);
+                }
+                //存储用户
+                $userOrm = new User();
+                $userOrm->account = $result['nickname'];
+                $userOrm->sex = $result['gender'];
+                $userOrm->head = $result['figureurl_qq_2'];
+                $userOrm->connectid = $openid;
+                $userOrm->addTime = time();
+                $userOrm->status = 1;
+                $userOrm->save();
+                //存cookie
+                \Cookie::queue('user_openid',$openid,60*24*7);
+                \Cookie::queue('user_head',$result['figureurl_qq_2'],60*24*7);
+                //添加登录信息
+                $userLoginOrm = new UserLogin();
+                $userLoginOrm->ip = \Request::getClientIp();
+                $userLoginOrm->time = time();
+                $userLoginOrm->account_id = $r->id;
+                $userLoginOrm->account = '';
+                $userLoginOrm->browser = $_SERVER['HTTP_USER_AGENT'];
+                $userLoginOrm->save();
+                if (session()->get('previous') != ''){
+                    // header("location:".session()->get('previous'));
+                    return redirect(session()->get('previous'));
+                }else{
+                    return redirect()->action('Home\IndexController@index');
+                }
+                exit;
+            }
         }
+    }
 
-
-
+    //退出登录
+    public function userLogOut(){
+        \Cookie::queue('user_openid',null,-1);
+        \Cookie::queue('user_head',null,-1);
+        return redirect(session()->get('previous'));
     }
 
     public function http($url, $postfields='', $method='GET', $headers=array()){
