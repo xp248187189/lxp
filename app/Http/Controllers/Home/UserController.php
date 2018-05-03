@@ -157,7 +157,7 @@ class UserController extends Controller
     public function userLogOut(){
         \Cookie::queue('user_openid',null,-1);
         \Cookie::queue('user_head',null,-1);
-        return redirect(session()->get('previous'));
+        return redirect(url()->previous());
     }
 
     public function http($url, $postfields='', $method='GET', $headers=array()){
