@@ -1,7 +1,7 @@
 {{--继承模板--}}
 @extends('Home.Public.public')
 {{--设置title--}}
-@section('title', $blogInfo->name.'-'.$info->title)
+@section('title', $blogInfo->name.' - '.$info->title)
 {{--设置关键字--}}
 @section('keywords', $keyWordsInfo->label)
 {{--设置描述--}}
