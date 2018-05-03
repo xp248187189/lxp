@@ -367,7 +367,7 @@ CREATE TABLE IF NOT EXISTS `lxp_user` (
   `account` varchar(50) COLLATE utf8_unicode_ci NOT NULL COMMENT '用户名',
   `sex` varchar(5) COLLATE utf8_unicode_ci NOT NULL COMMENT '性别',
   `head` varchar(100) COLLATE utf8_unicode_ci NOT NULL COMMENT '头像',
-  `connectid` int(10) unsigned NOT NULL COMMENT 'qq登录返回的id',
+  `connectid` varchar(50) COLLATE utf8_unicode_ci NOT NULL COMMENT 'qq登录返回的id',
   `addTime` int(10) unsigned NOT NULL COMMENT '加入时间',
   `status` tinyint(3) unsigned NOT NULL DEFAULT '1' COMMENT '状态',
   `created_at` timestamp NULL DEFAULT NULL,
