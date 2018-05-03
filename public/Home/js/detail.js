@@ -14,13 +14,9 @@ form.verify({
 });
 //监听评论提交
 form.on('submit(formRemark)', function (data) {
-    if(getCookie('user_openid')){
-        var commentForm = getFormData("commentForm");
-        $.post('/ArticleComment',commentForm,function(result){
-            window.location.reload();
-        },'json').error(function(){layer.msg('程序错误!');});
-    }else{
-        layer.msg('请先登录吧',{icon: 5,anim: 6});
-    }
+    var commentForm = getFormData("commentForm");
+    $.post('/ArticleComment',commentForm,function(result){
+        window.location.reload();
+    },'json').error(function(){layer.msg('程序错误!');});
     return false;
 });

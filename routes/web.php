@@ -18,6 +18,8 @@ Route::namespace('Home')->group(function (){
     Route::get('Detail/{id}','ArticleController@detail')->where('id','[0-9]+');
     //获取评论
     Route::get('getArticleComment/{articleId}','ArticleController@getArticleComment')->where('articleId','[0-9]+');
+    //提交评论
+    Route::post('ArticleComment','ArticleController@articleComment');
     //QQ登录
     Route::get('qqLogin','UserController@qqLogin');
     //退出登陆

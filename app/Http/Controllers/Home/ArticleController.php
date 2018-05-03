@@ -6,6 +6,7 @@ use App\Model\About;
 use App\Model\Article;
 use App\Model\Category;
 use App\Model\ArticleComment;
+use App\Model\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -123,6 +124,12 @@ class ArticleController extends Controller
             ->select('id','title')
             ->take(8)
             ->get();
+        //判断是否登录
+        if(\Cookie::has('user_openid')){
+            $isLogin = true;
+        }else{
+            $isLogin = false;
+        }
         return view('Home.Article.detail')->with('blogInfo',$blogInfo)
             ->with('categoryList',$categoryList)
             ->with('xiangshiList',$xiangshiList)
@@ -130,7 +137,8 @@ class ArticleController extends Controller
             ->with('info',$info)
             ->with('keyWordsInfo',$keyWordsInfo)
             ->with('descriptionInfo',$descriptionInfo)
-            ->with('controllerName','Article');
+            ->with('controllerName','Article')
+            ->with('isLogin',$isLogin);
     }
 
     //获取评论
@@ -143,5 +151,21 @@ class ArticleController extends Controller
             ->toArray()['data'];
         $pageCount = ceil($count/8);
         exit(json_encode(array('data'=>$articleComment,'pageCount'=>$pageCount)));
+    }
+
+    //提交评论
+    public function articleComment(Request $request){
+        $openid = \Cookie::get('user_openid');
+        $userInfo = User::where('connectid','=',$openid)->first();
+        $articleCommentOrm = new ArticleComment();
+        $articleCommentOrm->article_id = $request->input('articleId');
+        $articleCommentOrm->article_name = '';
+        $articleCommentOrm->user_id = $userInfo->id;
+        $articleCommentOrm->user_account = '';
+        $articleCommentOrm->user_head = '';
+        $articleCommentOrm->time = time();
+        $articleCommentOrm->connect = $request->input('editorContent');
+        $articleCommentOrm->save();
+        exit(json_encode(array('status'=>true,'echo'=>'评论成功')));
     }
 }

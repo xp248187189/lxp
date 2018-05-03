@@ -38,7 +38,7 @@
                                         <textarea name="editorContent" lay-verify="content" id="remarkEditor" placeholder="请输入内容" class="layui-textarea layui-hide"></textarea>
                                     </div>
                                     <div class="layui-form-item">
-                                        <button class="layui-btn" lay-submit="formRemark" lay-filter="formRemark">提交评论</button>
+                                        <button class="layui-btn @php echo $isLogin===false?'layui-btn-disabled':'' @endphp" @php echo $isLogin===false?'disabled':'' @endphp lay-submit="formRemark" lay-filter="formRemark">@php echo $isLogin===false?'请先登录':'提交评论' @endphp</button>
                                     </div>
                                 </form>
                             </div>
