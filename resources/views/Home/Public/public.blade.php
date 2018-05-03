@@ -37,7 +37,7 @@
         </a>
         @else
         <a href="javascript:;" class="blog-user" onclick="location.href='{{url('userLogOut')}}'">
-            <img src=""/>
+            <img src="{{request()->cookie('user_head')}}"/>
         </a>
         @endif
         {{--记忆碎片--}}
