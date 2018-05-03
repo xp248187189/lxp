@@ -67,8 +67,8 @@ class UserController extends Controller
                 //存在此用户
                 if ($r->status==0) {
                     //禁止登录
-                    $exit = '<script src="'.__COMMON__.'/layui/layui.all.js"></script>';
-                    $exit.= '<script src="'.__COMMON__.'/layui/layuiGlobal.js"></script>';
+                    $exit = '<script src="'.asset('Common').'/layui/layui.all.js"></script>';
+                    $exit.= '<script src="'.asset('Common').'/layui/layuiGlobal.js"></script>';
                     $exit.= '<script type="text/javascript">';
                     $exit.= 'layer.msg("对不起，您已被限制登录！", function(){location.href="'.session()->get('previous').'"});';
                     $exit.= '</script>';
