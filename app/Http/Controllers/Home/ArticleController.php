@@ -28,6 +28,9 @@ class ArticleController extends Controller
         //设置title
         if (intval(\Route::input('category'))){
             $categoryName = Category::find(intval(\Route::input('category')));
+            if (empty($categoryName)){
+                abort(404);
+            }
             $titleName = $categoryName->name;
             $category = intval(\Route::input('category'));
         }else if(trim(\Route::input('keyWord')) !== ''){
