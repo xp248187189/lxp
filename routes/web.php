@@ -20,6 +20,8 @@ Route::namespace('Home')->group(function (){
     Route::get('getArticleComment/{articleId}','ArticleController@getArticleComment')->where('articleId','[0-9]+');
     //提交评论
     Route::post('ArticleComment','ArticleController@articleComment');
+    //时间轴
+    Route::get('TimeAxis','TimeAxisController@timeAxis');
     //QQ登录
     Route::get('qqLogin','UserController@qqLogin');
     //退出登陆
