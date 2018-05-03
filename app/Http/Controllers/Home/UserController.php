@@ -12,12 +12,12 @@ class UserController extends Controller
     //QQ登录
     public function qqLogin(Request $request){
         //申请QQ互联后得到的APP_ID 和 APP_KEY
-        $app_id = 101449564;
-        $app_key = 'f9d96c8edcea2f32f2f7c27875e43b5c';
+        $app_id = env('QQ_APP_ID');
+        $app_key = env('QQ_APP_KEY');
         //回调接口，接受QQ服务器返回的信息的脚本
-        $callback = 'http://www.yxiupei.cn/qqLogin';
+        $callback = env('QQ_CALL_BACK');
         //授权方法
-        $scope='get_user_info';
+        $scope = env('QQ_SCOPE');
         $code = $request->input('code');
         $state = $request->input('state');
         if (empty($code)){
@@ -102,13 +102,12 @@ class UserController extends Controller
                     $userLoginOrm->account = '';
                     $userLoginOrm->browser = $_SERVER['HTTP_USER_AGENT'];
                     $userLoginOrm->save();
+                    //返回页面
                     if (session()->get('previous') != ''){
-                        // header("location:".session()->get('previous'));
                         return redirect(session()->get('previous'));
                     }else{
                         return redirect()->action('Home\IndexController@index');
                     }
-                    exit;
                 }
             }else{
                 //用户不存在，添加用户信息
@@ -144,13 +143,12 @@ class UserController extends Controller
                 $userLoginOrm->account = '';
                 $userLoginOrm->browser = $_SERVER['HTTP_USER_AGENT'];
                 $userLoginOrm->save();
+                //返回页面
                 if (session()->get('previous') != ''){
-                    // header("location:".session()->get('previous'));
                     return redirect(session()->get('previous'));
                 }else{
                     return redirect()->action('Home\IndexController@index');
                 }
-                exit;
             }
         }
     }
