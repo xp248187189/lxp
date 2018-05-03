@@ -24,6 +24,10 @@ Route::namespace('Home')->group(function (){
     Route::get('TimeAxis','TimeAxisController@timeAxis');
     //关于本站
     Route::get('About','AboutController@about');
+    //获取留言
+    Route::get('getUserComment','AboutController@getUserComment');
+    //提交留言
+    Route::post('UserComment','AboutController@userComment');
     //QQ登录
     Route::get('qqLogin','UserController@qqLogin');
     //退出登陆
