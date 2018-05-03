@@ -22,6 +22,8 @@ Route::namespace('Home')->group(function (){
     Route::post('ArticleComment','ArticleController@articleComment');
     //时间轴
     Route::get('TimeAxis','TimeAxisController@timeAxis');
+    //关于本站
+    Route::get('About','AboutController@about');
     //QQ登录
     Route::get('qqLogin','UserController@qqLogin');
     //退出登陆
