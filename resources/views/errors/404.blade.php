@@ -9,6 +9,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 
     <link rel="stylesheet" type="text/css" href="{{asset('404/css/dandelion.css')}}"  media="screen" />
+    <style type="text/css">
+        #da-footer p span,a{
+            padding-left: 7px;
+        }
+        #da-footer p a:hover{
+            text-decoration: none;
+        }
+    </style>
 
     <title>404</title>
 
@@ -40,7 +48,8 @@
     <!-- Footer -->
     <div id="da-footer">
         <div class="da-container clearfix">
-            <p> 2013 xwcms . All Rights Reserved. xw素材网 | 备案号：晋ICP备13005902号</div>
+            <p><span>Copyright</span><span>&copy;</span><span>2017@php echo date("Y")==2017?'':'-'.date("Y");@endphp</span><a href="{{url('/')}}">记忆碎片</a><span>All Rights Reserved</span></p>
+            <p><a href="http://www.miitbeian.gov.cn/" target="_blank">蜀ICP备17041911号-1</a></p>
     </div>
 
 </div>
