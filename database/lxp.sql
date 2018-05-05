@@ -1,14 +1,19 @@
 -- --------------------------------------------------------
--- 主机:                           127.0.0.1
--- 服务器版本:                        5.5.53 - MySQL Community Server (GPL)
--- 服务器操作系统:                      Win32
--- HeidiSQL 版本:                  9.3.0.4984
+-- 主机:                           192.168.0.106
+-- 服务器版本:                        5.5.56-log - Source distribution
+-- 服务器操作系统:                      Linux
+-- HeidiSQL 版本:                  9.2.0.4947
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET NAMES utf8mb4 */;
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+
+-- 导出 lxp 的数据库结构
+CREATE DATABASE IF NOT EXISTS `lxp` /*!40100 DEFAULT CHARACTER SET utf8 */;
+USE `lxp`;
+
 
 -- 导出  表 lxp.lxp_about 结构
 CREATE TABLE IF NOT EXISTS `lxp_about` (
@@ -21,9 +26,16 @@ CREATE TABLE IF NOT EXISTS `lxp_about` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- 数据导出被取消选择。
+-- 正在导出表  lxp.lxp_about 的数据：0 rows
+/*!40000 ALTER TABLE `lxp_about` DISABLE KEYS */;
+INSERT INTO `lxp_about` (`id`, `name`, `introduce`, `detail`, `label`, `img`, `created_at`, `updated_at`) VALUES
+	(1, 'éternel', '一枚90后程序员，PHP开发工程师', NULL, '四川-成都', '', NULL, NULL),
+	(2, '记忆碎片', '一个PHP程序员的个人博客', NULL, 'http://www.xp.com', '', NULL, NULL),
+	(3, '关键字', '', NULL, '记忆碎片,个人博客,php技术分享,程序员博客', '', NULL, NULL),
+	(4, '描述', '', NULL, '记忆碎片，记录博主学习和成长之路，记录php方面遇到的问题以及解决方法', '', NULL, NULL);
+/*!40000 ALTER TABLE `lxp_about` ENABLE KEYS */;
 
 
 -- 导出  表 lxp.lxp_admin 结构
@@ -41,9 +53,14 @@ CREATE TABLE IF NOT EXISTS `lxp_admin` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- 数据导出被取消选择。
+-- 正在导出表  lxp.lxp_admin 的数据：0 rows
+/*!40000 ALTER TABLE `lxp_admin` DISABLE KEYS */;
+INSERT INTO `lxp_admin` (`id`, `account`, `name`, `password`, `phone`, `email`, `status`, `sex`, `role_id`, `role_name`, `created_at`, `updated_at`) VALUES
+	(1, 'xp248187189', 'éternel', '1453c23ab2ccd5a99672b1fae32dfb78', '15882180558', '248187189@qq.com', 1, '男', 0, '超级管理员', NULL, NULL),
+	(2, 'test', '测试账号', 'e10adc3949ba59abbe56e057f20f883e', '12345678901', '123456789@qq.com', 1, '男', 1, '测试角色', NULL, NULL);
+/*!40000 ALTER TABLE `lxp_admin` ENABLE KEYS */;
 
 
 -- 导出  表 lxp.lxp_admin_login 结构
@@ -59,7 +76,9 @@ CREATE TABLE IF NOT EXISTS `lxp_admin_login` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- 数据导出被取消选择。
+-- 正在导出表  lxp.lxp_admin_login 的数据：0 rows
+/*!40000 ALTER TABLE `lxp_admin_login` DISABLE KEYS */;
+/*!40000 ALTER TABLE `lxp_admin_login` ENABLE KEYS */;
 
 
 -- 导出  表 lxp.lxp_article 结构
@@ -83,7 +102,9 @@ CREATE TABLE IF NOT EXISTS `lxp_article` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- 数据导出被取消选择。
+-- 正在导出表  lxp.lxp_article 的数据：0 rows
+/*!40000 ALTER TABLE `lxp_article` DISABLE KEYS */;
+/*!40000 ALTER TABLE `lxp_article` ENABLE KEYS */;
 
 
 -- 导出  表 lxp.lxp_article_comment 结构
@@ -101,7 +122,9 @@ CREATE TABLE IF NOT EXISTS `lxp_article_comment` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- 数据导出被取消选择。
+-- 正在导出表  lxp.lxp_article_comment 的数据：0 rows
+/*!40000 ALTER TABLE `lxp_article_comment` DISABLE KEYS */;
+/*!40000 ALTER TABLE `lxp_article_comment` ENABLE KEYS */;
 
 
 -- 导出  表 lxp.lxp_auth 结构
@@ -118,9 +141,88 @@ CREATE TABLE IF NOT EXISTS `lxp_auth` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=104 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- 数据导出被取消选择。
+-- 正在导出表  lxp.lxp_auth 的数据：0 rows
+/*!40000 ALTER TABLE `lxp_auth` DISABLE KEYS */;
+INSERT INTO `lxp_auth` (`id`, `pid`, `id_list`, `level`, `sort`, `name`, `controller`, `action`, `icon`, `created_at`, `updated_at`) VALUES
+	(11, 10, '10,11', 1, 1, '权限管理', 'Auth', 'showList', 'fa-cog', NULL, NULL),
+	(10, 0, '10', 0, 1, '系统管理', '', '', 'fa-cogs', NULL, NULL),
+	(17, 10, '10,17', 1, 2, '后台人员', 'Admin', 'showList', 'fa-street-view', NULL, NULL),
+	(18, 10, '10,18', 1, 3, '角色管理', 'Role', 'showList', 'fa-user', NULL, NULL),
+	(19, 11, '10,11,19', 2, 1, '添加权限节点(页面)', 'Auth', 'add', '', NULL, NULL),
+	(20, 11, '10,11,20', 2, 2, '修改权限节点(页面)', 'Auth', 'edit', '', NULL, NULL),
+	(21, 11, '10,11,21', 2, 3, '删除权限节点', 'Auth', 'ajaxDel', '', NULL, NULL),
+	(26, 17, '10,17,26', 2, 1, '添加管理员(页面)', 'Admin', 'add', '', NULL, NULL),
+	(27, 17, '10,17,27', 2, 1, '添加管理员(操作)', 'Admin', 'ajaxAdd', '', NULL, NULL),
+	(28, 17, '10,17,28', 2, 1, '修改管理员(页面)', 'Admin', 'edit', '', NULL, NULL),
+	(29, 17, '10,17,29', 2, 1, '修改管理员(操作)', 'Admin', 'ajaxEdit', '', NULL, NULL),
+	(30, 17, '10,17,30', 2, 1, '删除管理员', 'Admin', 'ajaxDel', '', NULL, NULL),
+	(31, 11, '10,11,31', 2, 1, '添加权限节点(操作)', 'Auth', 'ajaxAdd', '', NULL, NULL),
+	(32, 11, '10,11,32', 2, 1, '修改权限节点(操作)', 'Auth', 'ajaxEdit', '', NULL, NULL),
+	(33, 18, '10,18,33', 2, 1, '添加角色(页面)', 'Role', 'add', '', NULL, NULL),
+	(34, 18, '10,18,34', 2, 1, '添加角色(操作)', 'Role', 'ajaxAdd', '', NULL, NULL),
+	(35, 18, '10,18,35', 2, 1, '修改角色(页面)', 'Role', 'edit', '', NULL, NULL),
+	(36, 18, '10,18,36', 2, 1, '修改角色(操作)', 'Role', 'ajaxEdit', '', NULL, NULL),
+	(37, 18, '10,18,37', 2, 1, '删除角色', 'Role', 'ajaxDel', '', NULL, NULL),
+	(38, 0, '38', 0, 2, '内容管理', '', '', 'fa-file-o', NULL, NULL),
+	(39, 38, '38,39', 1, 1, '文章管理', 'Article', 'showList', 'fa-newspaper-o', NULL, NULL),
+	(40, 38, '38,40', 1, 1, '分类管理', 'Category', 'showList', 'fa-th', NULL, NULL),
+	(46, 38, '38,46', 1, 99, '时间轴', 'TimeAxis', 'showList', 'fa-sort-alpha-asc', NULL, NULL),
+	(48, 0, '48', 0, 99, '扩展管理', '', '', 'fa-moon-o', NULL, NULL),
+	(49, 48, '48,49', 1, 99, '网站推荐', 'Link', 'showList', 'fa-sliders', NULL, NULL),
+	(50, 48, '48,50', 1, 99, '博主信息', 'Blogger', 'show', 'fa-male', NULL, NULL),
+	(51, 48, '48,51', 1, 99, '网站公告', 'Notice', 'showList', 'fa-volume-up', NULL, NULL),
+	(52, 48, '48,52', 1, 99, '关于博客', 'Blog', 'show', 'fa-puzzle-piece', NULL, NULL),
+	(53, 0, '53', 0, 99, '登录信息', '', '', 'fa-hand-peace-o', NULL, NULL),
+	(54, 53, '53,54', 1, 99, '后台登录', 'AdminLogin', 'showList', 'fa-info-circle', NULL, NULL),
+	(55, 53, '53,55', 1, 99, '用户登录', 'UserLogin', 'showList', 'fa-bullhorn', NULL, NULL),
+	(56, 0, '56', 0, 99, '用户中心', '', '', 'fa-github-alt', NULL, NULL),
+	(57, 56, '56,57', 1, 99, '用户列表', 'User', 'showList', 'fa-tasks', NULL, NULL),
+	(58, 38, '38,58', 1, 99, '文章评论', 'ArticleComment', 'showList', 'fa-krw', NULL, NULL),
+	(59, 56, '56,59', 1, 99, '用户留言', 'UserComment', 'showList', 'fa-rub', NULL, NULL),
+	(60, 48, '48,60', 1, 99, '关键字与描述', 'Seo', 'show', 'fa-paw', NULL, NULL),
+	(61, 48, '48,61', 1, 99, '网站记录', 'Note', 'showList', 'fa-retweet', NULL, NULL),
+	(62, 54, '53,54,62', 2, 99, '删除后台登录', 'AdminLogin', 'ajaxDel', '', NULL, NULL),
+	(63, 55, '53,55,63', 2, 99, '删除用户登录', 'UserLogin', 'ajaxDel', '', NULL, NULL),
+	(64, 39, '38,39,64', 2, 99, '添加文章（页面）', 'Article', 'add', '', NULL, NULL),
+	(65, 39, '38,39,65', 2, 99, '添加文章（操作）', 'Article', 'ajaxAdd', '', NULL, NULL),
+	(66, 39, '38,39,66', 2, 99, '修改文章（页面）', 'Article', 'edit', '', NULL, NULL),
+	(67, 39, '38,39,67', 2, 99, '修改文章（操作）', 'Article', 'ajaxEdit', '', NULL, NULL),
+	(68, 39, '38,39,68', 2, 99, '删除文章', 'Article', 'ajaxDel', '', NULL, NULL),
+	(69, 40, '38,40,69', 2, 99, '添加分类（页面）', 'Category', 'add', '', NULL, NULL),
+	(70, 40, '38,40,70', 2, 99, '添加分类（操作）', 'Category', 'ajaxAdd', '', NULL, NULL),
+	(71, 40, '38,40,71', 2, 99, '修改分类（页面）', 'Category', 'edit', '', NULL, NULL),
+	(72, 40, '38,40,72', 2, 99, '修改分类（操作）', 'Category', 'ajaxEdit', '', NULL, NULL),
+	(73, 40, '38,40,73', 2, 99, '删除分类', 'Category', 'ajaxDel', '', NULL, NULL),
+	(74, 46, '38,46,74', 2, 99, '添加时间轴（页面）', 'TimeAxis', 'add', '', NULL, NULL),
+	(75, 46, '38,46,75', 2, 99, '添加时间轴（操作）', 'TimeAxis', 'ajaxAdd', '', NULL, NULL),
+	(76, 46, '38,46,76', 2, 99, '修改时间轴（页面）', 'TimeAxis', 'edit', '', NULL, NULL),
+	(77, 46, '38,46,77', 2, 99, '修改时间轴（操作）', 'TimeAxis', 'ajaxEdit', '', NULL, NULL),
+	(78, 46, '38,46,78', 2, 99, '删除时间轴', 'TimeAxis', 'ajaxDel', '', NULL, NULL),
+	(79, 58, '38,58,79', 2, 99, '删除文章评论', 'ArticleComment', 'ajaxDel', '', NULL, NULL),
+	(80, 49, '48,49,80', 2, 99, '添加网站推荐（页面）', 'Link', 'add', '', NULL, NULL),
+	(81, 49, '48,49,81', 2, 99, '添加网站推荐（操作）', 'Link', 'ajaxAdd', '', NULL, NULL),
+	(82, 49, '48,49,82', 2, 99, '修改网站推荐（页面）', 'Link', 'edit', '', NULL, NULL),
+	(83, 49, '48,49,83', 2, 99, '修改网站推荐（操作）', 'Link', 'ajaxEdit', '', NULL, NULL),
+	(84, 49, '48,49,84', 2, 99, '删除网站推荐', 'Link', 'ajaxDel', '', NULL, NULL),
+	(85, 50, '48,50,85', 2, 99, '修改博主信息', 'Blogger', 'ajaxEdit', '', NULL, NULL),
+	(86, 51, '48,51,86', 2, 99, '添加网站公告（页面）', 'Notice', 'add', '', NULL, NULL),
+	(87, 51, '48,51,87', 2, 99, '添加网站公告（操作）', 'Notice', 'ajaxAdd', '', NULL, NULL),
+	(88, 51, '48,51,88', 2, 99, '修改网站公告（页面）', 'Notice', 'edit', '', NULL, NULL),
+	(89, 51, '48,51,89', 2, 99, '修改网站公告（操作）', 'Notice', 'ajaxEdit', '', NULL, NULL),
+	(90, 51, '48,51,90', 2, 99, '删除网站公告', 'Notice', 'ajaxDel', '', NULL, NULL),
+	(91, 52, '48,52,91', 2, 99, '修改关于博客', 'Blog', 'ajaxEdit', '', NULL, NULL),
+	(92, 60, '48,60,92', 2, 99, '修改关键字与描述', 'Seo', 'ajaxEdit', '', NULL, NULL),
+	(94, 61, '48,61,94', 2, 99, '添加网站记录（页面）', 'Note', 'add', '', NULL, NULL),
+	(95, 61, '48,61,95', 2, 99, '添加网站记录（操作）', 'Note', 'ajaxAdd', '', NULL, NULL),
+	(96, 61, '48,61,96', 2, 99, '修改网站记录（页面）', 'Note', 'edit', '', NULL, NULL),
+	(97, 61, '48,61,97', 2, 99, '修改网站记录（操作）', 'Note', 'ajaxEdit', '', NULL, NULL),
+	(98, 61, '48,61,98', 2, 99, '删除网站记录', 'Note', 'ajaxDel', '', NULL, NULL),
+	(103, 59, '56,59,103', 2, 99, '删除用户留言', 'UserComment', 'ajaxDel', '', NULL, NULL),
+	(102, 57, '56,57,102', 2, 99, '修改用户', 'User', 'ajaxEdit', '', NULL, NULL),
+	(101, 57, '56,57,101', 2, 99, '删除用户', 'User', 'ajaxDel', '', NULL, NULL);
+/*!40000 ALTER TABLE `lxp_auth` ENABLE KEYS */;
 
 
 -- 导出  表 lxp.lxp_category 结构
@@ -132,9 +234,17 @@ CREATE TABLE IF NOT EXISTS `lxp_category` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- 数据导出被取消选择。
+-- 正在导出表  lxp.lxp_category 的数据：0 rows
+/*!40000 ALTER TABLE `lxp_category` DISABLE KEYS */;
+INSERT INTO `lxp_category` (`id`, `name`, `sort`, `status`, `created_at`, `updated_at`) VALUES
+	(1, 'PHP', 99, 1, NULL, NULL),
+	(2, 'JavaScript', 99, 1, NULL, NULL),
+	(3, 'HTML', 99, 1, NULL, NULL),
+	(4, 'Linux', 99, 1, NULL, NULL),
+	(5, '杂谈', 99, 1, NULL, NULL);
+/*!40000 ALTER TABLE `lxp_category` ENABLE KEYS */;
 
 
 -- 导出  表 lxp.lxp_link 结构
@@ -149,7 +259,9 @@ CREATE TABLE IF NOT EXISTS `lxp_link` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- 数据导出被取消选择。
+-- 正在导出表  lxp.lxp_link 的数据：0 rows
+/*!40000 ALTER TABLE `lxp_link` DISABLE KEYS */;
+/*!40000 ALTER TABLE `lxp_link` ENABLE KEYS */;
 
 
 -- 导出  表 lxp.lxp_note 结构
@@ -164,7 +276,9 @@ CREATE TABLE IF NOT EXISTS `lxp_note` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- 数据导出被取消选择。
+-- 正在导出表  lxp.lxp_note 的数据：0 rows
+/*!40000 ALTER TABLE `lxp_note` DISABLE KEYS */;
+/*!40000 ALTER TABLE `lxp_note` ENABLE KEYS */;
 
 
 -- 导出  表 lxp.lxp_notice 结构
@@ -178,7 +292,9 @@ CREATE TABLE IF NOT EXISTS `lxp_notice` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- 数据导出被取消选择。
+-- 正在导出表  lxp.lxp_notice 的数据：0 rows
+/*!40000 ALTER TABLE `lxp_notice` DISABLE KEYS */;
+/*!40000 ALTER TABLE `lxp_notice` ENABLE KEYS */;
 
 
 -- 导出  表 lxp.lxp_role 结构
@@ -190,9 +306,13 @@ CREATE TABLE IF NOT EXISTS `lxp_role` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- 数据导出被取消选择。
+-- 正在导出表  lxp.lxp_role 的数据：0 rows
+/*!40000 ALTER TABLE `lxp_role` DISABLE KEYS */;
+INSERT INTO `lxp_role` (`id`, `name`, `auth_ids`, `sort`, `created_at`, `updated_at`) VALUES
+	(1, '测试角色', '38,39,64,66,40,69,71,46,74,76,58,48,49,80,82,50,51,86,88,52,60,53,54,55,56,57,59', 99, NULL, NULL);
+/*!40000 ALTER TABLE `lxp_role` ENABLE KEYS */;
 
 
 -- 导出  表 lxp.lxp_time_axis 结构
@@ -212,7 +332,9 @@ CREATE TABLE IF NOT EXISTS `lxp_time_axis` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- 数据导出被取消选择。
+-- 正在导出表  lxp.lxp_time_axis 的数据：0 rows
+/*!40000 ALTER TABLE `lxp_time_axis` DISABLE KEYS */;
+/*!40000 ALTER TABLE `lxp_time_axis` ENABLE KEYS */;
 
 
 -- 导出  表 lxp.lxp_user 结构
@@ -229,7 +351,9 @@ CREATE TABLE IF NOT EXISTS `lxp_user` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- 数据导出被取消选择。
+-- 正在导出表  lxp.lxp_user 的数据：0 rows
+/*!40000 ALTER TABLE `lxp_user` DISABLE KEYS */;
+/*!40000 ALTER TABLE `lxp_user` ENABLE KEYS */;
 
 
 -- 导出  表 lxp.lxp_user_comment 结构
@@ -245,7 +369,9 @@ CREATE TABLE IF NOT EXISTS `lxp_user_comment` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- 数据导出被取消选择。
+-- 正在导出表  lxp.lxp_user_comment 的数据：0 rows
+/*!40000 ALTER TABLE `lxp_user_comment` DISABLE KEYS */;
+/*!40000 ALTER TABLE `lxp_user_comment` ENABLE KEYS */;
 
 
 -- 导出  表 lxp.lxp_user_login 结构
@@ -261,7 +387,9 @@ CREATE TABLE IF NOT EXISTS `lxp_user_login` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- 数据导出被取消选择。
+-- 正在导出表  lxp.lxp_user_login 的数据：0 rows
+/*!40000 ALTER TABLE `lxp_user_login` DISABLE KEYS */;
+/*!40000 ALTER TABLE `lxp_user_login` ENABLE KEYS */;
 
 
 -- 导出  触发器 lxp.admin_delete_after 结构
