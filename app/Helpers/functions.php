@@ -58,13 +58,13 @@ EOP;
     echo $str;
 }
 /**
- * @param string $idName div的id，主要用于放置内容
  * @param string $UEditorContent 内容
  */
-function showUEditorContent(string $idName,$UEditorContent=''){
+function showUEditorContent($UEditorContent=''){
     //定义一个静态变量为false，表示未加载，
     //用于判断是否是第一次加载，因为配置文件以及编辑器源码文件只能加载一次
     static $isLodeScript = false;
+    $idName = str_random();
     $str = '';
     //判断是否加载了配置文件和编辑器源码文件
     if ($isLodeScript === false){

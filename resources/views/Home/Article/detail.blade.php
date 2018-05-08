@@ -25,7 +25,7 @@
                 <div class="blog-main-left">
                     {{--文章内容（使用百度编辑器发表的）--}}
                     <div class="article-detail shadow">
-                        {{showUEditorContent('show_article_detail',$info->content)}}
+                        {{showUEditorContent($info->content)}}
                     </div>
                     {{--评论区域--}}
                     <div class="blog-module shadow" style="box-shadow: 0 1px 8px #a6a6a6;">
