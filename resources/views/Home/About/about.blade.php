@@ -45,7 +45,7 @@
                                 <fieldset class="layui-elem-field layui-field-title">
                                     <legend>简介</legend>
                                     <div class="layui-field-box aboutinfo-abstract">
-                                        {!! $blogInfo->detail !!}
+                                        {{showUEditorContent($blogInfo->detail)}}
                                         <h1 style="text-align:center;">The End</h1>
                                     </div>
                                 </fieldset>
@@ -69,7 +69,7 @@
                                 <fieldset class="layui-elem-field layui-field-title">
                                     <legend>简介</legend>
                                     <div class="layui-field-box aboutinfo-abstract abstract-bloger">
-                                        {!! $bloggerInfo->detail !!}
+                                        {{showUEditorContent($bloggerInfo->detail)}}
                                         <h1 style="text-align:center;">The End</h1>
                                     </div>
                                 </fieldset>

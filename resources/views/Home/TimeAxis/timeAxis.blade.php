@@ -38,7 +38,7 @@
                                             <p class="date">@php echo $vv->month>9?$vv->month:'0'.$vv->month @endphp月@php echo $vvv->day>9?$vvv->day:'0'.$vvv->day @endphp日 @php echo $vvv->hour>9?$vvv->hour:'0'.$vvv->hour @endphp:@php echo $vvv->minute>9?$vvv->minute:'0'.$vvv->minute @endphp</p>
                                         </div>
                                         <p class="dot-circle animated "><i class="fa fa-dot-circle-o"></i></p>
-                                        <div class="content animated fadeInRight">{!! $vvv->content !!}</div>
+                                        <div class="content animated fadeInRight">{{showUEditorContent($vvv->content)}}</div>
                                         <div class="clear"></div>
                                     </li>
                                     @endforeach
