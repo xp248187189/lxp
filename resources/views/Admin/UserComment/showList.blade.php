@@ -50,7 +50,7 @@
                     {type:'numbers',fixed:'left',title:'序号'},
                     {field:'user_account',title:'用户昵称',align:'center',minWidth:'100'},
                     {field:'time',title:'时间',sort:true,align:'center',minWidth:'170',templet:'<div>@{{ date("Y-m-d H:i:s",d.time) }}</div>'},
-                    {field:'connect',title:'内容',sort:true,align:'center',minWidth:'400'},
+                    {field:'connect',title:'内容',sort:true,align:'center',minWidth:'400',event:'detail'},
                     {fixed:'right',title:'操作',minWidth:'100',align:'center',toolbar: '#barDemo'},
                 ]],
                 done:function(res, curr, count){
@@ -79,6 +79,15 @@
                             layer.close(index);
                         }
                     },'json');
+                });
+            }else if(layEvent === 'detail'){
+                layer.open({
+                    type: 1,
+                    area:'500px',
+                    title: false,
+                    closeBtn: 0,
+                    shadeClose: true,
+                    content: data.connect
                 });
             }
         });
