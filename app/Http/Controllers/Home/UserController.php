@@ -139,7 +139,7 @@ class UserController extends Controller
                 $userLoginOrm = new UserLogin();
                 $userLoginOrm->ip = \Request::getClientIp();
                 $userLoginOrm->time = time();
-                $userLoginOrm->account_id = $r->id;
+                $userLoginOrm->account_id = $userOrm->id;
                 $userLoginOrm->account = '';
                 $userLoginOrm->browser = $_SERVER['HTTP_USER_AGENT'];
                 $userLoginOrm->save();
