@@ -34,10 +34,10 @@ class NoteController extends Controller
     //执行添加
     public function ajaxAdd(Request $request){
         $orm = new Note();
-        $orm->title = $request->input('title');
-        $orm->url = $request->input('url');
-        $orm->account = $request->input('account');
-        $orm->password = $request->input('password');
+        $orm->title = is_null($request->input('title'))?'':$request->input('title');
+        $orm->url = is_null($request->input('url'))?'':$request->input('url');
+        $orm->account = is_null($request->input('account'))?'':$request->input('account');
+        $orm->password = is_null($request->input('password'))?'':$request->input('password');
         $orm->save();
         $res['status'] = true;
         $res['echo'] = '添加成功';
