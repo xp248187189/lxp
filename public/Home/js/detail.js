@@ -1,4 +1,4 @@
-﻿prettyPrint();
+﻿// prettyPrint();
 //评论和留言的编辑器
 var editIndex = layedit.build('remarkEditor', {
     height: 150,
