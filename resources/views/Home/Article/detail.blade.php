@@ -8,7 +8,7 @@
 @section('description', $descriptionInfo->label)
 {{--引入css文件--}}
 @section('loadCss')
-    {{--<link rel="stylesheet" type="text/css" href="{{ asset('Home/css/prettify.css') }}">--}}
+    <link rel="stylesheet" type="text/css" href="{{ asset('Home/css/prettify.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('Home/css/detail.css') }}">
 @endsection
 {{--body内容--}}
@@ -96,7 +96,7 @@
 @endsection
 {{--引入js文件--}}
 @section('loadScript')
-    {{--<script src="{{ asset('Home/js/prettify.js') }}"></script>--}}
+    <script src="{{ asset('Home/js/prettify.js') }}"></script>
     <script src="{{ asset('Home/js/detail.js') }}"></script>
 @endsection
 {{--js内容--}}
