@@ -123,6 +123,17 @@
 @show
 <script type="text/javascript">
     $.ajaxSetup({headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});
+    //百度分享插件
+    window._bd_share_config = {
+        "common": {
+            "bdSnsKey": {},
+            "bdText": "",
+            "bdStyle": "0",
+            "bdSize": "32"
+        },
+        "share": {}
+    };
+    with (document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src={{asset('')}}'/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
 </script>
 @section('script')
 
