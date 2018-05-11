@@ -89,11 +89,11 @@ class UserController extends Controller
                     }
                     $r->account = $result['nickname'];
                     $r->sex = $result['gender'];
-                    $r->head = $result['figureurl_qq_2'];
+                    $r->head = $result['figureurl_qq_1'];
                     $r->save();
                     //存cookie
                     \Cookie::queue('user_openid',$openid,60*24*7);
-                    \Cookie::queue('user_head',$result['figureurl_qq_2'],60*24*7);
+                    \Cookie::queue('user_head',$result['figureurl_qq_1'],60*24*7);
                     //添加登录信息
                     $userLoginOrm = new UserLogin();
                     $userLoginOrm->ip = \Request::getClientIp();
@@ -127,14 +127,14 @@ class UserController extends Controller
                 $userOrm = new User();
                 $userOrm->account = $result['nickname'];
                 $userOrm->sex = $result['gender'];
-                $userOrm->head = $result['figureurl_qq_2'];
+                $userOrm->head = $result['figureurl_qq_1'];
                 $userOrm->connectid = $openid;
                 $userOrm->addTime = time();
                 $userOrm->status = 1;
                 $userOrm->save();
                 //存cookie
                 \Cookie::queue('user_openid',$openid,60*24*7);
-                \Cookie::queue('user_head',$result['figureurl_qq_2'],60*24*7);
+                \Cookie::queue('user_head',$result['figureurl_qq_1'],60*24*7);
                 //添加登录信息
                 $userLoginOrm = new UserLogin();
                 $userLoginOrm->ip = \Request::getClientIp();
