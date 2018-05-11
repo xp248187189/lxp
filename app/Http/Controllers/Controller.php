@@ -14,20 +14,20 @@ class Controller extends BaseController
     public function __construct()
     {
         //请求方式
-        $http_type = ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') || (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https')) ? 'https' : 'http';
-        if ($http_type == 'http'){
-            $length = 7;
-        }else{
-            $length = 8;
-        }
-        $current_url = url()->full();
-        $str = substr($current_url,$length,3);
-        if ($str != 'www'){
-            $url_arr = explode('://',$current_url);
-            $url = $http_type.'://www.'.$url_arr[1];
-            $this->middleware(function() use ($url){
-                return redirect($url,301);
-            });
-        }
+        // $http_type = ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') || (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https')) ? 'https' : 'http';
+        // if ($http_type == 'http'){
+        //     $length = 7;
+        // }else{
+        //     $length = 8;
+        // }
+        // $current_url = url()->full();
+        // $str = substr($current_url,$length,3);
+        // if ($str != 'www'){
+        //     $url_arr = explode('://',$current_url);
+        //     $url = $http_type.'://www.'.$url_arr[1];
+        //     $this->middleware(function() use ($url){
+        //         return redirect($url,301);
+        //     });
+        // }
     }
 }
