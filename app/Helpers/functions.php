@@ -75,6 +75,10 @@ function showUEditorContent($UEditorContent=''){
     $str.= '</div>';
     $str.= '<script type="text/javascript">';
     $str.= 'uParse("#showUEditorContent_'.$idName.'",{rootPath:"'.asset('UEditor').'"})';
+    $str.= 'var li_obj = document.getElementById("'.$idName.'").getElementsByTagName("li");';
+    $str.= 'for (var i = 0; i < li_obj.length; i++) {';
+    $str.= 'li_obj[i].setAttribute("style","list-style:initial;");';
+    $str.= '}';
     $str.= '</script>';
     //设置为true表示已经加载
     $isLodeScript = true;
