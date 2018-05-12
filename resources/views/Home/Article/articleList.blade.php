@@ -28,7 +28,7 @@
                         <form class="layui-form" action="/Search" id="searchForm">
                             <div class="layui-form-item">
                                 <div class="search-keywords  shadow">
-                                    <input type="text" name="keyWord" lay-verify="required" placeholder="输入关键词搜索" autocomplete="off" class="layui-input" value="{{$keyWord}}">
+                                    <input type="text" name="keyWord" lay-verify="keyWord" placeholder="输入关键词搜索" autocomplete="off" class="layui-input" value="{{$keyWord}}">
                                 </div>
                                 <div class="search-submit  shadow">
                                     <a class="search-btn" lay-submit lay-filter="formSearch"><i class="fa fa-search"></i></a>
@@ -97,6 +97,12 @@
                 return false;
             }
         };
+        form.verify({
+            keyWord: [
+                /[\S]+/
+                ,'请输入关键词'
+            ]
+        });
         form.on('submit(formSearch)', function(data){
             window.location.href="{{url('/')}}/Search/"+$('input[name="keyWord"]').val();
             return false;
