@@ -82,6 +82,11 @@
 {{--js内容--}}
 @section('script')
     <script type="text/javascript">
+        {{--监听搜索框不能出现%和#--}}
+        $('input[name="keyWord"]').bind('input propertychange', function() {
+            var str = $(this).val();
+            $(this).val(str.replace(/[%#]/g,''));
+        });
         //回车事件
         document.onkeydown = function (event) {
             var e = event || window.event;
