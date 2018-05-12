@@ -77,7 +77,7 @@ function showUEditorContent($UEditorContent=''){
     $str.= 'uParse("#showUEditorContent_'.$idName.'",{rootPath:"'.asset('UEditor').'"});';
     $str.= '</script>';
     $str.= '<script type="text/javascript">';
-    $str.= 'var li_obj = document.getElementById("'.$idName.'").getElementsByTagName("li");';
+    $str.= 'var li_obj = document.getElementById("showUEditorContent_'.$idName.'").getElementsByTagName("li");';
     $str.= 'for (var i = 0; i < li_obj.length; i++) {';
     $str.= 'li_obj[i].setAttribute("style","list-style:initial;");';
     $str.= '}';
