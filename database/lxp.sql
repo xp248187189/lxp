@@ -85,7 +85,7 @@ CREATE TABLE IF NOT EXISTS `lxp_admin_login` (
 CREATE TABLE IF NOT EXISTS `lxp_article` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `img` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '文章主图',
-  `title` varchar(50) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '文章标题',
+  `title` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '文章标题',
   `outline` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '文章概要',
   `content` mediumtext COLLATE utf8_unicode_ci COMMENT '文章内容',
   `category_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '分类id',
