@@ -21,8 +21,7 @@ class RoleController extends Controller
             }
             $return['count'] = Role::where($whereArray)->count();
             $return['data'] = Role::where($whereArray)->orderBy('sort','asc')->paginate($request->input('limit'))->toArray()['data'];
-            //print_r($return);
-            exit(json_encode($return));
+            return $return;
         }
         return view('Admin.Role.showList');
     }
@@ -55,7 +54,7 @@ class RoleController extends Controller
         $roleOrm->save();
         $res['status'] = true;
         $res['echo'] = '添加成功';
-        exit(json_encode($res));
+        return $res;
     }
 
     //修改
@@ -92,7 +91,7 @@ class RoleController extends Controller
         $roleOrm->save();
         $res['status'] = true;
         $res['echo'] = '修改成功';
-        exit(json_encode($res));
+        return $res;
     }
 
     //删除 - 不可批量删除
@@ -113,6 +112,6 @@ class RoleController extends Controller
             $res['status'] = false;
             $res['echo'] = '有 '.$admins->count().' 个管理员属于此角色，无法删除';
         }
-        exit(json_encode($res));
+        return $res;
     }
 }
