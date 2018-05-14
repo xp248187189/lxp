@@ -62,8 +62,8 @@ class AdminAuth
                 //如果没有控制器的权限，或者没有方法的权限，就提示错误信息
                 if($c ==0 || $a == 0){
                     if($request->ajax()){
-                        exit(json_encode(array('status'=>false,'echo'=>'(●′ω`●) 对不起... 您无权进行此操作！！！')));
-                        //return response()->json(array('status'=>false,'echo'=>'(●′ω`●) 对不起... 您无权进行此操作！！！'));
+                        // exit(json_encode(array('status'=>false,'echo'=>'(●′ω`●) 对不起... 您无权进行此操作！！！')));
+                        return response()->json(array('status'=>false,'echo'=>'(●′ω`●) 对不起... 您无权进行此操作！！！'));
                     }else{
                         $echo = '<!DOCTYPE html><html><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible"content="IE=edge"><meta name="viewport"content="width=device-width, initial-scale=1"><title>这个..页面出错了！！！</title><!--Fonts--><link href="https://fonts.googleapis.com/css?family=Raleway:100,600"rel="stylesheet"type="text/css"><!--Styles--><style>html,body{background-color:#fff;color:#636b6f;font-family:\'Raleway\',sans-serif;font-weight:100;height:100vh;margin:0}.full-height{height:100vh}.flex-center{align-items:center;display:flex;justify-content:center}.position-ref{position:relative}.content{text-align:center}.title{font-size:36px;padding:20px}</style></head><body><div class="flex-center position-ref full-height"><div class="content"><div class="title">(●′ω`●) 对不起... 您无权进行此操作！！！</div></div></div></body></html>';
                         exit($echo);
