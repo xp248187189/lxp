@@ -74,7 +74,7 @@
                     {field:'title',title:'标题',minWidth:'200',edit:'text',sort:true,align:'center'},
                     {field:'category_name',title:'分类',minWidth:'120',sort:true,align:'center'},
                     {field:'author',title:'作者',minWidth:'150',sort:true,align:'center'},
-                    {field:'addTime',title:'发布时间',minWidth:'170',sort:true,align:'center'},
+                    {field:'addTime',title:'发布时间',minWidth:'170',sort:true,align:'center',templet:'<div>@{{ date("Y-m-d H:i:s",d.addTime) }}</div>'},
                     {field:'showNum',title:'浏览次数',minWidth:'150',sort:true,edit:'text',align:'center'},
                     {field:'isHome',title:'首页',minWidth:'100',sort:true,align:'center',templet:'#isHomeTemplet'},
                     {field:'isRecommend',title:'推荐',minWidth:'100',sort:true,align:'center',templet:'#isRecommendTemplet'},

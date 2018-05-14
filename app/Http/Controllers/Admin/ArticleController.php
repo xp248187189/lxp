@@ -25,11 +25,11 @@ class ArticleController extends Controller
             $return['data'] = Article::where($whereArr)
                 ->orderBy('sort','asc')
                 ->orderBy('addTime','desc')
-                ->paginate($request->input('limit'))
-                ->toArray()['data'];
+                ->paginate($request->input('limit'));
             foreach ($return['data'] as $key => $value) {
-                $return['data'][$key]['addTime'] = date('Y-m-d H:i:s',$value['addTime']);
+                $return['data'][$key]['commentCount'] = count($value->getCommentCount);
             }
+            $return['data'] = $return['data']->toArray()['data'];
             return $return;
         }
         $categoryArr = Category::where('status','=',1)
