@@ -76,6 +76,8 @@ function showUEditorContent($UEditorContent=''){
     $str.= '<script type="text/javascript">';
     $str.= 'uParse("#showUEditorContent_'.$idName.'",{rootPath:"'.asset('UEditor').'"});';
     $str.= '</script>';
+    //这里给 li 标签加上 list-style:initial 属性是因为 layui 自带的css库里面的 li 标签的样式是全局的，这里要把它设置成默认值
+    // style="list-style:initial";//将这个属性设置为默认值
     $str.= '<script type="text/javascript">';
     $str.= 'var li_obj = document.getElementById("showUEditorContent_'.$idName.'").getElementsByTagName("li");';
     $str.= 'for (var i = 0; i < li_obj.length; i++) {';
