@@ -44,7 +44,7 @@
         </form>
     </script>
     <script type="text/html" id="barDemo">
-        <a class="layui-btn layui-btn-sm" lay-event="comment">评论（@{{ d.commentCount }}）</a>
+        <a class="layui-btn layui-btn-sm layui-btn-normal" lay-event="comment">评论（@{{ d.commentCount }}）</a>
         <a class="layui-btn layui-btn-sm" lay-event="edit">编辑</a>
         <a class="layui-btn layui-btn-sm layui-btn-danger" lay-event="del">删除</a>
     </script>
@@ -179,6 +179,10 @@
                     content: '<img style="width:500px;" src="{{ asset('uploads') }}/'+data.img+'"/>'
                 });
             }else if(layEvent === 'comment'){
+                if (data.commentCount == 0){
+                    layer.msg('暂无评论',{time:2000});
+                    return false;
+                }
                 layer.open({
                     title:data.title,
                     type:2,
