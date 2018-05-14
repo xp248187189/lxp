@@ -21,7 +21,7 @@ class NoteController extends Controller
             $return['data'] = Note::where($whereArray)
                 ->paginate($request->input('limit'))
                 ->toArray()['data'];
-            exit(json_encode($return));
+            return $return;
         }
         return view('Admin.Note.showList');
     }
@@ -41,7 +41,7 @@ class NoteController extends Controller
         $orm->save();
         $res['status'] = true;
         $res['echo'] = '添加成功';
-        exit(json_encode($res));
+        return $res;
     }
 
     //修改页
@@ -70,7 +70,7 @@ class NoteController extends Controller
         $orm->save();
         $res['status'] = true;
         $res['echo'] = '修改成功';
-        exit(json_encode($res));
+        return $res;
     }
 
     //删除
@@ -84,6 +84,6 @@ class NoteController extends Controller
         Note::destroy(explode(',',$ids));
         $res['status'] = true;
         $res['echo'] = '删除成功';
-        exit(json_encode($res));
+        return $res;
     }
 }
