@@ -22,7 +22,7 @@ class LinkController extends Controller
                 ->orderBy('sort','asc')
                 ->paginate($request->input('limit'))
                 ->toArray()['data'];
-            exit(json_encode($return));
+            return $return;
         }
         return view('Admin.Link.showList');
     }
@@ -42,7 +42,7 @@ class LinkController extends Controller
         $orm->save();
         $res['status'] = true;
         $res['echo'] = '添加成功';
-        exit(json_encode($res));
+        return $res;
     }
 
     //修改页
@@ -71,7 +71,7 @@ class LinkController extends Controller
         $orm->save();
         $res['status'] = true;
         $res['echo'] = '修改成功';
-        exit(json_encode($res));
+        return $res;
     }
 
     //删除
@@ -85,6 +85,6 @@ class LinkController extends Controller
         Link::destroy(explode(',',$ids));
         $res['status'] = true;
         $res['echo'] = '删除成功';
-        exit(json_encode($res));
+        return $res;
     }
 }
