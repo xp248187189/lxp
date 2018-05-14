@@ -30,7 +30,7 @@ class ArticleController extends Controller
             foreach ($return['data'] as $key => $value) {
                 $return['data'][$key]['addTime'] = date('Y-m-d H:i:s',$value['addTime']);
             }
-            exit(json_encode($return));
+            return $return;
         }
         $categoryArr = Category::where('status','=',1)
             ->orderBy('sort','asc')
@@ -76,7 +76,7 @@ class ArticleController extends Controller
         $articleOrm->save();
         $res['status'] = true;
         $res['echo'] = '添加成功';
-        exit(json_encode($res));
+        return $res;
     }
 
     //修改页
@@ -130,7 +130,7 @@ class ArticleController extends Controller
         $articleOrm->save();
         $res['status'] = true;
         $res['echo'] = '修改成功';
-        exit(json_encode($res));
+        return $res;
     }
 
     //删除
@@ -148,6 +148,6 @@ class ArticleController extends Controller
         Article::destroy(explode(',',$ids));
         $res['status'] = true;
         $res['echo'] = '删除成功';
-        exit(json_encode($res));
+        return $res;
     }
 }
