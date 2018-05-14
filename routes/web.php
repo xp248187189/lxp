@@ -116,6 +116,8 @@ Route::namespace('Admin')->prefix('myadmin')->group(function () {
         Route::post('/ajaxEdit','ArticleController@ajaxEdit');
         //删除
         Route::get('/ajaxDel','ArticleController@ajaxDel');
+        //评论
+        Route::any('/commentList/{article_id}/{action?}','ArticleController@commentList');
     });
     //category控制器
     Route::middleware('AdminAuth')->prefix('Category')->group(function (){

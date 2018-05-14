@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Model\Article;
+use App\Model\ArticleComment;
 use App\Model\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -149,5 +150,45 @@ class ArticleController extends Controller
         $res['status'] = true;
         $res['echo'] = '删除成功';
         return $res;
+    }
+
+    //评论列表
+    public function commentList(Request $request){
+        $article_id = intval(\Route::input('article_id'));
+        if (\Route::input('action')){
+            //返回数据格式
+            $return =array('code'=>0,'msg'=>'','count'=>0,'data'=>array());
+            $whereArray = array();
+            $whereArray[] = ['article_id','=',$article_id];
+            $orWhereArray = array();
+            if ($request->input('startTime')){
+                $whereArray[] = ['time','>=',strtotime($request->input('startTime'))];
+            }
+            if ($request->input('endTime')){
+                $whereArray[] = ['time','<=',strtotime($request->input('endTime'))+86400];
+            }
+            if ($request->input('keyWord')){
+                $orWhereArray[] = ['article_name','like','%'.$request->input('keyWord').'%'];
+                $orWhereArray[] = ['user_account','like','%'.$request->input('keyWord').'%'];
+            }
+            $return['count'] = ArticleComment::where($whereArray)
+                ->where(function ($query) use ($orWhereArray){
+                    foreach ($orWhereArray as $item) {
+                        $query->orWhere($item[0],$item[1],$item[2]);
+                    }
+                })
+                ->count();
+            $return['data'] = ArticleComment::where($whereArray)
+                ->where(function ($query) use ($orWhereArray){
+                    foreach ($orWhereArray as $item) {
+                        $query->orWhere($item[0],$item[1],$item[2]);
+                    }
+                })
+                ->orderBy('time','desc')
+                ->paginate($request->input('limit'))
+                ->toArray()['data'];
+            return $return;
+        }
+        return view('Admin.Article.commentList')->with('article_id',$article_id);
     }
 }

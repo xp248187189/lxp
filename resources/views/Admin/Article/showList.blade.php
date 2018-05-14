@@ -44,6 +44,7 @@
         </form>
     </script>
     <script type="text/html" id="barDemo">
+        <a class="layui-btn layui-btn-sm" lay-event="comment">评论（@{{ d.commentCount }}）</a>
         <a class="layui-btn layui-btn-sm" lay-event="edit">编辑</a>
         <a class="layui-btn layui-btn-sm layui-btn-danger" lay-event="del">删除</a>
     </script>
@@ -81,7 +82,7 @@
                     {field:'status',title:'状态',minWidth:'110',sort:true,align:'center',templet:'#statusTemplet'},
                     {field:'sort',title:'排序',minWidth:'80',edit:'text',sort:true,align:'center'},
                     {title:'主图',minWidth:'100',align:'center',event:'selImg',templet:'#imgDemo'},
-                    {fixed:'right',title:'操作',minWidth:'150',align:'center',toolbar: '#barDemo'},
+                    {fixed:'right',title:'操作',minWidth:'230',align:'center',toolbar: '#barDemo'},
                 ]],
                 done:function(res, curr, count){
 
@@ -176,6 +177,19 @@
                     closeBtn: 0,
                     shadeClose: true,
                     content: '<img style="width:500px;" src="{{ asset('uploads') }}/'+data.img+'"/>'
+                });
+            }else if(layEvent === 'comment'){
+                layer.open({
+                    title:data.title,
+                    type:2,
+                    area:['990px', '500px'],
+                    maxmin: true,
+                    content: '@php echo url("myadmin/Article/commentList/'+data.id+'")@endphp',
+                    end:function(){
+                        $('#searchForm')[0].reset();
+                        form.render();
+                        getDataTable();
+                    }
                 });
             }
         });
