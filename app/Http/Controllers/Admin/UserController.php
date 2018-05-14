@@ -41,7 +41,7 @@ class UserController extends Controller
                 ->orderBy('addTime','desc')
                 ->paginate($request->input('limit'))
                 ->toArray()['data'];
-            exit(json_encode($return));
+            return $return;
         }
         return view('Admin.User.showList');
     }
@@ -56,6 +56,6 @@ class UserController extends Controller
         $orm->save();
         $res['status'] = true;
         $res['echo'] = '修改成功';
-        exit(json_encode($res));
+        return $res;
     }
 }

@@ -41,7 +41,7 @@ class UserLoginController extends Controller
                 ->orderBy('time','desc')
                 ->paginate($request->input('limit'))
                 ->toArray()['data'];
-            exit(json_encode($return));
+            return $return;
         }
         return view('Admin.UserLogin.showList');
     }
@@ -57,6 +57,6 @@ class UserLoginController extends Controller
         UserLogin::destroy(explode(',',$ids));
         $res['status'] = true;
         $res['echo'] = '删除成功';
-        exit(json_encode($res));
+        return $res;
     }
 }
