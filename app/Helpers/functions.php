@@ -51,7 +51,7 @@ EOP;
         $str.= '<script type="text/javascript" src="'.asset('UEditor').'/ueditor.all.js"></script>';//编辑器源码文件
     }
     $str.= '<script type="text/javascript">';
-    $str.= 'var ue_'.$name.' = UE.getEditor("'.$name.'",{'.$toolbars.',initialFrameWidth:"99%"});';
+    $str.= 'var ue_'.$name.' = UE.getEditor("'.$name.'",{'.$toolbars.',initialFrameWidth:"99%",zIndex:1});';
     $str.= '</script>';
     //设置为true表示已经加载
     $isLodeScript = true;
