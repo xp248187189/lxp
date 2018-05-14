@@ -39,7 +39,7 @@ class LoginController extends Controller
         if ($validator->fails()){
             $errors = $validator->errors();
             $res['echo'] = $errors->first();
-            return json_encode($res);
+            return $res;
         }
         //查询
         //$postAccount = $request->input('account');
@@ -47,19 +47,18 @@ class LoginController extends Controller
         //判断是否存在此管理员账号
         if (empty($adminInfo)) {
             $res['echo'] = '用户名或密码错误';
-            exit(json_encode($res));
+            return $res;
         }
         //判断账号是否禁用
         if ($adminInfo->status==0) {
             $res['echo'] = '此账号已被禁用';
-            exit(json_encode($res));
+            return $res;
         }
         //判断密码是否正确
         if($adminInfo->password != md5($request->input('password'))){
             $res['echo'] = '用户名或密码错误';
-            exit(json_encode($res));
+            return $res;
         }
-        // exit($request->input('online'));
         if($request->input('online')==1){
             \Cookie::queue('admin_id',$adminInfo['id'],60*24*7);
         }else{
@@ -75,7 +74,6 @@ class LoginController extends Controller
         $adminLoginOrm->save();
         $res['status'] = true;
         $res['echo'] = '登录成功';
-        //exit(json_encode($res));
         return response()->json($res);
     }
     /**
