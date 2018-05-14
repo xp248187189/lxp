@@ -44,8 +44,7 @@ class AdminController extends Controller
                 })
                 ->paginate($request->input('limit'))
                 ->toArray()['data'];
-            //print_r($return);
-            exit(json_encode($return));
+            return $return;
         }
         $roleList = Role::orderBy('sort','asc')->get();
         return view('Admin.Admin.showList')->with('roleList',$roleList);
@@ -74,7 +73,7 @@ class AdminController extends Controller
         }
         if($isUseAccount==1){
             $res['echo'] = '此登录账号已被使用';
-            exit(json_encode($res));
+            return $res;
         }
         $adminOrm = new Admin();
         $adminOrm->account = $request->input('account');
@@ -88,7 +87,7 @@ class AdminController extends Controller
         $adminOrm->save();
         $res['status'] = true;
         $res['echo'] = '添加成功';
-        exit(json_encode($res));
+        return $res;
     }
 
     //修改页面
@@ -119,7 +118,7 @@ class AdminController extends Controller
             }
             if($isUseAccount==1){
                 $res['echo'] = '此登录账号已被使用';
-                exit(json_encode($res));
+                return $res;
             }
         }
 
@@ -152,7 +151,7 @@ class AdminController extends Controller
         $adminOrm->save();
         $res['status'] = true;
         $res['echo'] = '修改成功';
-        exit(json_encode($res));
+        return $res;
     }
 
     //删除
@@ -166,6 +165,6 @@ class AdminController extends Controller
         Admin::destroy(explode(',',$ids));
         $res['status'] = true;
         $res['echo'] = '删除成功';
-        exit(json_encode($res));
+        return $res;
     }
 }
