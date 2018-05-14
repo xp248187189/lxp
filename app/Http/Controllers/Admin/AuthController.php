@@ -41,8 +41,7 @@ class AuthController extends Controller
             }
             $return['count'] = Auth::where($whereArray)->count();
             $return['data'] = Auth::where($whereArray)->orderBy('sort','asc')->paginate($request->input('limit'))->toArray()['data'];
-            //print_r($return);
-            exit(json_encode($return));
+            return $return;
         }
         return view('Admin.Auth.showList');
     }
@@ -86,7 +85,7 @@ class AuthController extends Controller
         $authOrmFind->save();
         $res['status'] = true;
         $res['echo'] = '添加成功';
-        exit(json_encode($res));
+        return $res;
     }
 
     //编辑页
@@ -117,7 +116,7 @@ class AuthController extends Controller
         $authOrm->save();
         $res['status'] = true;
         $res['echo'] = '修改成功';
-        exit(json_encode($res));
+        return $res;
     }
 
     //删除
@@ -130,7 +129,7 @@ class AuthController extends Controller
         $this->delAllSon($ids);
         $res['status'] = true;
         $res['echo'] = '删除成功';
-        exit(json_encode($res));
+        return $res;
     }
 
     //递归删除所有子级
