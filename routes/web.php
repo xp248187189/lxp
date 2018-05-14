@@ -3,7 +3,7 @@
 /**
  * 前台
  */
-Route::namespace('Home')->group(function (){
+Route::namespace('Home')->middleware('BlackList')->group(function (){
     //首页
     Route::get('/','IndexController@index');
     //首页ajax获取数据

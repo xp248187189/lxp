@@ -59,5 +59,6 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         //自定义中间件
         'AdminAuth' => \App\Http\Middleware\AdminAuth::class,
+        'BlackList' => \App\Http\Middleware\BlackList::class,
     ];
 }
