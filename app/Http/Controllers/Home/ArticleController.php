@@ -81,8 +81,8 @@ class ArticleController extends Controller
             $list = Article::where($whereArray)
                 ->orderBy('sort','asc')
                 ->orderBy('addTime','desc')
-                ->paginate(8)
-                ->toArray()['data'];
+                ->paginate(8);
+                // ->toArray()['data'];
         }else{
             $pageCount = 0;
             $list = Article::inRandomOrder()
@@ -91,9 +91,15 @@ class ArticleController extends Controller
                 ->get();
         }
         foreach ($list as $key => $value){
-            $list[$key]['commentCount'] = ArticleComment::where('article_id','=',$value['id'])->count();
+            // $list[$key]['commentCount'] = ArticleComment::where('article_id','=',$value['id'])->count();
+            $list[$key]['commentCount'] = count($value->getCommentCount);
         }
-        exit(json_encode(array('data'=>$list,'pageCount'=>$pageCount)));
+        if ($count){
+            //这里要 >$list->toArray()['data'] 是因为 paginate 分页会带上 总页数，当前页数，每页条数。。。的信息，这里要去掉这些信息只保留数据
+            exit(json_encode(array('data'=>$list->toArray()['data'],'pageCount'=>$pageCount)));
+        }else{
+            exit(json_encode(array('data'=>$list,'pageCount'=>$pageCount)));
+        }
     }
 
     //详情
