@@ -250,4 +250,19 @@ Route::namespace('Admin')->prefix('myadmin')->group(function () {
         //删除
         Route::get('/ajaxDel','UserCommentController@ajaxDel');
     });
+    //BlackList控制器
+    Route::middleware('AdminAuth')->prefix('BlackList')->group(function (){
+        //首页
+        Route::any('/showList/{action?}','BlackListController@showList');
+        //添加页
+        Route::get('/add','BlackListController@add');
+        //执行添加
+        Route::post('/ajaxAdd','BlackListController@ajaxAdd');
+        //修改页
+        Route::get('/edit/{id}','BlackListController@edit');
+        //执行修改
+        Route::post('/ajaxEdit','BlackListController@ajaxEdit');
+        //删除
+        Route::get('/ajaxDel','BlackListController@ajaxDel');
+    });
 });
