@@ -46,7 +46,7 @@ class AboutController extends Controller
         $userComment = UserComment::orderBy('time','desc')
             ->paginate(8)
             ->toArray()['data'];
-        exit(json_encode(array('data'=>$userComment,'pageCount'=>$pageCount)));
+        return ['data'=>$userComment,'pageCount'=>$pageCount];
     }
 
     //提交留言
@@ -60,6 +60,6 @@ class AboutController extends Controller
         $userCommentOrm->time = time();
         $userCommentOrm->connect = $request->input('editorContent');
         $userCommentOrm->save();
-        exit(json_encode(array('status'=>true,'echo'=>'评论成功')));
+        return ['status'=>true,'echo'=>'评论成功'];
     }
 }

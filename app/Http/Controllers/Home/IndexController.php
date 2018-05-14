@@ -84,9 +84,8 @@ class IndexController extends Controller
                 ->get();
         }
         foreach ($isHomeList as $key => $value){
-            // $isHomeList[$key]['commentCount'] = ArticleComment::where('article_id','=',$value->id)->count();
             $isHomeList[$key]['commentCount'] = count($value->getCommentCount);
         }
-        exit(json_encode(array('data'=>$isHomeList,'pageCount'=>1)));
+        return ['data'=>$isHomeList,'pageCount'=>1];
     }
 }
