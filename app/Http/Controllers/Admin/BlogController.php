@@ -29,6 +29,6 @@ class BlogController extends Controller
         $orm->save();
         $res['status'] = true;
         $res['echo'] = '修改成功';
-        exit(json_encode($res));
+        return $res;
     }
 }
