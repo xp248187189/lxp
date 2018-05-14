@@ -10,4 +10,8 @@ class Article extends Model
     protected $table = 'article';
     //指定id
     protected $primaryKey = 'id';
+    //关联评论表
+    public function getCommentCount(){
+        return $this->hasMany('App\Model\ArticleComment');
+    }
 }
