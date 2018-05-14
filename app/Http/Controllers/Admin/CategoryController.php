@@ -23,7 +23,7 @@ class CategoryController extends Controller
                 ->orderBy('sort','asc')
                 ->paginate($request->input('limit'))
                 ->toArray()['data'];
-            exit(json_encode($return));
+            return $return;
         }
         return view('Admin.Category.showList');
     }
@@ -46,7 +46,7 @@ class CategoryController extends Controller
         $categoryOrm->save();
         $res['status'] = true;
         $res['echo'] = '添加成功';
-        exit(json_encode($res));
+        return $res;
     }
 
     //修改页
@@ -72,7 +72,7 @@ class CategoryController extends Controller
         $categoryOrm->save();
         $res['status'] = true;
         $res['echo'] = '修改成功';
-        exit(json_encode($res));
+        return $res;
     }
 
     //删除 - 不可批量删除
@@ -93,6 +93,6 @@ class CategoryController extends Controller
             $res['status'] = false;
             $res['echo'] = '有 '.$articles->count().' 篇文章属于此分类，无法删除';
         }
-        exit(json_encode($res));
+        return $res;
     }
 }
