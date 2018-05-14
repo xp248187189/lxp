@@ -22,7 +22,7 @@ class NoticeController extends Controller
                 ->orderBy('sort','asc')
                 ->paginate($request->input('limit'))
                 ->toArray()['data'];
-            exit(json_encode($return));
+            return $return;
         }
         return view('Admin.Notice.showList');
     }
@@ -41,7 +41,7 @@ class NoticeController extends Controller
         $orm->save();
         $res['status'] = true;
         $res['echo'] = '添加成功';
-        exit(json_encode($res));
+        return $res;
     }
 
     //修改页
@@ -67,7 +67,7 @@ class NoticeController extends Controller
         $orm->save();
         $res['status'] = true;
         $res['echo'] = '修改成功';
-        exit(json_encode($res));
+        return $res;
     }
 
     //删除
@@ -81,6 +81,6 @@ class NoticeController extends Controller
         Notice::destroy(explode(',',$ids));
         $res['status'] = true;
         $res['echo'] = '删除成功';
-        exit(json_encode($res));
+        return $res;
     }
 }
