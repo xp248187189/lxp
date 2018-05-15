@@ -3,7 +3,7 @@
 /**
  * 前台
  */
-Route::namespace('Home')->middleware(['RecordUrl','BlackList'])->group(function (){
+Route::namespace('Home')->middleware('BlackList')->group(function (){
     //首页
     Route::get('/','IndexController@index');
     //首页ajax获取数据
@@ -37,7 +37,7 @@ Route::namespace('Home')->middleware(['RecordUrl','BlackList'])->group(function 
 /**
  * 后台
  */
-Route::namespace('Admin')->prefix('myadmin')->middleware('RecordUrl')->group(function () {
+Route::namespace('Admin')->prefix('myadmin')->group(function () {
     //登陆页面
     Route::get('login','LoginController@login');
     //执行登陆

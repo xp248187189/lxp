@@ -60,6 +60,5 @@ class Kernel extends HttpKernel
         //自定义中间件
         'AdminAuth' => \App\Http\Middleware\AdminAuth::class,
         'BlackList' => \App\Http\Middleware\BlackList::class,
-        'RecordUrl' => \App\Http\Middleware\RecordUrl::class,
     ];
 }
