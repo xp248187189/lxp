@@ -4,11 +4,11 @@
 @section('title', '网站公告添加')
 {{--body内容--}}
 @section('body')
-    <form class="layui-form" action="">
+    <form class="layui-form" action="" id="myform">
         <div class="layui-form-item">
             <label class="layui-form-label">内容</label>
             <div class="layui-input-block">
-                {{showUEditor('content')}}
+                <textarea id="content" name="content"></textarea>
             </div>
         </div>
         <div class="layui-form-item">
@@ -35,11 +35,29 @@
 {{--js内容--}}
 @section('script')
     <script type="text/javascript">
+        //编辑器
+        var editIndex = layedit.build('content',{
+            height: 120, //设置编辑器高度
+            tool: [
+                'strong', //加粗
+                'italic', //斜体
+                'underline', //下划线
+                'del', //删除线
+                '|', //分割线
+                'left', //左对齐
+                'center', //居中对齐
+                'right', //右对齐
+                'link', //超链接
+                'unlink', //清除链接
+                'face' //表情
+            ]
+        });
         form.on('submit(submit)', function(data){
+            layedit.sync(editIndex);
             $.ajax({
                 url:"{{url('myadmin/Notice/ajaxAdd')}}",
                 type:'post',
-                data:data.field,
+                data:getFormData('myform'),
                 dataType:'json',
                 success:function(result){
                     layer.msg(result.echo);
