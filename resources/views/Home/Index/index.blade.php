@@ -41,7 +41,7 @@
                     <div class="home-tips-container">
                         @foreach($noticeList as $key =>$value)
                            <span style="color: #009688">
-                               {{showUEditorContent($value->content)}}
+                               {!! $value->content !!}
                            </span>
                         @endforeach
                     </div>
@@ -98,7 +98,7 @@
                         <dl class="footprint">
                             @foreach($timeAxisList as $key => $value)
                                 <dt>{{$value->year}}年@php echo $value->month>9?$value->month:'0'.$value->month @endphp月@php echo $value->day>9?$value->day:'0'.$value->day @endphp日</dt>
-                                <dd>{{showUEditorContent($value->content)}}</dd>
+                                <dd>{!! $value->content !!}</dd>
                             @endforeach
                         </dl>
                     </div>
