@@ -83,7 +83,8 @@
             }else if(layEvent === 'detail'){
                 layer.open({
                     type: 1,
-                    area:'500px',
+                    skin: 'layui-layer-rim', //加上边框
+                    area: ['420px', '240px'],
                     title: false,
                     closeBtn: 0,
                     shadeClose: true,
