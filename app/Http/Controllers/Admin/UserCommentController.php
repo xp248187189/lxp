@@ -40,6 +40,11 @@ class UserCommentController extends Controller
                 ->orderBy('time','desc')
                 ->paginate($request->input('limit'))
                 ->toArray()['data'];
+            foreach ($return['data'] as $key => $value){
+                if ($value['pid']){
+                    $return['data'][$key]['user_account'] = '';
+                }
+            }
             return $return;
         }
         return view('Admin.UserComment.showList');
