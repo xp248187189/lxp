@@ -92,6 +92,10 @@
                     content: data.connect
                 });
             }else if(layEvent === 'sel_huifu'){
+                if (data.count_zi == 0){
+                    layer.msg('暂无回复',{time:2000});
+                    return false;
+                }
                 layer.open({
                     title:'回复',
                     type:2,
