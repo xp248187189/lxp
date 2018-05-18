@@ -37,12 +37,12 @@ class UserCommentController extends Controller
                         $query->orWhere($item[0],$item[1],$item[2]);
                     }
                 })
-                ->orderBy('time','desc')
+                ->orderBy('time','asc')
                 ->paginate($request->input('limit'))
                 ->toArray()['data'];
             foreach ($return['data'] as $key => $value){
                 if ($value['pid']){
-                    $return['data'][$key]['user_account'] = '';
+                    $return['data'][$key]['user_account'] = '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.$value['user_account'];
                 }
             }
             return $return;
