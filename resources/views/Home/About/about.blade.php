@@ -159,6 +159,7 @@
 {{--js内容--}}
 @section('script')
     <script type="text/javascript">
+        var isLogin = @php echo $isLogin===false?'false;':'true;'; @endphp
         flow.load({
             elem: '#commentList',
             isLazyimg:true,
@@ -175,7 +176,7 @@
                         str+=         '<div class="content">'
                         str+=            item.connect
                         str+=         '</div>'
-                        str+=         '<p class="info info-footer"><span class="time">'+date("Y-m-d H:i",item.time)+'</span><a class="btn-reply" href="javascript:;" onclick="btnReplyClick(this)">回复</a></p>'
+                        str+=         '<p class="info info-footer"><span class="time">'+date("Y-m-d H:i",item.time)+'</span><a class="btn-reply" href="javascript:;" '+(isLogin===false?'':'onclick="btnReplyClick(this)"')+'>'+(isLogin===false?'<span style="color:#CCCCCC">请先登录</span>':'回复')+'</a></p>'
                         str+=   '</div>'
                         if(item.son.length > 0){
                             str+='<hr />';
