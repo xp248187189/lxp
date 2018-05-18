@@ -46,6 +46,24 @@ class AboutController extends Controller
         $userComment = UserComment::orderBy('time','desc')
             ->paginate(8)
             ->toArray()['data'];
+        $parentList = [];
+        $sonList = [];
+        foreach ($userComment as $key => $value){
+            if ($value['pid'] == 0){
+                $parentList[] = $value;
+            }else{
+                $sonList[] = $value;
+            }
+        }
+        foreach ($parentList as $k => $v){
+            $parentList[$k]['son'] = [];
+            foreach ($sonList as $kk => $vv){
+                if ($v['id'] == $vv['pid']){
+                    $parentList[$k]['son'][] = $vv;
+                }
+            }
+        }
+        $userComment = $parentList;
         return ['data'=>$userComment,'pageCount'=>$pageCount];
     }
 
@@ -59,6 +77,11 @@ class AboutController extends Controller
         $userCommentOrm->user_head = '';
         $userCommentOrm->time = time();
         $userCommentOrm->connect = $request->input('editorContent');
+        if ($request->input('pid')){
+            $userCommentOrm->pid = $request->input('pid');
+        }else{
+            $userCommentOrm->pid = 0;
+        }
         $userCommentOrm->save();
         return ['status'=>true,'echo'=>'评论成功'];
     }

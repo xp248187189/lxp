@@ -175,8 +175,31 @@
                         str+=         '<div class="content">'
                         str+=            item.connect
                         str+=         '</div>'
-                        str+=         '<p class="info info-footer"><span class="time">'+date("Y-m-d H:i",item.time)+'</span><a class="btn-reply" href="javascript:;" onclick="btnReplyClick(\''+item.user_account+'\')">回复</a></p>'
+                        str+=         '<p class="info info-footer"><span class="time">'+date("Y-m-d H:i",item.time)+'</span><a class="btn-reply" href="javascript:;" onclick="btnReplyClick(this)">回复</a></p>'
                         str+=   '</div>'
+                        if(item.son.length > 0){
+                            str+='<hr />';
+                            for (var i = 0; i < item.son.length; i++) {
+                                str+='<div class="comment-child">';
+                                str+=   '<img src="'+item.son[i]['user_head']+'" alt="Absolutely" />'
+                                str+=   '<div class="info">'
+                                str+=       '<span class="username">'+item.son[i]['user_account']+'</span><span>'+item.son[i]['connect']+'</span>';
+                                str+=   '</div>';
+                                str+=   '<p class="info"><span class="time">'+date("Y-m-d H:i",item.son[i]['time'])+'</span></p>';
+                                str+='</div>';
+                            }
+                        }
+                        str+='<div class="replycontainer layui-hide">';
+                        str+=   '<form class="layui-form" action="">';
+                        str+=       '<div class="layui-form-item">';
+                        str+=           '<input type="hidden" name="pid" value="'+item.id+'"/>';
+                        str+=           '<textarea name="replyContent" lay-verify="replyContent" placeholder="请输入回复内容" class="layui-textarea" style="min-height:80px;"></textarea>';
+                        str+=       '</div>';
+                        str+=       '<div class="layui-form-item">';
+                        str+=           '<button class="layui-btn layui-btn-mini" lay-submit="formReply" lay-filter="formReply">提交</button>';
+                        str+=       '</div>';
+                        str+=   '</form>';
+                        str+='</div>';
                         str+='</li>'
                         lis.push(str);
                     });

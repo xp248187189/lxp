@@ -30,27 +30,24 @@ form.on('submit(formLeaveMessage)', function (data) {
 });
 //监听留言回复提交
 form.on('submit(formReply)', function (data) {
-    var index = layer.load(1);
-    //模拟留言回复
-    setTimeout(function () {
-        layer.close(index);
-        var content = data.field.replyContent;
-        var html = '<div class="comment-child"><img src="../images/Absolutely.jpg"alt="Absolutely"/><div class="info"><span class="username">模拟回复</span><span>' + content + '</span></div><p class="info"><span class="time">2017-03-18 18:26</span></p></div>';
-        $(data.form).find('textarea').val('');
-        $(data.form).parent('.replycontainer').before(html).siblings('.comment-parent').children('p').children('a').click();
-        layer.msg("回复成功", { icon: 1 });
-    }, 500);
+    var content = $.trim(data.field.replyContent);
+    var pid = data.field.pid;
+    if(content == ''){
+        layer.msg('自少得有一个字吧',{icon: 5,anim: 6});
+        return false;
+    }
+    $.post('/UserComment',{connect:content,pid:pid},function(result){
+        window.location.reload();
+    },'json').error(function(){layer.msg('程序错误!');});
     return false;
 });
-function btnReplyClick(user) {
-    $("html,body").animate({scrollTop: $('#gt').offset().top-65}, 1000);
-    $('textarea[name="editorContent"]').text('@'+user+'&nbsp;');
-    // layedit.build('remarkEditor', {
-    //     height: 150,
-    //     tool: ['face', '|', 'left', 'center', 'right', '|', 'link'],
-    // });
-    // $('.layui-layedit').find('iframe').contents().find('body').html('').focus().html('@'+user+'&nbsp;');
-    $('.layui-layedit').find('iframe').contents().find('body').html('@'+user+'&nbsp;');
+function btnReplyClick(elem) {
+    $(elem).parent('p').parent('.comment-parent').siblings('.replycontainer').toggleClass('layui-hide');
+    if ($(elem).text() == '回复') {
+        $(elem).text('收起')
+    } else {
+        $(elem).text('回复')
+    }
 }
 systemTime();
 function systemTime() {
