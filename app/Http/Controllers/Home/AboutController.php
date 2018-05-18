@@ -55,6 +55,7 @@ class AboutController extends Controller
                 $sonList[] = $value;
             }
         }
+        $sonList = arraySequence($sonList,'time');
         foreach ($parentList as $k => $v){
             $parentList[$k]['son'] = [];
             foreach ($sonList as $kk => $vv){

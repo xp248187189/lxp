@@ -115,3 +115,20 @@ function getIpLookup($ip = ''){
     }
     return $json;
 }
+/**
+ * 二维数组根据字段进行排序
+ * @param array  $array 需要排序的数组
+ * @param string $field 排序的字段
+ * @param string $sort  排序顺序标志 SORT_DESC 降序；SORT_ASC 升序
+ * @return array        排好序的二维数组
+ */
+function arraySequence($array, $field, $sort = 'SORT_DESC'){
+    $arrSort = array();
+    foreach ($array as $uniqid => $row) {
+        foreach ($row as $key => $value) {
+            $arrSort[$key][$uniqid] = $value;
+        }
+    }
+    array_multisort($arrSort[$field], constant($sort), $array);
+    return $array;
+}
