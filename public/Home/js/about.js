@@ -36,7 +36,7 @@ form.on('submit(formReply)', function (data) {
         layer.msg('自少得有一个字吧',{icon: 5,anim: 6});
         return false;
     }
-    $.post('/UserComment',{connect:content,pid:pid},function(result){
+    $.post('/UserComment',{editorContent:content,pid:pid},function(result){
         window.location.reload();
     },'json').error(function(){layer.msg('程序错误!');});
     return false;
