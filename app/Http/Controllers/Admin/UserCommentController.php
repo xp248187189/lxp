@@ -94,6 +94,7 @@ class UserCommentController extends Controller
         $ids = $_GET['id'];
         $ids = trim($ids,',');
         UserComment::destroy(explode(',',$ids));
+        UserComment::whereIn('pid',explode(',',$ids))->delete();
         $res['status'] = true;
         $res['echo'] = '删除成功';
         return $res;
