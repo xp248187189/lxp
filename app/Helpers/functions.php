@@ -132,3 +132,24 @@ function arraySequence($array, $field, $sort = 'SORT_DESC'){
     array_multisort($arrSort[$field], constant($sort), $array);
     return $array;
 }
+
+/**
+ * 根据key 给二维数组分组
+ * @param array $arr 需要分组的数组
+ * @param string $key 分组字段
+ * @return array 分好组的数组
+ */
+function arrayGroupBy(array $arr, string $key){
+    $grouped = [];
+    foreach ($arr as $value) {
+        $grouped[$value[$key]][] = $value;
+    }
+    if (func_num_args() > 2) {
+        $args = func_get_args();
+        foreach ($grouped as $key => $value) {
+            $parms = array_merge([$value], array_slice($args, 2, func_num_args()));
+            $grouped[$key] = call_user_func_array('arrayGroupBy', $parms);
+        }
+    }
+    return $grouped;
+}

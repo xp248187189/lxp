@@ -19,7 +19,6 @@
     </blockquote>
     <table id="dataTable" lay-filter="dataTable" lay-size="sm"></table>
     <script type="text/html" id="barDemo">
-        <a class="layui-btn layui-btn-sm layui-btn-normal" lay-event="sel_huifu">查看回复（@{{d.count_zi}}）</a>
         <a class="layui-btn layui-btn-sm layui-btn-danger" lay-event="del">删除</a>
     </script>
 @endsection
@@ -43,7 +42,7 @@
                 size: 'lg',
                 page: true,
                 limit:30,
-                url: '{{url('myadmin/UserComment/showList/getData')}}',
+                url: '{{url('myadmin/UserComment/showHuiFuList/'.$id.'/getData')}}',
                 method: 'post',
                 where: searchFormData,
                 cols:[[
@@ -90,19 +89,6 @@
                     closeBtn: 0,
                     shadeClose: true,
                     content: data.connect
-                });
-            }else if(layEvent === 'sel_huifu'){
-                layer.open({
-                    title:'回复',
-                    type:2,
-                    area:['990px', '450px'],
-                    maxmin: true,
-                    content: '@php echo url("myadmin/UserComment/showHuiFuList/'+data.id+'")@endphp',
-                    end:function(){
-                        $('#searchForm')[0].reset();
-                        form.render();
-                        getDataTable();
-                    }
                 });
             }
         });

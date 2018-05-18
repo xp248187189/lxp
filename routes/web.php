@@ -249,6 +249,8 @@ Route::namespace('Admin')->prefix('myadmin')->group(function () {
         Route::any('/showList/{action?}','UserCommentController@showList');
         //删除
         Route::get('/ajaxDel','UserCommentController@ajaxDel');
+        //回复页
+        Route::any('/showHuiFuList/{id}/{action?}','UserCommentController@showHuiFuList');
     });
     //BlackList控制器
     Route::middleware('AdminAuth')->prefix('BlackList')->group(function (){
