@@ -77,14 +77,16 @@ class ArticleController extends Controller
         if (trim(\Route::input('keyWord'))){
             $whereArray[] = ['title','like','%'.trim(\Route::input('keyWord')).'%'];
         }
-        //查询数据
-        $list = Article::where($whereArray)
-            ->orderBy('sort','asc')
-            ->orderBy('addTime','desc')
-            ->paginate(8);
+        //查询数据并写入缓存
+        $list = Cache::remember(sha1($request->fullUrl().'_list_cache'),1,function () use ($whereArray){
+            return Article::where($whereArray)
+                ->orderBy('sort','asc')
+                ->orderBy('addTime','desc')
+                ->paginate(8);
+        });
         //判断是否有数据
         if ($list->isEmpty()){
-            //没有数据的话，随机查询8条数据
+            //没有数据的话，随机查询8条数据，因为是随机，所以不写缓存
             $list = Article::inRandomOrder()
                 ->where('status','=','1')
                 ->take(8)
