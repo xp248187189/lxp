@@ -16,19 +16,19 @@ class ArticleController extends Controller
     //列表
     public function articleList(Request $request){
         //关键字
-        $keyWordsInfo = Cache::remember(sha1($request->fullUrl().'_keyWordsInfo_cache'),1,function (){
+        $keyWordsInfo = Cache::remember(sha1($request->fullUrl().'_keyWordsInfo_cache'),10,function (){
             return About::find(3);
         });
         //描述
-        $descriptionInfo = Cache::remember(sha1($request->fullUrl().'_descriptionInfo_cache'),1,function (){
+        $descriptionInfo = Cache::remember(sha1($request->fullUrl().'_descriptionInfo_cache'),10,function (){
             return About::find(4);
         });
         //关于博客
-        $blogInfo = Cache::remember(sha1($request->fullUrl().'_blogInfo_cache'),1,function (){
+        $blogInfo = Cache::remember(sha1($request->fullUrl().'_blogInfo_cache'),10,function (){
             return About::find(2);
         });
         //分类
-        $categoryList = Cache::remember(sha1($request->fullUrl().'_categoryList_cache'),1,function (){
+        $categoryList = Cache::remember(sha1($request->fullUrl().'_categoryList_cache'),10,function (){
             return Category::where('status','=','1')
                 ->get();
         });
@@ -36,7 +36,7 @@ class ArticleController extends Controller
         $category = 0;
         //设置title
         if (intval(\Route::input('category'))){
-            $categoryName = Cache::remember(sha1($request->fullUrl().'_categoryName_cache'),1,function (){
+            $categoryName = Cache::remember(sha1($request->fullUrl().'_categoryName_cache'),10,function (){
                 return Category::find(intval(\Route::input('category')));
             });
             if (empty($categoryName)){
@@ -51,7 +51,7 @@ class ArticleController extends Controller
             $titleName = '文章专栏';
         }
         //作者推荐
-        $isRecommendList = Cache::remember(sha1($request->fullUrl().'_isRecommendList_cache'),1,function (){
+        $isRecommendList = Cache::remember(sha1($request->fullUrl().'_isRecommendList_cache'),10,function (){
             return Article::where('status','=','1')
                 ->where('isRecommend','=','1')
                 ->orderBy('sort','asc')
@@ -61,7 +61,7 @@ class ArticleController extends Controller
                 ->get();
         });
         //随便看看
-        $suijiList = Cache::remember(sha1($request->fullUrl().'_suijiList_cache'),1,function (){
+        $suijiList = Cache::remember(sha1($request->fullUrl().'_suijiList_cache'),10,function (){
             return Article::where('status','=','1')
                 ->inRandomOrder()
                 ->select('id','title')
@@ -92,7 +92,7 @@ class ArticleController extends Controller
             $whereArray[] = ['title','like','%'.trim(\Route::input('keyWord')).'%'];
         }
         //查询数据并写入缓存
-        $list = Cache::remember(sha1($request->fullUrl().'_list_cache'),1,function () use ($whereArray){
+        $list = Cache::remember(sha1($request->fullUrl().'_list_cache'),10,function () use ($whereArray){
             return Article::where($whereArray)
                 ->orderBy('sort','asc')
                 ->orderBy('addTime','desc')
