@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Cache;
 class ArticleController extends Controller
 {
     //列表
-    public function articleList(){
+    public function articleList(Request $request){
         //关键字
         // $keyWordsInfo = About::find(3);
         $keyWordsInfo = Cache::remember(sha1($request->fullUrl().'_keyWordsInfo_cache'),1,function (){
