@@ -101,10 +101,12 @@ class ArticleController extends Controller
         //判断是否有数据
         if ($list->isEmpty()){
             //没有数据的话，随机查询8条数据，因为是随机，所以不写缓存
-            $list = Article::inRandomOrder()
-                ->where('status','=','1')
-                ->take(8)
-                ->get();
+            $list = Cache::remember(sha1($request->fullUrl().'_inRandomOrderList_cache'),10,function (){
+                return Article::inRandomOrder()
+                    ->where('status','=','1')
+                    ->take(8)
+                    ->get();
+            });
             //循环获取评论数
             foreach ($list as $key => $value){
                 $list[$key]['commentCount'] = count($value->getCommentCount);
