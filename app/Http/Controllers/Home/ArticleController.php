@@ -68,6 +68,7 @@ class ArticleController extends Controller
 
     //ajax获取流数据
     public function getData(Request $request){
+        //where条件
         $whereArray = [];
         $whereArray[] = ['status','=','1'];
         if (intval(\Route::input('category'))){
@@ -76,25 +77,30 @@ class ArticleController extends Controller
         if (trim(\Route::input('keyWord'))){
             $whereArray[] = ['title','like','%'.trim(\Route::input('keyWord')).'%'];
         }
-
+        //查询数据
         $list = Article::where($whereArray)
             ->orderBy('sort','asc')
             ->orderBy('addTime','desc')
             ->paginate(8);
+        //判断是否有数据
         if ($list->isEmpty()){
-            $pageCount = 0;
+            //没有数据的话，随机查询8条数据
             $list = Article::inRandomOrder()
                 ->where('status','=','1')
                 ->take(8)
                 ->get();
+            //循环获取评论数
             foreach ($list as $key => $value){
                 $list[$key]['commentCount'] = count($value->getCommentCount);
             }
+            //返回数据
             return ['data'=>$list,'pageCount'=>0];
         }else{
+            //循环获取评论数
             foreach ($list as $key => $value){
                 $list[$key]['commentCount'] = count($value->getCommentCount);
             }
+            //返回数据
             $list = $list->toArray();
             return ['data'=>$list['data'],'pageCount'=>$list['last_page']];
         }
