@@ -9,6 +9,7 @@ use App\Model\ArticleComment;
 use App\Model\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Cache;
 
 class ArticleController extends Controller
 {
@@ -66,7 +67,7 @@ class ArticleController extends Controller
     }
 
     //ajax获取流数据
-    public function getData(){
+    public function getData(Request $request){
         $whereArray = [];
         $whereArray[] = ['status','=','1'];
         if (intval(\Route::input('category'))){
@@ -75,28 +76,27 @@ class ArticleController extends Controller
         if (trim(\Route::input('keyWord'))){
             $whereArray[] = ['title','like','%'.trim(\Route::input('keyWord')).'%'];
         }
-        $count = Article::where($whereArray)->count();
-        if ($count){
-            $pageCount = ceil($count/8);
-            $list = Article::where($whereArray)
-                ->orderBy('sort','asc')
-                ->orderBy('addTime','desc')
-                ->paginate(8);
-        }else{
+
+        $list = Article::where($whereArray)
+            ->orderBy('sort','asc')
+            ->orderBy('addTime','desc')
+            ->paginate(8);
+        if ($list->isEmpty()){
             $pageCount = 0;
             $list = Article::inRandomOrder()
                 ->where('status','=','1')
                 ->take(8)
                 ->get();
-        }
-        foreach ($list as $key => $value){
-            $list[$key]['commentCount'] = count($value->getCommentCount);
-        }
-        if ($count){
-            //这里要 >$list->toArray()['data'] 是因为 paginate 分页会带上 总页数，当前页数，每页条数。。。的信息，这里要去掉这些信息只保留数据
-            return ['data'=>$list->toArray()['data'],'pageCount'=>$pageCount];
+            foreach ($list as $key => $value){
+                $list[$key]['commentCount'] = count($value->getCommentCount);
+            }
+            return ['data'=>$list,'pageCount'=>0];
         }else{
-            return ['data'=>$list,'pageCount'=>$pageCount];
+            foreach ($list as $key => $value){
+                $list[$key]['commentCount'] = count($value->getCommentCount);
+            }
+            $list = $list->toArray();
+            return ['data'=>$list['data'],'pageCount'=>$list['last_page']];
         }
     }
 
