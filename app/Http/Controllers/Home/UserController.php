@@ -31,6 +31,7 @@ class UserController extends Controller
                 'scope'=>$scope,
                 'state'=>'yxp'
             );
+            dd($params);
             $login_url = 'https://graph.qq.com/oauth2.0/authorize?'.http_build_query($params);
             header("location:$login_url");
         }else{
