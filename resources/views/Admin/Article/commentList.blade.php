@@ -48,7 +48,7 @@
                 cols:[[
                     {type:'checkbox',fixed:'left'},
                     {type:'numbers',fixed:'left',title:'序号'},
-                    {field:'article_name',title:'文章标题',align:'center',minWidth:'200'},
+                    // {field:'article_name',title:'文章标题',align:'center',minWidth:'200'},
                     {field:'user_account',title:'用户昵称',align:'center',minWidth:'100'},
                     {field:'time',title:'时间',sort:true,align:'center',minWidth:'170',templet:'<div>@{{ date("Y-m-d H:i:s",d.time) }}</div>'},
                     {field:'connect',title:'内容',sort:true,align:'center',minWidth:'400',event:'detail'},
