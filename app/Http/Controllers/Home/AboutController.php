@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Home;
 
+use Carbon\Carbon;
+use App\Jobs\CountArticleComment;
 use App\Model\User;
 use App\Model\About;
 use App\Model\Link;
@@ -80,10 +82,16 @@ class AboutController extends Controller
         $userCommentOrm->connect = $request->input('editorContent');
         if ($request->input('pid')){
             $userCommentOrm->pid = $request->input('pid');
+            $pid = $request->input('pid');
         }else{
             $userCommentOrm->pid = 0;
+            $pid = 0;
         }
         $userCommentOrm->save();
+        if ($pid){
+            //用队列修改回复数
+            CountArticleComment::dispatch($pid,2)->onQueue('countArticleComment');
+        }
         return ['status'=>true,'echo'=>'评论成功'];
     }
 }

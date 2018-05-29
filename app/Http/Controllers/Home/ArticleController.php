@@ -192,7 +192,7 @@ class ArticleController extends Controller
         $articleCommentOrm->connect = $request->input('editorContent');
         $articleCommentOrm->save();
         //用队列修改评论数
-        CountArticleComment::dispatch($request->input('articleId'))->onQueue('countArticleComment');
+        CountArticleComment::dispatch($request->input('articleId'),1)->onQueue('countArticleComment');
         return ['status'=>true,'echo'=>'评论成功'];
     }
 }
