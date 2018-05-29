@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Home;
 
+use Carbon\Carbon;
+use App\Jobs\CountArticleComment;
 use App\Model\About;
 use App\Model\Article;
 use App\Model\Category;
@@ -197,6 +199,8 @@ class ArticleController extends Controller
         $articleCommentOrm->time = time();
         $articleCommentOrm->connect = $request->input('editorContent');
         $articleCommentOrm->save();
+        //用队列修改评论数
+        CountArticleComment::dispatch($request->input('articleId'))->onQueue('countArticleComment');
         return ['status'=>true,'echo'=>'评论成功'];
     }
 }
