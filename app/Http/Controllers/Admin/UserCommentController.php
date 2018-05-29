@@ -40,9 +40,6 @@ class UserCommentController extends Controller
                 ->orderBy('time','desc')
                 ->paginate($request->input('limit'))
                 ->toArray()['data'];
-            foreach ($return['data'] as $key => $value){
-                $return['data'][$key]['count_zi'] = UserComment::where('pid','=',$value['id'])->count();
-            }
             return $return;
         }
         return view('Admin.UserComment.showList');
@@ -93,8 +90,19 @@ class UserCommentController extends Controller
         );
         $ids = $_GET['id'];
         $ids = trim($ids,',');
-        UserComment::destroy(explode(',',$ids));
-        UserComment::whereIn('pid',explode(',',$ids))->delete();
+        if ($_GET['isParent'] == 1){
+            //删除的是父类
+            UserComment::destroy(explode(',',$ids));//删除父类
+            UserComment::whereIn('pid',explode(',',$ids))->delete();//删除子类
+        }else{
+            //删除的是子类
+            $pids = UserComment::whereIn('id',explode(',',$ids))->first();
+            UserComment::whereIn('id',explode(',',$ids))->delete();//删除子类
+            $count = UserComment::where('pid','=',$pids->pid)->count();
+            $userCommentOrm = UserComment::find($pids->pid);
+            $userCommentOrm->huifuCount = $count;
+            $userCommentOrm->save();
+        }
         $res['status'] = true;
         $res['echo'] = '删除成功';
         return $res;

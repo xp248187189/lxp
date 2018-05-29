@@ -19,7 +19,7 @@
     </blockquote>
     <table id="dataTable" lay-filter="dataTable" lay-size="sm"></table>
     <script type="text/html" id="barDemo">
-        <a class="layui-btn layui-btn-sm layui-btn-normal" lay-event="sel_huifu">查看回复（@{{d.count_zi}}）</a>
+        <a class="layui-btn layui-btn-sm layui-btn-normal" lay-event="sel_huifu">查看回复（@{{d.huifuCount}}）</a>
         <a class="layui-btn layui-btn-sm layui-btn-danger" lay-event="del">删除</a>
     </script>
 @endsection
@@ -73,7 +73,7 @@
                 //删除
                 layer.confirm('真的删除行么', function(index) {
                     var del_id = data.id;
-                    $.get('{{url("myadmin/UserComment/ajaxDel")}}',{id:del_id},function(result){
+                    $.get('{{url("myadmin/UserComment/ajaxDel")}}',{id:del_id,isParent:1},function(result){
                         layer.msg(result.echo);
                         if(result.status){
                             obj.del(); //删除对应行（tr）的DOM结构
@@ -92,7 +92,7 @@
                     content: data.connect
                 });
             }else if(layEvent === 'sel_huifu'){
-                if (data.count_zi == 0){
+                if (data.huifuCount == 0){
                     layer.msg('暂无回复',{time:2000});
                     return false;
                 }
@@ -123,7 +123,7 @@
                     del_id += item.id+',';
                 });
                 del_id = del_id.substring(0,del_id.length-1);
-                $.get('{{url("myadmin/UserComment/ajaxDel")}}',{id:del_id},function(result){
+                $.get('{{url("myadmin/UserComment/ajaxDel")}}',{id:del_id,isParent:1},function(result){
                     layer.msg(result.echo);
                     if(result.status){
                         layer.close(index);
