@@ -109,17 +109,9 @@ class ArticleController extends Controller
                     ->take(8)
                     ->get();
             });
-            //循环获取评论数
-            foreach ($list as $key => $value){
-                $list[$key]['commentCount'] = count($value->getCommentCount);
-            }
             //返回数据
             return ['data'=>$list,'pageCount'=>0];
         }else{
-            //循环获取评论数
-            foreach ($list as $key => $value){
-                $list[$key]['commentCount'] = count($value->getCommentCount);
-            }
             //返回数据
             $list = $list->toArray();
             return ['data'=>$list['data'],'pageCount'=>$list['last_page']];

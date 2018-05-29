@@ -27,9 +27,6 @@ class ArticleController extends Controller
                 ->orderBy('sort','asc')
                 ->orderBy('addTime','desc')
                 ->paginate($request->input('limit'));
-            // foreach ($return['data'] as $key => $value) {
-            //     $return['data'][$key]['commentCount'] = count($value->getCommentCount);
-            // }
             $return['data'] = $return['data']->toArray()['data'];
             return $return;
         }
