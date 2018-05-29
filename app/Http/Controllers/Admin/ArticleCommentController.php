@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Model\Article;
 use App\Model\ArticleComment;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -54,7 +55,19 @@ class ArticleCommentController extends Controller
         );
         $ids = $_GET['id'];
         $ids = trim($ids,',');
+        $articleIds = ArticleComment::whereIn('id',explode(',',$ids))->get();
         ArticleComment::destroy(explode(',',$ids));
+        $articleIdArr = [];
+        foreach ($articleIds as $key => $value){
+            $articleIdArr[] = $value->article_id;
+        }
+        $articleIdArr = array_unique($articleIdArr);
+        foreach ($articleIdArr as $key => $value){
+            $commentCount = ArticleComment::where('article_id','=',$value)->count();
+            $articleOrm = Article::find($value);
+            $articleOrm->commentCount = $commentCount;
+            $articleOrm->save();
+        }
         $res['status'] = true;
         $res['echo'] = '删除成功';
         return $res;
