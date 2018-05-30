@@ -83,9 +83,6 @@ class IndexController extends Controller
                 ->take(8)
                 ->get();
         }
-        foreach ($isHomeList as $key => $value){
-            $isHomeList[$key]['commentCount'] = count($value->getCommentCount);
-        }
         return ['data'=>$isHomeList,'pageCount'=>1];
     }
 }
