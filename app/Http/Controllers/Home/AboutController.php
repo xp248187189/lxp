@@ -61,7 +61,7 @@ class AboutController extends Controller
         $pageCount = $userComment['last_page'];
         $newList = $userComment['data'];
         foreach ($newList as $key => $value){
-            $newList[$key]['son'] = UserComment::where('pid','=',$value['id'])->orderBy('time','desc')->get()->toArray();
+            $newList[$key]['son'] = UserComment::where('pid','=',$value['id'])->orderBy('time','asc')->get()->toArray();
         }
         return ['data'=>$newList,'pageCount'=>$pageCount];
     }
