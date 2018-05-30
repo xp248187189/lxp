@@ -55,30 +55,15 @@ class AboutController extends Controller
     //获取留言
     public function getUserComment(){
         $userComment = UserComment::orderBy('time','desc')
+            ->where('pid','=','0')
             ->paginate(8)
             ->toArray();
         $pageCount = $userComment['last_page'];
-        $userComment = $userComment['data'];
-        $parentList = [];
-        $sonList = [];
-        foreach ($userComment as $key => $value){
-            if ($value['pid'] == 0){
-                $parentList[] = $value;
-            }else{
-                $sonList[] = $value;
-            }
+        $newList = $userComment['data'];
+        foreach ($newList as $key => $value){
+            $newList[$key]['son'] = UserComment::where('pid','=',$value['id'])->orderBy('time','desc')->get()->toArray();
         }
-        $sonList = arraySequence($sonList,'time','SORT_ASC');
-        foreach ($parentList as $k => $v){
-            $parentList[$k]['son'] = [];
-            foreach ($sonList as $kk => $vv){
-                if ($v['id'] == $vv['pid']){
-                    $parentList[$k]['son'][] = $vv;
-                }
-            }
-        }
-        $userComment = $parentList;
-        return ['data'=>$userComment,'pageCount'=>$pageCount];
+        return ['data'=>$newList,'pageCount'=>$pageCount];
     }
 
     //提交留言
