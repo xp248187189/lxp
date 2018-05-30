@@ -119,36 +119,52 @@ class ArticleController extends Controller
     }
 
     //详情
-    public function detail(){
+    public function detail(Request $request){
         $id = intval(\Route::input('id'));
-        $info = Article::find($id);
+        //查询文章详细信息
+        $info = Cache::remember(sha1($request->fullUrl().'_info_cache'),10,function () use ($id){
+            return Article::find($id);
+        });
         if (empty($info)){
             abort(404);
         }
+        //浏览次数递增
         Article::where('id','=',$id)->increment('showNum');
         //关键字
-        $keyWordsInfo = About::find(3);
+        $keyWordsInfo = Cache::remember(sha1($request->fullUrl().'_keyWordsInfo_cache'),10,function (){
+            return About::find(3);
+        });
         //描述
-        $descriptionInfo = About::find(4);
+        $descriptionInfo = Cache::remember(sha1($request->fullUrl().'_descriptionInfo_cache'),10,function (){
+            return About::find(4);
+        });
         //关于博客
-        $blogInfo = About::find(2);
+        $blogInfo = Cache::remember(sha1($request->fullUrl().'_blogInfo_cache'),10,function (){
+            return About::find(2);
+        });
         //分类
-        $categoryList = Category::where('status','=','1')
-            ->get();
+        $categoryList = Cache::remember(sha1($request->fullUrl().'_categoryList_cache'),10,function (){
+            return Category::where('status','=','1')
+                ->get();
+        });
         //相似推荐
-        $xiangshiList = Article::where('status','=','1')
-            ->where('category_id','=',$info->category_id)
-            ->orderBy('sort','asc')
-            ->orderBy('addTime','desc')
-            ->select('id','title')
-            ->take(8)
-            ->get();
+        $xiangshiList = Cache::remember(sha1($request->fullUrl().'_xiangshiList_cache'),10,function () use ($info){
+            return Article::where('status','=','1')
+                ->where('category_id','=',$info->category_id)
+                ->orderBy('sort','asc')
+                ->orderBy('addTime','desc')
+                ->select('id','title')
+                ->take(8)
+                ->get();
+        });
         //随便看看
-        $suijiList = Article::where('status','=','1')
-            ->inRandomOrder()
-            ->select('id','title')
-            ->take(8)
-            ->get();
+        $suijiList = Cache::remember(sha1($request->fullUrl().'_suijiList_cache'),10,function (){
+            return Article::where('status','=','1')
+                ->inRandomOrder()
+                ->select('id','title')
+                ->take(8)
+                ->get();
+        });
         //判断是否登录
         if(\Cookie::has('user_openid')){
             $isLogin = true;
