@@ -10,22 +10,33 @@ use App\Model\Link;
 use App\Model\UserComment;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Cache;
 
 class AboutController extends Controller
 {
-    public function about(){
+    public function about(Request $request){
         //网站推荐
-        $linkList = Link::where('status','=','1')
-            ->orderBy('sort','asc')
-            ->get();
+        $linkList = Cache::remember(sha1($request->fullUrl().'_linkList_cache'),10,function (){
+            return Link::where('status','=','1')
+                ->orderBy('sort','asc')
+                ->get();
+        });
         //关于博客
-        $blogInfo = About::find(2);
+        $blogInfo = Cache::remember(sha1($request->fullUrl().'_blogInfo_cache'),10,function (){
+            return About::find(2);
+        });
         //关于博主
-        $bloggerInfo = About::find(1);
+        $bloggerInfo = Cache::remember(sha1($request->fullUrl().'_bloggerInfo_cache'),10,function (){
+            return About::find(1);
+        });
         //关键字
-        $keyWordsInfo = About::find(3);
+        $keyWordsInfo = Cache::remember(sha1($request->fullUrl().'_keyWordsInfo_cache'),10,function (){
+            return About::find(3);
+        });
         //描述
-        $descriptionInfo = About::find(4);
+        $descriptionInfo = Cache::remember(sha1($request->fullUrl().'_descriptionInfo_cache'),10,function (){
+            return About::find(4);
+        });
         //判断是否登录
         if(\Cookie::has('user_openid')){
             $isLogin = true;
@@ -43,11 +54,11 @@ class AboutController extends Controller
 
     //获取留言
     public function getUserComment(){
-        $count = UserComment::count();
-        $pageCount = ceil($count/8);
         $userComment = UserComment::orderBy('time','desc')
             ->paginate(8)
-            ->toArray()['data'];
+            ->toArray();
+        $pageCount = $userComment['last_page'];
+        $userComment = $userComment['data'];
         $parentList = [];
         $sonList = [];
         foreach ($userComment as $key => $value){
