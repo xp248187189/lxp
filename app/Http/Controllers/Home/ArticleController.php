@@ -185,13 +185,11 @@ class ArticleController extends Controller
     //获取评论
     public function getArticleComment(){
         $articleId = intval(\Route::input('articleId'));
-        $count = ArticleComment::where('article_id','=',$articleId)->count();
         $articleComment = ArticleComment::where('article_id','=',$articleId)
             ->orderBy('time','desc')
             ->paginate(8)
-            ->toArray()['data'];
-        $pageCount = ceil($count/8);
-        return ['data'=>$articleComment,'pageCount'=>$pageCount];
+            ->toArray();
+        return ['data'=>$articleComment['data'],'pageCount'=>$articleComment['last_page']];
     }
 
     //提交评论
