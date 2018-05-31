@@ -54,14 +54,28 @@ class AboutController extends Controller
 
     //获取留言
     public function getUserComment(){
+        //查询父级
         $userComment = UserComment::orderBy('time','desc')
             ->where('pid','=','0')
             ->paginate(8)
             ->toArray();
+        //页数
         $pageCount = $userComment['last_page'];
+        //父级数据
         $newList = $userComment['data'];
-        foreach ($newList as $key => $value){
-            $newList[$key]['son'] = UserComment::where('pid','=',$value['id'])->orderBy('time','asc')->get()->toArray();
+        //查询子集
+        $sonComment = UserComment::orderBy('time','asc')
+            ->where('pid','>','0')
+            ->get()
+            ->toArray();
+        //组合
+        foreach ($newList as $k => $v){
+            $newList[$k]['son'] = [];
+            foreach ($sonComment as $kk => $vv){
+                if ($v['id'] == $vv['pid']){
+                    $newList[$k]['son'][] = $vv;
+                }
+            }
         }
         return ['data'=>$newList,'pageCount'=>$pageCount];
     }
