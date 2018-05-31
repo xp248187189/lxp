@@ -11,22 +11,25 @@ use Illuminate\Support\Facades\Cache;
 class TimeAxisController extends Controller
 {
     public function timeAxis(Request $request){
-        //查询数据
-        $timeAxisList = TimeAxis::where('status','=','1')
-            ->where('isHome','=','1')
-            ->orderBy('year','desc')
-            ->orderBy('month','desc')
-            ->orderBy('day','desc')
-            ->orderBy('hour','desc')
-            ->orderBy('minute','desc')
-            ->get()
-            ->toArray();
-        //根据年分组
-        $yearGroup = arrayGroupBy($timeAxisList,'year');
-        foreach ($yearGroup as $k => $v){
-            //根据月分组
-            $yearGroup[$k] = arrayGroupBy($v,'month');
-        }
+        $yearGroup = Cache::remember(sha1($request->fullUrl().'_yearGroup_cache'),10,function (){
+            //查询数据
+            $timeAxisList = TimeAxis::where('status','=','1')
+                ->where('isHome','=','1')
+                ->orderBy('year','desc')
+                ->orderBy('month','desc')
+                ->orderBy('day','desc')
+                ->orderBy('hour','desc')
+                ->orderBy('minute','desc')
+                ->get()
+                ->toArray();
+            //根据年分组
+            $yearGroup = arrayGroupBy($timeAxisList,'year');
+            foreach ($yearGroup as $k => $v){
+                //根据月分组
+                $yearGroup[$k] = arrayGroupBy($v,'month');
+            }
+            return $yearGroup;
+        });
         //关于博客
         $blogInfo = Cache::remember(sha1($request->fullUrl().'_blogInfo_cache'),10,function (){
             return About::find(2);
