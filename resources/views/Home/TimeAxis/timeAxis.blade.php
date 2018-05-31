@@ -27,18 +27,18 @@
                         <div class="timeline-line"></div>
                         @foreach($timeAxisList as $k => $v)
                         <div class="timeline-year">
-                            <h2><a class="yearToggle" href="javascript:;">{{$v->year}}年</a><i class="fa fa-caret-down fa-fw"></i></h2>
-                            @foreach($v->zi as $kk => $vv)
+                            <h2><a class="yearToggle" href="javascript:;">{{$k}}年</a><i class="fa fa-caret-down fa-fw"></i></h2>
+                            @foreach($v as $kk => $vv)
                             <div class="timeline-month">
-                                <h3 class=" animated fadeInLeft"><a class="monthToggle" href="javascript:;">@php echo $vv->month>9?$vv->month:'0'.$vv->month @endphp月</a><i class="fa fa-caret-down fa-fw"></i></h3>
+                                <h3 class=" animated fadeInLeft"><a class="monthToggle" href="javascript:;">@php echo $kk>9?$kk:'0'.$kk @endphp月</a><i class="fa fa-caret-down fa-fw"></i></h3>
                                 <ul>
-                                    @foreach($vv->zi as $kkk => $vvv)
+                                    @foreach($vv as $kkk => $vvv)
                                     <li class=" ">
                                         <div class="h4  animated fadeInLeft">
-                                            <p class="date">@php echo $vv->month>9?$vv->month:'0'.$vv->month @endphp月@php echo $vvv->day>9?$vvv->day:'0'.$vvv->day @endphp日 @php echo $vvv->hour>9?$vvv->hour:'0'.$vvv->hour @endphp:@php echo $vvv->minute>9?$vvv->minute:'0'.$vvv->minute @endphp</p>
+                                            <p class="date">@php echo $kk>9?$kk:'0'.$kk @endphp月@php echo $vvv['day']>9?$vvv['day']:'0'.$vvv['day'] @endphp日 @php echo $vvv['hour']>9?$vvv['hour']:'0'.$vvv['hour'] @endphp:@php echo $vvv['minute']>9?$vvv['minute']:'0'.$vvv['minute'] @endphp</p>
                                         </div>
                                         <p class="dot-circle animated "><i class="fa fa-dot-circle-o"></i></p>
-                                        <div class="content animated fadeInRight">{!! $vvv->content !!}</div>
+                                        <div class="content animated fadeInRight">{!! $vvv['content'] !!}</div>
                                         <div class="clear"></div>
                                     </li>
                                     @endforeach

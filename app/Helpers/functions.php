@@ -153,3 +153,28 @@ function arrayGroupBy(array $arr, string $key){
     }
     return $grouped;
 }
+
+/**
+ * 判断多维数据是否存在某个值
+ * @param  string $value 要判断的值
+ * @param  array $array 多维数组
+ * @return boolean
+ */
+function deep_in_array(string $value,array $array) {
+    foreach($array as $item) {
+        if(!is_array($item)) {
+            if ($item == $value) {
+                return true;
+            } else {
+                continue;
+            }
+        }
+
+        if(in_array($value, $item)) {
+            return true;
+        } else if(deep_in_array($value, $item)) {
+            return true;
+        }
+    }
+    return false;
+}

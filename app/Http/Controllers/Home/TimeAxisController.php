@@ -11,31 +11,21 @@ use Illuminate\Support\Facades\Cache;
 class TimeAxisController extends Controller
 {
     public function timeAxis(Request $request){
-        $year = Cache::remember(sha1($request->fullUrl().'_year_cache'),10,function (){
-            return TimeAxis::where('status','=','1')
-                ->orderBy('year','desc')
-                ->groupBy('year')
-                ->select('year')
-                ->get();
-        });
-        foreach ($year as $k => $v){
-            $year[$k]['zi'] = Cache::remember(sha1($request->fullUrl().'_year_'.$k.'_zi_cache'),10,function () use ($v){
-                return TimeAxis::where('status','=','1')
-                    ->where('year','=',$v['year'])
-                    ->orderBy('month','desc')
-                    ->groupBy('month')
-                    ->select('month')
-                    ->get();
-            });
-            foreach ($year[$k]['zi'] as $kk => $vv) {
-                $year[$k]['zi'][$kk]['zi'] = Cache::remember($request->fullUrl().'_year_'.$k.'_zi_'.$kk.'_zi_cache',10,function () use ($v,$vv){
-                    return TimeAxis::where('status','=','1')
-                        ->where('year','=',$v['year'])
-                        ->where('month','=',$vv['month'])
-                        ->orderBy('day','desc')
-                        ->get();
-                });
-            }
+        //查询数据
+        $timeAxisList = TimeAxis::where('status','=','1')
+            ->where('isHome','=','1')
+            ->orderBy('year','desc')
+            ->orderBy('month','desc')
+            ->orderBy('day','desc')
+            ->orderBy('hour','desc')
+            ->orderBy('minute','desc')
+            ->get()
+            ->toArray();
+        //根据年分组
+        $yearGroup = arrayGroupBy($timeAxisList,'year');
+        foreach ($yearGroup as $k => $v){
+            //根据月分组
+            $yearGroup[$k] = arrayGroupBy($v,'month');
         }
         //关于博客
         $blogInfo = Cache::remember(sha1($request->fullUrl().'_blogInfo_cache'),10,function (){
@@ -49,7 +39,7 @@ class TimeAxisController extends Controller
         $descriptionInfo = Cache::remember(sha1($request->fullUrl().'_descriptionInfo_cache'),10,function (){
             return About::find(4);
         });
-        return view('Home.TimeAxis.timeAxis')->with('timeAxisList',$year)
+        return view('Home.TimeAxis.timeAxis')->with('timeAxisList',$yearGroup)
             ->with('blogInfo',$blogInfo)
             ->with('keyWordsInfo',$keyWordsInfo)
             ->with('descriptionInfo',$descriptionInfo)
