@@ -6,6 +6,7 @@ use App\Model\Article;
 use App\Model\ArticleComment;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 
 class ArticleCommentController extends Controller
 {
@@ -55,19 +56,39 @@ class ArticleCommentController extends Controller
         );
         $ids = $_GET['id'];
         $ids = trim($ids,',');
+        //查询文章id
         $articleIds = ArticleComment::whereIn('id',explode(',',$ids))->get();
+        //删除评论
         ArticleComment::destroy(explode(',',$ids));
+        //组装文章id
         $articleIdArr = [];
         foreach ($articleIds as $key => $value){
             $articleIdArr[] = $value->article_id;
         }
-        $articleIdArr = array_unique($articleIdArr);
-        foreach ($articleIdArr as $key => $value){
-            $commentCount = ArticleComment::where('article_id','=',$value)->count();
-            $articleOrm = Article::find($value);
-            $articleOrm->commentCount = $commentCount;
-            $articleOrm->save();
+        //数组去重，并让下标重0开始
+        $articleIdArr = array_values(array_unique($articleIdArr));
+        //查询包含此文章id的评论
+        $articleComment = ArticleComment::whereIn('article_id',$articleIdArr)->get();
+        //组装数组，键为文章id，值为评论数
+        $newList = [];
+        foreach ($articleIdArr as $k => $v){
+            $newList[$v] = 0;
+            foreach ($articleComment as $kk => $vv){
+                if ($v == $vv->article_id){
+                    $newList[$v] ++;
+                }
+            }
         }
+        //组装 case when 语句
+        $update_value = '';
+        foreach ($newList as $key => $value){
+            $update_value .= ' when '.$key.' then '.$value;
+        }
+        $update_value = 'case id'.$update_value.' end';
+        //执行操作
+        // DB::table('article')->whereIn('id',$articleIdArr)->update(['commentCount'=>$update_value]);
+        $sql = 'update `lxp_article` set `commentCount` = '.$update_value.' where id in('.implode(',',$articleIdArr).')';
+        DB::update($sql);
         $res['status'] = true;
         $res['echo'] = '删除成功';
         return $res;
