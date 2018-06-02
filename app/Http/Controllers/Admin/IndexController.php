@@ -12,6 +12,7 @@ use App\Model\User;
 use App\Model\UserLogin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Cache;
 
 class IndexController extends Controller
 {
@@ -154,5 +155,11 @@ class IndexController extends Controller
             abort(404);
         }
         phpinfo();
+    }
+
+    //清空缓存
+    public function cacheFlush(){
+        Cache::flush();
+        return ['status' => true,'echo'  => '清空成功'];
     }
 }

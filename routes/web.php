@@ -58,6 +58,8 @@ Route::namespace('Admin')->prefix('myadmin')->group(function () {
         Route::post('/ajaxEdit','IndexController@ajaxEdit');
         //查看phpinfo
         Route::get('/showPhpInfo','IndexController@showPhpInfo');
+        //清空缓存
+        Route::get('/cacheFlush','IndexController@cacheFlush');
     });
     //Auth控制器
     Route::middleware('AdminAuth')->prefix('Auth')->group(function (){

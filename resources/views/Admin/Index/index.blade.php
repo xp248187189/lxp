@@ -26,6 +26,7 @@
 						{{ session()->get('adminInfo')['name'] }}
 					</a>
 					<dl class="layui-nav-child">
+						<dd><a href="javascript:;" onclick="cacheFlush();">清空缓存</a></dd>
 						<dd><a href="javascript:;" onclick="editMe();">基本资料</a></dd>
 						<dd><a href="javascript:;" onclick="signOut();">安全退出</a></dd>
                         @if(session()->get('adminInfo')['id'] == 1)
@@ -276,6 +277,15 @@
                     if (resule.status) {
                         window.location.href = "{{ url('myadmin/login') }}";
                     };
+                },'json');
+            });
+        }
+
+        //清空缓存
+        function cacheFlush() {
+            layer.confirm('确定清空前端缓存', function(index) {
+                $.get('{{ url('myadmin/Index/cacheFlush') }}',{},function(resule){
+                    layer.msg('清空成功');
                 },'json');
             });
         }
