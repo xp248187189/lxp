@@ -56,6 +56,8 @@ Route::namespace('Admin')->prefix('myadmin')->group(function () {
         Route::get('/editMe','IndexController@editMe');
         //ajax执行修改个人信息
         Route::post('/ajaxEdit','IndexController@ajaxEdit');
+        //查看phpinfo
+        Route::get('/showPhpInfo','IndexController@showPhpInfo');
     });
     //Auth控制器
     Route::middleware('AdminAuth')->prefix('Auth')->group(function (){

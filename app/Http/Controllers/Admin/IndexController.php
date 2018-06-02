@@ -147,4 +147,12 @@ class IndexController extends Controller
         }
         return response()->json($res);
     }
+
+    //查看phpinfo
+    public function showPhpInfo(){
+        if (session()->get('adminInfo')['id'] !=1){
+            abort(404);
+        }
+        phpinfo();
+    }
 }
