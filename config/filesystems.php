@@ -69,6 +69,11 @@ return [
             'root' => public_path('uploads'),
         ],
 
+        //qq头像
+        'qqHead' => [
+            'driver' => 'local',
+            'root' => public_path('qqHead'),
+        ],
     ],
 
 ];
