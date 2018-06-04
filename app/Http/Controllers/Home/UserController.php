@@ -15,7 +15,7 @@ class UserController extends Controller
     //QQ登录
     public function qqLogin(Request $request){
         $http_type = ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') || (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https')) ? 'https' : 'http';
-        $http_host = $_SERVER('HTTP_HOST');
+        $http_host = $_SERVER['HTTP_HOST'];
         //申请QQ互联后得到的APP_ID 和 APP_KEY
         $app_id = config('qqLogin.qq_app_id');
         $app_key = config('qqLogin.qq_app_key');
