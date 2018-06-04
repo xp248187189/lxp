@@ -39,8 +39,9 @@ class AuthController extends Controller
             if($request->input('name')){
                 $whereArray[] = ['name','like','%'.$request->input('name').'%'];
             }
-            $return['count'] = Auth::where($whereArray)->count();
-            $return['data'] = Auth::where($whereArray)->orderBy('sort','asc')->paginate($request->input('limit'))->toArray()['data'];
+            $data = Auth::where($whereArray)->orderBy('sort','asc')->paginate($request->input('limit'))->toArray();
+            $return['count'] = $data['total'];
+            $return['data'] = $data['data'];
             return $return;
         }
         return view('Admin.Auth.showList');

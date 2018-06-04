@@ -22,12 +22,13 @@ class ArticleController extends Controller
             if ($request->input('category_id')){
                 $whereArr[] = ['category_id','=',$request->input('category_id')];
             }
-            $return['count'] = Article::where($whereArr)->count();
-            $return['data'] = Article::where($whereArr)
+            $data = Article::where($whereArr)
                 ->orderBy('sort','asc')
                 ->orderBy('addTime','desc')
-                ->paginate($request->input('limit'));
-            $return['data'] = $return['data']->toArray()['data'];
+                ->paginate($request->input('limit'))
+                ->toArray();
+            $return['count'] = $data['total'];
+            $return['data'] = $data['data'];
             return $return;
         }
         $categoryArr = Category::where('status','=',1)
@@ -168,14 +169,7 @@ class ArticleController extends Controller
                 $orWhereArray[] = ['article_name','like','%'.$request->input('keyWord').'%'];
                 $orWhereArray[] = ['user_account','like','%'.$request->input('keyWord').'%'];
             }
-            $return['count'] = ArticleComment::where($whereArray)
-                ->where(function ($query) use ($orWhereArray){
-                    foreach ($orWhereArray as $item) {
-                        $query->orWhere($item[0],$item[1],$item[2]);
-                    }
-                })
-                ->count();
-            $return['data'] = ArticleComment::where($whereArray)
+            $data = ArticleComment::where($whereArray)
                 ->where(function ($query) use ($orWhereArray){
                     foreach ($orWhereArray as $item) {
                         $query->orWhere($item[0],$item[1],$item[2]);
@@ -183,7 +177,9 @@ class ArticleController extends Controller
                 })
                 ->orderBy('time','desc')
                 ->paginate($request->input('limit'))
-                ->toArray()['data'];
+                ->toArray();
+            $return['count'] = $data['total'];
+            $return['data'] = $data['data'];
             return $return;
         }
         return view('Admin.Article.commentList')->with('article_id',$article_id);

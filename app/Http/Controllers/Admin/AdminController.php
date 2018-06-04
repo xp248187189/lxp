@@ -28,22 +28,17 @@ class AdminController extends Controller
             if($request->input('role_id')){
                 $whereArr[] = ['role_id','=',$request->input('role_id')];
             }
-            $return['count'] = Admin::where($whereArr)
+            $data = Admin::where($whereArr)
                 ->where(function ($query) use ($orWhereArr){
                     foreach ($orWhereArr as $item) {
                         //orWhere好像不能用数组形式
                         $query->orWhere($item[0],$item[1],$item[2]);
                     }
                 })
-                ->count();
-            $return['data'] = Admin::where($whereArr)
-                ->where(function ($query) use ($orWhereArr){
-                    foreach ($orWhereArr as $item) {
-                        $query->orWhere($item[0],$item[1],$item[2]);
-                    }
-                })
                 ->paginate($request->input('limit'))
-                ->toArray()['data'];
+                ->toArray();
+            $return['count'] = $data['total'];
+            $return['data'] = $data['data'];
             return $return;
         }
         $roleList = Role::orderBy('sort','asc')->get();
