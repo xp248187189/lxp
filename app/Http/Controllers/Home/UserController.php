@@ -2,20 +2,15 @@
 
 namespace App\Http\Controllers\Home;
 
-use GuzzleHttp\Client;
-use GuzzleHttp\Exception\GuzzleException;
 use App\Model\User;
 use App\Model\UserLogin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
     //QQ登录
     public function qqLogin(Request $request){
-        $http_type = ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') || (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https')) ? 'https' : 'http';
-        $http_host = $_SERVER['HTTP_HOST'];
         //申请QQ互联后得到的APP_ID 和 APP_KEY
         $app_id = config('qqLogin.qq_app_id');
         $app_key = config('qqLogin.qq_app_key');
@@ -92,19 +87,14 @@ class UserController extends Controller
                     if($result_str!=''){
                         $result=json_decode($result_str, true);
                     }
-                    //如果qq头像地址不是https,那就去掉http
-                    // $str = substr($result['figureurl_qq_1'],0,5);
-                    // if ($str != 'https'){
-                    //     // $result['figureurl_qq_1'] = str_replace('http','https',$result['figureurl_qq_1']);
-                    //     $result['figureurl_qq_1'] = str_replace('http:','',$result['figureurl_qq_1']);
-                    // }
-                    //把qq头像保存到本地，因为qq头像地址是http，其实直接改为https也可以，但是谷歌浏览器会有一个黄色的警告，强迫症患者是不允许的
-                    $client = new Client(['verify' => false]);  //忽略SSL错误
-                    $data = $client->request('get',$result['figureurl_qq_1'])->getBody()->getContents();
-                    Storage::disk('qqHead')->put($openid.'.jpg',$data);
+                    //将qq头像地址转为https
+                    $str = substr($result['figureurl_qq_1'],0,5);
+                    if ($str != 'https'){
+                        $result['figureurl_qq_1'] = str_replace('http','https',$result['figureurl_qq_1']);
+                    }
                     $r->account = $result['nickname'];
                     $r->sex = $result['gender'];
-                    $r->head = $http_type.'://'.$http_host.'/qqHead/'.$openid.'.jpg';
+                    $r->head = $result['figureurl_qq_1'];
                     $r->save();
                     //存cookie
                     \Cookie::queue('user_openid',$openid,60*24*7);
@@ -138,21 +128,16 @@ class UserController extends Controller
                 if($result_str!=''){
                     $result=json_decode($result_str, true);
                 }
-                //如果qq头像地址不是https,那就去掉http
-                // $str = substr($result['figureurl_qq_1'],0,5);
-                // if ($str != 'https'){
-                //     // $result['figureurl_qq_1'] = str_replace('http','https',$result['figureurl_qq_1']);
-                //     $result['figureurl_qq_1'] = str_replace('http:','',$result['figureurl_qq_1']);
-                // }
-                //把qq头像保存到本地，因为qq头像地址是http，其实直接改为https也可以，但是谷歌浏览器会有一个黄色的警告，强迫症患者是不允许的
-                $client = new Client(['verify' => false]);  //忽略SSL错误
-                $data = $client->request('get',$result['figureurl_qq_1'])->getBody()->getContents();
-                Storage::disk('qqHead')->put($openid.'.jpg',$data);
+                //将qq头像地址转为https
+                $str = substr($result['figureurl_qq_1'],0,5);
+                if ($str != 'https'){
+                    $result['figureurl_qq_1'] = str_replace('http','https',$result['figureurl_qq_1']);
+                }
                 //存储用户
                 $userOrm = new User();
                 $userOrm->account = $result['nickname'];
                 $userOrm->sex = $result['gender'];
-                $userOrm->head = $http_type.'://'.$http_host.'/qqHead/'.$openid.'.jpg';
+                $userOrm->head = $result['figureurl_qq_1'];
                 $userOrm->connectid = $openid;
                 $userOrm->addTime = time();
                 $userOrm->status = 1;
