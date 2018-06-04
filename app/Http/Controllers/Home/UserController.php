@@ -87,10 +87,11 @@ class UserController extends Controller
                     if($result_str!=''){
                         $result=json_decode($result_str, true);
                     }
-                    //将qq头像地址转为https
+                    //如果qq头像地址不是https,那就去掉http
                     $str = substr($result['figureurl_qq_1'],0,5);
                     if ($str != 'https'){
-                        $result['figureurl_qq_1'] = str_replace('http','https',$result['figureurl_qq_1']);
+                        // $result['figureurl_qq_1'] = str_replace('http','https',$result['figureurl_qq_1']);
+                        $result['figureurl_qq_1'] = str_replace('http:','',$result['figureurl_qq_1']);
                     }
                     $r->account = $result['nickname'];
                     $r->sex = $result['gender'];
@@ -128,10 +129,11 @@ class UserController extends Controller
                 if($result_str!=''){
                     $result=json_decode($result_str, true);
                 }
-                //将qq头像地址转为https
+                //如果qq头像地址不是https,那就去掉http
                 $str = substr($result['figureurl_qq_1'],0,5);
                 if ($str != 'https'){
-                    $result['figureurl_qq_1'] = str_replace('http','https',$result['figureurl_qq_1']);
+                    // $result['figureurl_qq_1'] = str_replace('http','https',$result['figureurl_qq_1']);
+                    $result['figureurl_qq_1'] = str_replace('http:','',$result['figureurl_qq_1']);
                 }
                 //存储用户
                 $userOrm = new User();
