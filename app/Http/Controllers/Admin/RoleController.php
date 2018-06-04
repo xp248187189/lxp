@@ -19,8 +19,9 @@ class RoleController extends Controller
             if($request->input('name')){
                 $whereArray[] = ['name','like','%'.$request->input('name').'%'];
             }
-            $return['count'] = Role::where($whereArray)->count();
-            $return['data'] = Role::where($whereArray)->orderBy('sort','asc')->paginate($request->input('limit'))->toArray()['data'];
+            $data = Role::where($whereArray)->orderBy('sort','asc')->paginate($request->input('limit'))->toArray();
+            $return['count'] = $data['total'];
+            $return['data'] = $data['data'];
             return $return;
         }
         return view('Admin.Role.showList');

@@ -24,14 +24,7 @@ class UserCommentController extends Controller
             if ($request->input('keyWord')){
                 $orWhereArray[] = ['user_account','like','%'.$request->input('keyWord').'%'];
             }
-            $return['count'] = UserComment::where($whereArray)
-                ->where(function ($query) use ($orWhereArray){
-                    foreach ($orWhereArray as $item) {
-                        $query->orWhere($item[0],$item[1],$item[2]);
-                    }
-                })
-                ->count();
-            $return['data'] = UserComment::where($whereArray)
+            $data = UserComment::where($whereArray)
                 ->where(function ($query) use ($orWhereArray){
                     foreach ($orWhereArray as $item) {
                         $query->orWhere($item[0],$item[1],$item[2]);
@@ -39,7 +32,9 @@ class UserCommentController extends Controller
                 })
                 ->orderBy('time','desc')
                 ->paginate($request->input('limit'))
-                ->toArray()['data'];
+                ->toArray();
+            $return['count'] = $data['total'];
+            $return['data'] = $data['data'];
             return $return;
         }
         return view('Admin.UserComment.showList');
@@ -61,14 +56,7 @@ class UserCommentController extends Controller
             if ($request->input('keyWord')){
                 $orWhereArray[] = ['user_account','like','%'.$request->input('keyWord').'%'];
             }
-            $return['count'] = UserComment::where($whereArray)
-                ->where(function ($query) use ($orWhereArray){
-                    foreach ($orWhereArray as $item) {
-                        $query->orWhere($item[0],$item[1],$item[2]);
-                    }
-                })
-                ->count();
-            $return['data'] = UserComment::where($whereArray)
+            $data = UserComment::where($whereArray)
                 ->where(function ($query) use ($orWhereArray){
                     foreach ($orWhereArray as $item) {
                         $query->orWhere($item[0],$item[1],$item[2]);
@@ -76,7 +64,9 @@ class UserCommentController extends Controller
                 })
                 ->orderBy('time','asc')
                 ->paginate($request->input('limit'))
-                ->toArray()['data'];
+                ->toArray();
+            $return['count'] = $data['total'];
+            $return['data'] = $data['data'];
             return $return;
         }
         return view('Admin.UserComment.showHuiFuList')->with('id',$id);

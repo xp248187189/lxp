@@ -17,10 +17,11 @@ class BlackListController extends Controller
             if ($request->input('ip')){
                 $whereArray[] = ['ip','like','%'.$request->input('name').'%'];
             }
-            $return['count'] = BlackList::where($whereArray)->count();
-            $return['data'] = BlackList::where($whereArray)
+            $data = BlackList::where($whereArray)
                 ->paginate($request->input('limit'))
-                ->toArray()['data'];
+                ->toArray();
+            $return['count'] = $data['total'];
+            $return['data'] = $data['data'];
             return $return;
         }
         return view('Admin.BlackList.showList');

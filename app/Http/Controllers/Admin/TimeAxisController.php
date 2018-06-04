@@ -20,15 +20,16 @@ class TimeAxisController extends Controller
             if ($request->input('endTime')){
                 $whereArray[] = ['time','<=',strtotime($request->input('endTime'))+86400];
             }
-            $return['count'] = TimeAxis::where($whereArray)->count();
-            $return['data'] = TimeAxis::where($whereArray)
+            $data = TimeAxis::where($whereArray)
                 ->orderBy('year','desc')
                 ->orderBy('month','desc')
                 ->orderBy('day','desc')
                 ->orderBy('hour','desc')
                 ->orderBy('minute','desc')
                 ->paginate($request->input('limit'))
-                ->toArray()['data'];
+                ->toArray();
+            $return['count'] = $data['total'];
+            $return['data'] = $data['data'];
             return $return;
         }
         return view('Admin.TimeAxis.showList');

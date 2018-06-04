@@ -17,11 +17,12 @@ class NoticeController extends Controller
             if ($request->input('content')){
                 $whereArray[] = ['content','like','%'.$request->input('content').'%'];
             }
-            $return['count'] = Notice::where($whereArray)->count();
-            $return['data'] = Notice::where($whereArray)
+            $data = Notice::where($whereArray)
                 ->orderBy('sort','asc')
                 ->paginate($request->input('limit'))
-                ->toArray()['data'];
+                ->toArray();
+            $return['count'] = $data['total'];
+            $return['data'] = $data['data'];
             return $return;
         }
         return view('Admin.Notice.showList');

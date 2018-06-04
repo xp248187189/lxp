@@ -17,11 +17,12 @@ class LinkController extends Controller
             if ($request->input('name')){
                 $whereArray[] = ['name','like','%'.$request->input('name').'%'];
             }
-            $return['count'] = Link::where($whereArray)->count();
-            $return['data'] = Link::where($whereArray)
+            $data = Link::where($whereArray)
                 ->orderBy('sort','asc')
                 ->paginate($request->input('limit'))
-                ->toArray()['data'];
+                ->toArray();
+            $return['count'] = $data['total'];
+            $return['data'] = $data['data'];
             return $return;
         }
         return view('Admin.Link.showList');

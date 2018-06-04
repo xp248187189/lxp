@@ -25,14 +25,7 @@ class UserLoginController extends Controller
                 $orWhereArray[] = ['ip','like','%'.$request->input('keyWord').'%'];
                 $orWhereArray[] = ['account','like','%'.$request->input('keyWord').'%'];
             }
-            $return['count'] = UserLogin::where($whereArray)
-                ->where(function ($query) use ($orWhereArray){
-                    foreach ($orWhereArray as $item) {
-                        $query->orWhere($item[0],$item[1],$item[2]);
-                    }
-                })
-                ->count();
-            $return['data'] = UserLogin::where($whereArray)
+            $data = UserLogin::where($whereArray)
                 ->where(function ($query) use ($orWhereArray){
                     foreach ($orWhereArray as $item) {
                         $query->orWhere($item[0],$item[1],$item[2]);
@@ -40,7 +33,9 @@ class UserLoginController extends Controller
                 })
                 ->orderBy('time','desc')
                 ->paginate($request->input('limit'))
-                ->toArray()['data'];
+                ->toArray();
+            $return['count'] = $data['total'];
+            $return['data'] = $data['data'];
             return $return;
         }
         return view('Admin.UserLogin.showList');

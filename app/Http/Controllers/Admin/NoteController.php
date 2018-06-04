@@ -17,10 +17,11 @@ class NoteController extends Controller
             if ($request->input('name')){
                 $whereArray[] = ['title','like','%'.$request->input('name').'%'];
             }
-            $return['count'] = Note::where($whereArray)->count();
-            $return['data'] = Note::where($whereArray)
+            $data = Note::where($whereArray)
                 ->paginate($request->input('limit'))
-                ->toArray()['data'];
+                ->toArray();
+            $return['count'] = $data['total'];
+            $return['data'] = $data['data'];
             return $return;
         }
         return view('Admin.Note.showList');
