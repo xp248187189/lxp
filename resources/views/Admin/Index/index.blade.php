@@ -47,13 +47,13 @@
                     @foreach ($authList as $key => $value)
 					<li class="layui-nav-item">
 						<a href="javascript:;">
-                            @php echo empty($value->icon)?'<i class="fa fa-fw fa-search"></i>':'<i class="fa fa-fw '.$value->icon.'"></i>'@endphp <span>{{$value->name}}</span>
+                            @php echo empty($value['icon'])?'<i class="fa fa-fw fa-search"></i>':'<i class="fa fa-fw '.$value['icon'].'"></i>'@endphp <span>{{$value['name']}}</span>
 						</a>
 						<dl class="layui-nav-child">
-                            @foreach ($value->s_authList as $k => $v)
+                            @foreach ($value['s_authList'] as $k => $v)
 							<dd>
-								<a href="javascript:;" data-url="{{ url('myadmin/'.$v->controller.'/'.$v->action) }}" data-id="{{$v->id}}">
-                                    @php echo empty($v->icon)?'<i class="fa fa-fw fa-search"></i>':'<i class="fa fa-fw '.$v->icon.'"></i>';@endphp <span>{{$v->name}}</span>
+								<a href="javascript:;" data-url="{{ url('myadmin/'.$v['controller'].'/'.$v['action']) }}" data-id="{{$v['id']}}">
+                                    @php echo empty($v['icon'])?'<i class="fa fa-fw fa-search"></i>':'<i class="fa fa-fw '.$v['icon'].'"></i>';@endphp <span>{{$v['name']}}</span>
 								</a>
 							</dd>
                             @endforeach

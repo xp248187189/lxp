@@ -23,19 +23,15 @@ class IndexController extends Controller
         //判断是否是超级管理员
         if (session()->get('adminInfo')['id'] ==1){
             //查询权限信息 一级
-            $authList = Auth::where('level',0)->get();
-            foreach ($authList as $key => $value) {
-                //查询权限信息 二级
-                $s_authList = Auth::where('pid',$value['id'])
-                    ->where('level',1)
-                    ->get();
-                if ($s_authList->isEmpty()) {
-                    //没有二级权限，那么一级权限也不显示
-                    unset($authList[$key]);
-                }else{
-                    $authList[$key]['s_authList'] = $s_authList;
-                }
-            }
+            $authList = Auth::where('level',0)
+                ->orderBy('sort','asc')
+                ->get()
+                ->toArray();
+            //查询权限信息 二级
+            $s_authList = Auth::where('level',1)
+                ->orderBy('sort','asc')
+                ->get()
+                ->toArray();
         }else{
             //查询角色信息
             $roleInfo = Role::find(session()->get('adminInfo')['role_id']);
@@ -45,20 +41,27 @@ class IndexController extends Controller
                 //查询权限信息 一级
                 $authList = Auth::whereIn('id',explode(',',$roleInfo['auth_ids']))
                     ->where('level',0)
-                    ->get();
-                foreach ($authList as $key => $value) {
-                    //查询权限信息 二级
-                    $s_authList = Auth::whereIn('id',explode(',',$roleInfo['auth_ids']))
-                        ->where('pid',$value['id'])
-                        ->where('level',1)
-                        ->get();
-                    if ($s_authList->isEmpty()) {
-                        //没有二级权限，那么一级权限也不显示
-                        unset($authList[$key]);
-                    }else{
-                        $authList[$key]['s_authList'] = $s_authList;
-                    }
+                    ->orderBy('sort','asc')
+                    ->get()
+                    ->toArray();
+                //查询权限信息 二级
+                $s_authList = Auth::whereIn('id',explode(',',$roleInfo['auth_ids']))
+                    ->where('level',1)
+                    ->orderBy('sort','asc')
+                    ->get()
+                    ->toArray();
+            }
+        }
+        //组合数据
+        foreach ($authList as $k => $v){
+            foreach ($s_authList as $kk => $vv){
+                if ($vv['pid'] == $v['id']){
+                    $authList[$k]['s_authList'][] = $vv;
                 }
+            }
+            //没有二级权限，那么一级权限也不显示
+            if (!array_key_exists('s_authList',$authList[$k]) || empty($authList[$k]['s_authList'])){
+                unset($authList[$k]);
             }
         }
         return view('Admin.Index.index')->with('authList',$authList)
