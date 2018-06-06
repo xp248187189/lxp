@@ -27,7 +27,7 @@
                     <div class="article-detail shadow">
                         {{--这里用iframe来加载编辑器内容，为了给用户良好体验，iframe加载未完成的时候给个加载动画--}}
                         <div id="showUEditorContentIframeLoding" align="center" style="width: 100%;height: 100px;line-height: 100px;">
-                            <img style="height: 50px;" src="{{asset('/Common/loading.gif')}}" />
+                            <img style="height: 30px;" src="{{asset('/Common/loading.gif')}}" />
                         </div>
                         <iframe id="showUEditorContentIframe" src="{{url('/Detail/'.$info->id.'?iframeGetData=get')}}" width="100%" height="0" scrolling="no" frameborder="0" onload="setShowUEditorContentIframeHeight();"></iframe>
                     </div>
