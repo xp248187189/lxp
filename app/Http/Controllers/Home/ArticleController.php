@@ -128,6 +128,10 @@ class ArticleController extends Controller
         if (empty($info)){
             abort(404);
         }
+        if ($request->input('iframeGetData') == 'get'){
+            showUEditorContent($info->content);
+            exit;
+        }
         //浏览次数递增
         Article::where('id','=',$id)->increment('showNum');
         //关键字

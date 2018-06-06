@@ -25,7 +25,11 @@
                 <div class="blog-main-left">
                     {{--文章内容（使用百度编辑器发表的）--}}
                     <div class="article-detail shadow">
-                        {{showUEditorContent($info->content)}}
+                        {{--这里用iframe来加载编辑器内容，为了给用户良好体验，iframe加载未完成的时候给个加载动画--}}
+                        <div id="showUEditorContentIframeLoding" align="center" style="width: 100%;height: 100px;line-height: 100px;">
+                            <img style="height: 50px;" src="{{asset('/Common/loading.gif')}}" />
+                        </div>
+                        <iframe id="showUEditorContentIframe" src="{{url('/Detail/'.$info->id.'?iframeGetData=get')}}" width="100%" height="0" scrolling="no" frameborder="0" onload="setShowUEditorContentIframeHeight();"></iframe>
                     </div>
                     {{--评论区域--}}
                     <div class="blog-module shadow" style="box-shadow: 0 1px 8px #a6a6a6;">
@@ -165,5 +169,14 @@
                 content: '<img style="width:'+width+'px;" src="'+$(this).attr('src')+'"/>'
             });
         });
+        //iframe加载完成的函数
+        function setShowUEditorContentIframeHeight() {
+            //获取高度
+            var height = $('#showUEditorContentIframe').contents().find("body").height();
+            //设置高度
+            $('#showUEditorContentIframe').height(height);
+            // 隐藏loding
+            $('#showUEditorContentIframeLoding').hide();
+        }
     </script>
 @endsection
