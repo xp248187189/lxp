@@ -6,9 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
     <meta name="keywords" content="@yield('keywords')">
     <meta name="description" content="@yield('description')">
-    {{--百度搜索资源平台--}}
+    {{--百度搜索资源平台(验证)--}}
     <meta name="baidu-site-verification" content="hQ7PceVrnU" />
-    {{--Google Search Console--}}
+    {{--Google Search Console(验证)--}}
     <meta name="google-site-verification" content="blCIvm274GhkrcVqo36Y8LEdbTFA5OorGpJFFDmBnZg" />
     <link rel="stylesheet" type="text/css" href="{{ asset('Common/layui/css/layui.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('Common/font-awesome/css/font-awesome.css') }}">
@@ -22,6 +22,7 @@
     @show
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <script>
+        // 百度统计代码
         var _hmt = _hmt || [];
         (function() {
             var hm = document.createElement("script");
@@ -105,6 +106,7 @@
 {{--遮罩--}}
 <div class="blog-mask animated layui-hide"></div>
 <script>
+    // 百度搜索资源平台(自动推送工具)
     (function(){
         var bp = document.createElement('script');
         var curProtocol = window.location.protocol.split(':')[0];
