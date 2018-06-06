@@ -172,7 +172,7 @@
         //iframe加载完成的函数
         function setShowUEditorContentIframeHeight() {
             //获取高度
-            var height = $('#showUEditorContentIframe').contents().find("body").height();
+            var height = $('#showUEditorContentIframe').contents().find("body").height()+50;
             //设置高度
             $('#showUEditorContentIframe').height(height);
             // 隐藏loding
