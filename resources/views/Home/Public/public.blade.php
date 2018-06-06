@@ -6,7 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
     <meta name="keywords" content="@yield('keywords')">
     <meta name="description" content="@yield('description')">
+    {{--百度搜索资源平台--}}
     <meta name="baidu-site-verification" content="hQ7PceVrnU" />
+    {{--Google Search Console--}}
+    <meta name="google-site-verification" content="blCIvm274GhkrcVqo36Y8LEdbTFA5OorGpJFFDmBnZg" />
     <link rel="stylesheet" type="text/css" href="{{ asset('Common/layui/css/layui.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('Common/font-awesome/css/font-awesome.css') }}">
     {{--全局样式--}}
