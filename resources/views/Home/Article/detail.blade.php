@@ -131,44 +131,6 @@
                 },'json');
             }
         });
-        $(function(){
-            var img_max_width = $('.article-detail').width();
-            $('.article-detail').find('img').each(function(){
-                var img_width  = $(this).width();
-                var img_heigth = $(this).height();
-                if (img_width>img_max_width) {
-                    $(this).attr('width',img_max_width);
-                    var bili = img_width/img_heigth;
-                    var img_max_height = Math.round(img_max_width/bili);
-                    $(this).attr('height',img_max_height);
-                };
-            })
-        })
-        //浏览器窗口绑定resize事件,浏览器窗口大小改变，重新设置iframe高度
-        $(window).on('resize',function(){
-            var img_max_width = $('.article-detail').width();
-            $('.article-detail').find('img').each(function(){
-                var img_width  = $(this).width();
-                var img_heigth = $(this).height();
-                if (img_width>img_max_width) {
-                    $(this).attr('width',img_max_width);
-                    var bili = img_width/img_heigth;
-                    var img_max_height = Math.round(img_max_width/bili);
-                    $(this).attr('height',img_max_height);
-                };
-            });
-        });
-        $('.article-detail').find('img').click(function(){
-            var width = $(window).width()*0.7;
-            layer.open({
-                type: 1,
-                area:width+'px',
-                title: false,
-                closeBtn: 0,
-                shadeClose: true,
-                content: '<img style="width:'+width+'px;" src="'+$(this).attr('src')+'"/>'
-            });
-        });
         //iframe加载完成的函数
         function setShowUEditorContentIframeHeight() {
             //获取高度
@@ -177,6 +139,44 @@
             $('#showUEditorContentIframe').height(height);
             // 隐藏loding
             $('#showUEditorContentIframeLoding').hide();
+            //设置编辑器内容的图片宽高
+            var img_max_width = $('.article-detail').width();
+            $('#showUEditorContentIframe').contents().find('img').each(function(){
+                var img_width  = $(this).width();
+                var img_heigth = $(this).height();
+                if (img_width>img_max_width) {
+                    $(this).attr('width',img_max_width);
+                    var bili = img_width/img_heigth;
+                    var img_max_height = Math.round(img_max_width/bili);
+                    $(this).attr('height',img_max_height);
+                };
+            });
+            //浏览器窗口绑定resize事件,浏览器窗口大小改变，重新设置编辑器内容的图片宽高
+            $(window).on('resize',function(){
+                var img_max_width = $('.article-detail').width();
+                $('#showUEditorContentIframe').contents().find('img').each(function(){
+                    var img_width  = $(this).width();
+                    var img_heigth = $(this).height();
+                    if (img_width>img_max_width) {
+                        $(this).attr('width',img_max_width);
+                        var bili = img_width/img_heigth;
+                        var img_max_height = Math.round(img_max_width/bili);
+                        $(this).attr('height',img_max_height);
+                    };
+                });
+            });
+            //编辑器内容的图片点击放大
+            $('#showUEditorContentIframe').contents().find('img').click(function(){
+                var width = $(window).width()*0.7;
+                layer.open({
+                    type: 1,
+                    area:width+'px',
+                    title: false,
+                    closeBtn: 0,
+                    shadeClose: true,
+                    content: '<img style="width:'+width+'px;" src="'+$(this).attr('src')+'"/>'
+                });
+            });
         }
     </script>
 @endsection
