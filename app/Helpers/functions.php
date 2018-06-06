@@ -6,7 +6,7 @@
  */
 function showUEditor(string $name,$content='',$toolbars='all'){
     if ($toolbars == 'all') {
-        $toolbars = <<<EOP
+        $config = <<<EOP
             toolbars: [[
                     'fullscreen', 'source', '|', 'undo', 'redo', '|',
                     'bold', 'italic', 'underline', 'fontborder', 'strikethrough', 'superscript', 'subscript', 'removeformat', 'formatmatch', 'autotypeset', 'blockquote', 'pasteplain', '|', 'forecolor', 'backcolor', 'insertorderedlist', 'insertunorderedlist', 'selectall', 'cleardoc', '|',
@@ -19,10 +19,12 @@ function showUEditor(string $name,$content='',$toolbars='all'){
                     'horizontal', 'date', 'time', 'spechars', 'wordimage', '|',
                     'inserttable', 'deletetable', 'insertparagraphbeforetable', 'insertrow', 'deleterow', 'insertcol', 'deletecol', 'mergecells', 'mergeright', 'mergedown', 'splittocells', 'splittorows', 'splittocols', 'charts', '|',
                     'preview', 'searchreplace', 'drafts'
-                ]]
+                ]],
+            initialFrameWidth:"99%",
+            zIndex:1
 EOP;
     }else if ($toolbars == 'notFile'){
-        $toolbars = <<<EOP
+        $config = <<<EOP
             toolbars: [[
                     'fullscreen', 'source', '|', 'undo', 'redo', '|',
                     'bold', 'italic', 'underline', 'fontborder', 'strikethrough', 'superscript', 'subscript', 'removeformat', 'formatmatch', 'autotypeset', 'blockquote', 'pasteplain', '|', 'forecolor', 'backcolor', 'insertorderedlist', 'insertunorderedlist', 'selectall', 'cleardoc', '|',
@@ -35,7 +37,19 @@ EOP;
                     'horizontal', 'date', 'time', 'spechars', '|',
                     'inserttable', 'deletetable', 'insertparagraphbeforetable', 'insertrow', 'deleterow', 'insertcol', 'deletecol', 'mergecells', 'mergeright', 'mergedown', 'splittocells', 'splittorows', 'splittocols', 'charts', '|',
                     'preview', 'searchreplace', 'drafts'
-                ]]
+                ]],
+            initialFrameWidth:"99%",
+            zIndex:1
+EOP;
+    }else if ($toolbars == 'nothing'){
+        $config = <<<EOP
+            toolbars: [],
+            autoHeightEnabled: true,
+            autoFloatEnabled: true,
+            enableAutoSave: false,
+            readonly:true,
+            wordCount:false,
+            enableContextMenu: false,
 EOP;
     }
     //定义一个静态变量为false，表示未加载，
@@ -51,7 +65,7 @@ EOP;
         $str.= '<script type="text/javascript" src="'.asset('UEditor').'/ueditor.all.js"></script>';//编辑器源码文件
     }
     $str.= '<script type="text/javascript">';
-    $str.= 'var ue_'.$name.' = UE.getEditor("'.$name.'",{'.$toolbars.',initialFrameWidth:"99%",zIndex:1});';
+    $str.= 'var ue_'.$name.' = UE.getEditor("'.$name.'",{'.$config.'});';
     $str.= '</script>';
     //设置为true表示已经加载
     $isLodeScript = true;
