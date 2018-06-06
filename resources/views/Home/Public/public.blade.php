@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
     <meta name="keywords" content="@yield('keywords')">
     <meta name="description" content="@yield('description')">
+    <meta name="baidu-site-verification" content="hQ7PceVrnU" />
     <link rel="stylesheet" type="text/css" href="{{ asset('Common/layui/css/layui.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('Common/font-awesome/css/font-awesome.css') }}">
     {{--全局样式--}}
