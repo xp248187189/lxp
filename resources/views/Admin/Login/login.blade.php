@@ -75,7 +75,7 @@
                 success:function(data) {
                     if(data.status){
                         layer.msg('登陆成功，正在跳转......',{icon:6,time: 2000},function(){
-                            window.location.href="{{ url('/Index/index') }}";
+                            window.location.href="{{ url('/') }}";
                         });
                     }else{
                         layer.close(index);
