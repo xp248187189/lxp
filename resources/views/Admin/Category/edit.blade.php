@@ -38,7 +38,7 @@
     <script type="text/javascript">
         form.on('submit(submit)', function(data){
             $.ajax({
-                url:"{{url('myadmin/Category/ajaxEdit')}}",
+                url:"{{url('/Category/ajaxEdit')}}",
                 type:'post',
                 data:data.field,
                 dataType:'json',

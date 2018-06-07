@@ -165,7 +165,7 @@
         form.on('submit(submit)', function(data){
             var addForm = getFormData("addForm");
             $.ajax({
-                url:"{{url('myadmin/Role/ajaxAdd')}}",
+                url:"{{url('/Role/ajaxAdd')}}",
                 type:'post',
                 data:addForm,
                 dataType:'json',

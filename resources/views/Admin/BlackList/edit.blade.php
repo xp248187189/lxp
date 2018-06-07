@@ -32,7 +32,7 @@
     <script type="text/javascript">
         form.on('submit(submit)', function(data){
             $.ajax({
-                url:"{{url('myadmin/BlackList/ajaxEdit')}}",
+                url:"{{url('/BlackList/ajaxEdit')}}",
                 type:'post',
                 data:data.field,
                 dataType:'json',

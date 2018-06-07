@@ -66,7 +66,7 @@
     <script type="text/javascript">
         form.on('submit(submit)', function(data){
             $.ajax({
-                url:"{{url('myadmin/Auth/ajaxAdd')}}",
+                url:"{{url('/Auth/ajaxAdd')}}",
                 type:'post',
                 data:data.field,
                 dataType:'json',

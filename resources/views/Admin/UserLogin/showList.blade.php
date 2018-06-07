@@ -39,7 +39,7 @@
                 size: 'lg',
                 page: true,
                 limit:30,
-                url: '{{url("myadmin/UserLogin/showList/getData")}}',
+                url: '{{url("/UserLogin/showList/getData")}}',
                 method: 'post',
                 where: searchFormData,
                 cols:[[
@@ -73,7 +73,7 @@
                     del_id += item.id+',';
                 });
                 del_id = del_id.substring(0,del_id.length-1);
-                $.get('{{url("myadmin/UserLogin/ajaxDel")}}',{id:del_id},function(result){
+                $.get('{{url("/UserLogin/ajaxDel")}}',{id:del_id},function(result){
                     layer.msg(result.echo);
                     if(result.status){
                         layer.close(index);

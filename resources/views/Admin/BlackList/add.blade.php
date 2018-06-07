@@ -31,7 +31,7 @@
     <script type="text/javascript">
         form.on('submit(submit)', function(data){
             $.ajax({
-                url:"{{url('myadmin/BlackList/ajaxAdd')}}",
+                url:"{{url('/BlackList/ajaxAdd')}}",
                 type:'post',
                 data:data.field,
                 dataType:'json',

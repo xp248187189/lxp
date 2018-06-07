@@ -43,7 +43,7 @@
                 size: 'lg',
                 page: true,
                 limit:30,
-                url: '{{url('myadmin/UserComment/showList/getData')}}',
+                url: '{{url('/UserComment/showList/getData')}}',
                 method: 'post',
                 where: searchFormData,
                 cols:[[
@@ -73,7 +73,7 @@
                 //删除
                 layer.confirm('真的删除行么', function(index) {
                     var del_id = data.id;
-                    $.get('{{url("myadmin/UserComment/ajaxDel")}}',{id:del_id,isParent:1},function(result){
+                    $.get('{{url("/UserComment/ajaxDel")}}',{id:del_id,isParent:1},function(result){
                         layer.msg(result.echo);
                         if(result.status){
                             obj.del(); //删除对应行（tr）的DOM结构
@@ -101,7 +101,7 @@
                     type:2,
                     area:['990px', '450px'],
                     maxmin: true,
-                    content: '@php echo url("myadmin/UserComment/showHuiFuList/'+data.id+'")@endphp',
+                    content: '@php echo url("/UserComment/showHuiFuList/'+data.id+'")@endphp',
                     end:function(){
                         $('#searchForm')[0].reset();
                         form.render();
@@ -123,7 +123,7 @@
                     del_id += item.id+',';
                 });
                 del_id = del_id.substring(0,del_id.length-1);
-                $.get('{{url("myadmin/UserComment/ajaxDel")}}',{id:del_id,isParent:1},function(result){
+                $.get('{{url("/UserComment/ajaxDel")}}',{id:del_id,isParent:1},function(result){
                     layer.msg(result.echo);
                     if(result.status){
                         layer.close(index);

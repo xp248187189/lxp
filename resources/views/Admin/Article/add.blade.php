@@ -153,7 +153,7 @@
             }
             var formParam = new FormData($("#addForm")[0]);;
             $.ajax({
-                url:"{{url('myadmin/Article/ajaxAdd')}}",
+                url:"{{url('/Article/ajaxAdd')}}",
                 type:'post',
                 data:formParam,
                 cache:false,

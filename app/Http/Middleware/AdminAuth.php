@@ -20,7 +20,7 @@ class AdminAuth
     {
         //判断是否登录
         if(!\Cookie::get('admin_id')){
-            return redirect('myadmin/login');
+            return redirect('/login');
         }
         //已登录，每次执行操作都进行查询登录人信息并赋值给$_SESSION['adminInfo']
         $adminOrm = new Admin();

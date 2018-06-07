@@ -31,7 +31,7 @@
         form.on('submit(submit)', function(data){
             var formParam = new FormData($("#editForm")[0]);;
             $.ajax({
-                url:"{{url('myadmin/Seo/ajaxEdit')}}",
+                url:"{{url('/Seo/ajaxEdit')}}",
                 type:'post',
                 data:formParam,
                 cache:false,

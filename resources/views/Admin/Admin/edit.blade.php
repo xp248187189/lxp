@@ -124,7 +124,7 @@
                 $('input[name=password2]').attr('class','layui-input');
             }
             $.ajax({
-                url:"{{url('myadmin/Admin/ajaxEdit')}}",
+                url:"{{url('/Admin/ajaxEdit')}}",
                 type:'post',
                 data:data.field,
                 dataType:'json',

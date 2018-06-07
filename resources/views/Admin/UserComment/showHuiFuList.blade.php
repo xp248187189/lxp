@@ -42,7 +42,7 @@
                 size: 'lg',
                 page: true,
                 limit:30,
-                url: '{{url('myadmin/UserComment/showHuiFuList/'.$id.'/getData')}}',
+                url: '{{url('/UserComment/showHuiFuList/'.$id.'/getData')}}',
                 method: 'post',
                 where: searchFormData,
                 cols:[[
@@ -72,7 +72,7 @@
                 //删除
                 layer.confirm('真的删除行么', function(index) {
                     var del_id = data.id;
-                    $.get('{{url("myadmin/UserComment/ajaxDel")}}',{id:del_id,isParent:0},function(result){
+                    $.get('{{url("/UserComment/ajaxDel")}}',{id:del_id,isParent:0},function(result){
                         layer.msg(result.echo);
                         if(result.status){
                             obj.del(); //删除对应行（tr）的DOM结构
@@ -105,7 +105,7 @@
                     del_id += item.id+',';
                 });
                 del_id = del_id.substring(0,del_id.length-1);
-                $.get('{{url("myadmin/UserComment/ajaxDel")}}',{id:del_id,isParent:0},function(result){
+                $.get('{{url("/UserComment/ajaxDel")}}',{id:del_id,isParent:0},function(result){
                     layer.msg(result.echo);
                     if(result.status){
                         layer.close(index);

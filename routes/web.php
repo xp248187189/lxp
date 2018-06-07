@@ -37,7 +37,9 @@ Route::domain(config('domin.home_domin'))->namespace('Home')->middleware('BlackL
 /**
  * 后台
  */
-Route::domain(config('domin.admin_domin'))->namespace('Admin')->prefix('myadmin')->group(function () {
+Route::domain(config('domin.admin_domin'))->namespace('Admin')->group(function () {
+    //默认Index/index页面
+    Route::middleware('AdminAuth')->get('/','IndexController@index');
     //登陆页面
     Route::get('login','LoginController@login');
     //执行登陆

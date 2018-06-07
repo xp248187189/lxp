@@ -48,7 +48,7 @@
                 size: 'lg',
                 page: true,
                 limit:30,
-                url: '{{url("myadmin/User/showList/getData")}}',
+                url: '{{url("/User/showList/getData")}}',
                 method: 'post',
                 where: searchFormData,
                 cols:[[
@@ -78,7 +78,7 @@
             }else{
                 var statusVal = 0;
             }
-            $.post('{{url("myadmin/User/ajaxEdit")}}',{id:data.value,status:statusVal},function(result){
+            $.post('{{url("/User/ajaxEdit")}}',{id:data.value,status:statusVal},function(result){
                 layer.msg(result.echo);
             },'json').error(function(){layer.msg('程序错误!');});
         });

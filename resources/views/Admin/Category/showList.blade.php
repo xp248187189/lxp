@@ -42,7 +42,7 @@
                 size: 'lg',
                 page: true,
                 limit:30,
-                url: '{{url("myadmin/Category/showList/getData")}}',
+                url: '{{url("/Category/showList/getData")}}',
                 method: 'post',
                 where: searchFormData,
                 cols:[[
@@ -69,7 +69,7 @@
             }else{
                 var statusVal = 0;
             }
-            $.post('{{url("myadmin/Category/ajaxEdit")}}',{id:data.value,status:statusVal},function(result){
+            $.post('{{url("/Category/ajaxEdit")}}',{id:data.value,status:statusVal},function(result){
                 layer.msg(result.echo);
             },'json').error(function(){layer.msg('程序错误!');});
         });
@@ -81,7 +81,7 @@
             var data = {};
             data['id'] = obj.data.id;
             data[obj.field] = obj.value;
-            $.post('{{url("myadmin/Category/ajaxEdit")}}',data,function(result){
+            $.post('{{url("/Category/ajaxEdit")}}',data,function(result){
                 layer.msg(result.echo);
             },'json');
         });
@@ -94,7 +94,7 @@
                 //删除
                 layer.confirm('真的删除行么', function(index) {
                     var del_id = data.id;
-                    $.get('{{url("myadmin/Category/ajaxDel")}}',{id:del_id},function(result){
+                    $.get('{{url("/Category/ajaxDel")}}',{id:del_id},function(result){
                         layer.msg(result.echo);
                         if(result.status){
                             obj.del(); //删除对应行（tr）的DOM结构
@@ -108,7 +108,7 @@
                     type:2,
                     area:['700px', '350px'],
                     maxmin: true,
-                    content: '@php echo url("myadmin/Category/edit/'+data.id+'")@endphp',
+                    content: '@php echo url("/Category/edit/'+data.id+'")@endphp',
                     end:function(){
                         $('#searchForm')[0].reset();
                         form.render();
@@ -124,7 +124,7 @@
                 type:2,
                 area:['700px', '350px'],
                 maxmin: true,
-                content: '{{url("myadmin/Category/add")}}',
+                content: '{{url("/Category/add")}}',
                 end:function(){
                     $('#searchForm')[0].reset();
                     form.render();
@@ -145,7 +145,7 @@
                     del_id += item.id+',';
                 });
                 del_id = del_id.substring(0,del_id.length-1);
-                $.get('{{url("myadmin/Category/ajaxDel")}}',{id:del_id},function(result){
+                $.get('{{url("/Category/ajaxDel")}}',{id:del_id},function(result){
                     layer.msg(result.echo);
                     if(result.status){
                         layer.close(index);

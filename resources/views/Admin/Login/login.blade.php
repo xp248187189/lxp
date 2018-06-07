@@ -67,7 +67,7 @@
         form.on('submit(login)', function (data) {
             var index = layer.load(1);
             $.ajax({
-                url:'{{ url('/myadmin/doLogin') }}',// 跳转到 action
+                url:'{{ url('/doLogin') }}',// 跳转到 action
                 type:'post',
                 data:data.field,
                 cache:false,
@@ -75,7 +75,7 @@
                 success:function(data) {
                     if(data.status){
                         layer.msg('登陆成功，正在跳转......',{icon:6,time: 2000},function(){
-                            window.location.href="{{ url('/myadmin/Index/index') }}";
+                            window.location.href="{{ url('/Index/index') }}";
                         });
                     }else{
                         layer.close(index);

@@ -68,7 +68,7 @@
         };
         form.on('submit(submit)', function(data){
             $.ajax({
-                url:"{{url('myadmin/Auth/ajaxEdit')}}",
+                url:"{{url('/Auth/ajaxEdit')}}",
                 type:'post',
                 data:data.field,
                 dataType:'json',

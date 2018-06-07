@@ -165,7 +165,7 @@
         form.on('submit(submit)', function(data){
             var editForm = getFormData("editForm");
             $.ajax({
-                url:"{{url('myadmin/Role/ajaxEdit')}}",
+                url:"{{url('/Role/ajaxEdit')}}",
                 type:'post',
                 data:editForm,
                 dataType:'json',

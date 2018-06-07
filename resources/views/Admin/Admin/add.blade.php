@@ -113,7 +113,7 @@
         });
         form.on('submit(submit)', function(data){
             $.ajax({
-                url:"{{url('myadmin/Admin/ajaxAdd')}}",
+                url:"{{url('/Admin/ajaxAdd')}}",
                 type:'post',
                 data:data.field,
                 dataType:'json',

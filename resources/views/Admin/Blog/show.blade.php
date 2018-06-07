@@ -111,7 +111,7 @@
             }
             var formParam = new FormData($("#editForm")[0]);;
             $.ajax({
-                url:"{{url('myadmin/Blog/ajaxEdit')}}",
+                url:"{{url('/Blog/ajaxEdit')}}",
                 type:'post',
                 data:formParam,
                 cache:false,

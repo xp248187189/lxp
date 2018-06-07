@@ -59,7 +59,7 @@
         form.on('submit(submit)', function(data){
             layedit.sync(editIndex);
             $.ajax({
-                url:"{{url('myadmin/TimeAxis/ajaxEdit')}}",
+                url:"{{url('/TimeAxis/ajaxEdit')}}",
                 type:'post',
                 data:getFormData('myform'),
                 dataType:'json',

@@ -43,7 +43,7 @@
     <script type="text/javascript">
         form.on('submit(submit)', function(data){
             $.ajax({
-                url:"{{url('myadmin/Link/ajaxAdd')}}",
+                url:"{{url('/Link/ajaxAdd')}}",
                 type:'post',
                 data:data.field,
                 dataType:'json',

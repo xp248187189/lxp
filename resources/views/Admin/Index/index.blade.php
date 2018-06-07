@@ -30,7 +30,7 @@
 						<dd><a href="javascript:;" onclick="editMe();">基本资料</a></dd>
 						<dd><a href="javascript:;" onclick="signOut();">安全退出</a></dd>
                         @if(session()->get('adminInfo')['id'] == 1)
-                            <dd><a href="javascript:;" onclick="window.open('{{url('/myadmin/Index/showPhpInfo')}}');">phpinfo</a></dd>
+                            <dd><a href="javascript:;" onclick="window.open('{{url('/Index/showPhpInfo')}}');">phpinfo</a></dd>
                         @endif
 					</dl>
 				</li>
@@ -52,7 +52,7 @@
 						<dl class="layui-nav-child">
                             @foreach ($value['s_authList'] as $k => $v)
 							<dd>
-								<a href="javascript:;" data-url="{{ url('myadmin/'.$v['controller'].'/'.$v['action']) }}" data-id="{{$v['id']}}">
+								<a href="javascript:;" data-url="{{ url('/'.$v['controller'].'/'.$v['action']) }}" data-id="{{$v['id']}}">
                                     @php echo empty($v['icon'])?'<i class="fa fa-fw fa-search"></i>':'<i class="fa fa-fw '.$v['icon'].'"></i>';@endphp <span>{{$v['name']}}</span>
 								</a>
 							</dd>
@@ -71,7 +71,7 @@
 				</ul>
 				<div class="layui-tab-content">
 					<div class="layui-tab-item layui-show">
-						<iframe id="indexIframe" src="{{ url('myadmin/Index/welcome') }}" frameborder="0" scrolling="yes" style="width:100%;border:none;outline:none;" onload="setIframeHeight(this)"></iframe>
+						<iframe id="indexIframe" src="{{ url('/Index/welcome') }}" frameborder="0" scrolling="yes" style="width:100%;border:none;outline:none;" onload="setIframeHeight(this)"></iframe>
 					</div>
 				</div>
 			</div>
@@ -264,7 +264,7 @@
                 title:'修改个人资料',
                 type: 2,
                 area:['700px', '350px'],
-                content: '{{ url('myadmin/Index/editMe') }}',
+                content: '{{ url('/Index/editMe') }}',
                 end: function(){
                     $('#top_nav').find('.layui-this').removeClass('layui-this');
                 }
@@ -273,9 +273,9 @@
         //退出
         function signOut(){
             layer.confirm('真的退出么', function(index) {
-                $.get('{{ url('myadmin/doLogOut') }}',{},function(resule){
+                $.get('{{ url('/doLogOut') }}',{},function(resule){
                     if (resule.status) {
-                        window.location.href = "{{ url('myadmin/login') }}";
+                        window.location.href = "{{ url('/login') }}";
                     };
                 },'json');
             });
@@ -284,7 +284,7 @@
         //清空缓存
         function cacheFlush() {
             layer.confirm('确定清空前端缓存', function(index) {
-                $.get('{{ url('myadmin/Index/cacheFlush') }}',{},function(resule){
+                $.get('{{ url('/Index/cacheFlush') }}',{},function(resule){
                     layer.msg('清空成功');
                 },'json');
             });

@@ -55,7 +55,7 @@
         form.on('submit(submit)', function(data){
             layedit.sync(editIndex);
             $.ajax({
-                url:"{{url('myadmin/Notice/ajaxAdd')}}",
+                url:"{{url('/Notice/ajaxAdd')}}",
                 type:'post',
                 data:getFormData('myform'),
                 dataType:'json',
