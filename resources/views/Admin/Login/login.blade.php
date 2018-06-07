@@ -131,7 +131,7 @@
             loginHtml += '<input type="text" name="verify" lay-verify="required" placeholder="请输入验证码" value="" autocomplete="off" class="layui-input">';
             loginHtml += '</div>';
             loginHtml += '<div class="layui-input-inline" style="width:114px;">';
-            loginHtml += '<img id="verify_img" src="/captcha/default?'+Math.random()+'" onclick="getVerify();" style="height:38px;">';
+            loginHtml += '<img id="verify_img" src="{{captcha_src()}}" onclick="this.src=\'{{captcha_src()}}\'+Math.random()" style="height:38px;">';
             loginHtml += '</div>';
             loginHtml += '</div>';
             loginHtml += '</div>';
@@ -162,12 +162,6 @@
                     form.render();
                 }
             });
-        }
-        /**
-         * 获取验证码
-         */
-        function getVerify(){
-            $('#verify_img').attr('src',"/captcha/default?"+Math.random());
         }
         /**
          * canvas动画
