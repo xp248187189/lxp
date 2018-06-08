@@ -273,4 +273,19 @@ Route::domain(config('domin.admin_domin'))->namespace('Admin')->group(function (
         //删除
         Route::get('/ajaxDel','BlackListController@ajaxDel');
     });
+    //VipVideo控制器
+    Route::middleware('AdminAuth')->prefix('VipVideo')->group(function (){
+        //首页
+        Route::any('/showList/{action?}','VipVideoController@showList');
+        //添加页
+        Route::get('/add','VipVideoController@add');
+        //执行添加
+        Route::post('/ajaxAdd','VipVideoController@ajaxAdd');
+        //修改页
+        Route::get('/edit/{id}','VipVideoController@edit');
+        //执行修改
+        Route::post('/ajaxEdit','VipVideoController@ajaxEdit');
+        //删除
+        Route::get('/ajaxDel','VipVideoController@ajaxDel');
+    });
 });
