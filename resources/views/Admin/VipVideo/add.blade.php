@@ -21,7 +21,7 @@
             <label class="layui-form-label">类型</label>
             <div class="layui-input-block">
                 <input type="radio" name="type" value="1" title="API" checked>
-                <input type="radio" name="type" value="0" title="播放地址">
+                <input type="radio" name="type" value="2" title="播放地址">
             </div>
         </div>
         <div class="layui-form-item">
