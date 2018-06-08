@@ -32,6 +32,8 @@ Route::domain(config('domin.home_domin'))->namespace('Home')->middleware('BlackL
     Route::get('qqLogin','UserController@qqLogin');
     //退出登陆
     Route::get('userLogOut','UserController@userLogOut');
+    //vip视频解析
+    Route::get('vip/{action?}','VipVideoController@vipVideo');
 });
 
 /**
