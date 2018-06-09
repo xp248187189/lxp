@@ -20,7 +20,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label">排序</label>
             <div class="layui-input-block">
-                <input type="text" name="sort" lay-verify="required" autocomplete="off" class="layui-input" value="99">
+                <input type="text" name="sort" lay-verify="required" autocomplete="off" class="layui-input" value="999">
             </div>
         </div>
         <div class="layui-form-item">
