@@ -75,7 +75,7 @@
 
                     <table id="dataTable" lay-filter="dataTable" lay-size="sm"></table>
                     <script type="text/html" id="barDemo">
-                        <a class="layui-btn layui-btn-sm" lay-event="see">观看</a>
+                        <a class="layui-btn layui-btn-sm layui-btn-fluid" lay-event="see">GO</a>
                     </script>
                 </div>
             </fieldset>
@@ -108,8 +108,8 @@
             method: 'get',
             where: searchFormData,
             cols:[[
-                {field:'name',title:'名称',align:'left',width:'80%'},
-                {fixed:'right',title:'操作',align:'center',toolbar: '#barDemo',width:'20%',minWidth:'70'},
+                {field:'name',title:'名称',align:'left',width:'78%'},
+                {fixed:'right',title:'操作',align:'center',toolbar: '#barDemo',width:'22%',minWidth:'100'},
             ]]
         });
     }
