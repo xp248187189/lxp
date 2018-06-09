@@ -29,10 +29,10 @@
             </fieldset>
             <fieldset class="layui-elem-field">
                 <legend>声明</legend>
-                <div class="layui-field-box" style="font-size: 20px;">
-                    ①本站解析均源于互联网接口<br/>
-                    ②本站视频均源于互联网视频网站<br/>
-                    ③本站不进行任何资源存储<br/>
+                <div class="layui-field-box">
+                    ①本站解析均源于互联网接口<br/><br/>
+                    ②本站视频均源于互联网视频网站<br/><br/>
+                    ③本站不进行任何资源存储<br/><br/>
                 </div>
             </fieldset>
             <form class="layui-form" action="">
