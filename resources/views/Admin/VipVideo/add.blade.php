@@ -18,6 +18,12 @@
             </div>
         </div>
         <div class="layui-form-item">
+            <label class="layui-form-label">排序</label>
+            <div class="layui-input-block">
+                <input type="text" name="sort" lay-verify="required" autocomplete="off" class="layui-input" value="99">
+            </div>
+        </div>
+        <div class="layui-form-item">
             <label class="layui-form-label">类型</label>
             <div class="layui-input-block">
                 <input type="radio" name="type" value="1" title="API" checked>

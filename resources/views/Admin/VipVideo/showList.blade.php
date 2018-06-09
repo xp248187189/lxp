@@ -118,7 +118,7 @@
                 layer.open({
                     title:'修改',
                     type:2,
-                    area:['700px', '350px'],
+                    area:['700px', '370px'],
                     maxmin: true,
                     content: '@php echo url("/VipVideo/edit/'+data.id+'")@endphp',
                     end:function(){
@@ -134,7 +134,7 @@
             layer.open({
                 title:'添加',
                 type:2,
-                area:['700px', '350px'],
+                area:['700px', '370px'],
                 maxmin: true,
                 content: '{{url("/VipVideo/add")}}',
                 end:function(){

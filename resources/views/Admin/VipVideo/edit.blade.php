@@ -19,6 +19,12 @@
             </div>
         </div>
         <div class="layui-form-item">
+            <label class="layui-form-label">排序</label>
+            <div class="layui-input-block">
+                <input type="text" name="sort" lay-verify="required" autocomplete="off" class="layui-input" value="{{$VipVideoInfo->sort}}">
+            </div>
+        </div>
+        <div class="layui-form-item">
             <label class="layui-form-label">类型</label>
             <div class="layui-input-block">
                 <input type="radio" name="type" value="1" title="API" <?php echo $VipVideoInfo->type=='1'?'checked':'';?>>
