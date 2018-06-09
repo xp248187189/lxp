@@ -65,8 +65,8 @@
                 cols:[[
                     {type:'checkbox',fixed:'left'},
                     {type:'numbers',fixed:'left',title:'序号'},
-                    {field:'name',title:'名称',edit:'text',sort:true,align:'center'},
-                    {field:'url',title:'URL',edit:'text',sort:true,align:'center'},
+                    {field:'name',title:'名称',sort:true,align:'center'},
+                    {field:'url',title:'URL',sort:true,align:'center'},
                     {field:'status',title:'状态',sort:true,align:'center',templet:'#statusTemplet'},
                     {field:'type',title:'类型',sort:true,align:'center',templet:'#typeTemplet'},
                     {field:'sort',title:'排序',edit:'text',sort:true,align:'center'},
