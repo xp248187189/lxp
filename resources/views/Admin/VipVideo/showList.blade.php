@@ -11,6 +11,13 @@
         </div>
         <div class="layui-inline">
             <form class="layui-form" id="searchForm">
+                <div style="display: inline-block;">
+                    <select name="type">
+                        <option value="0">类型不限</option>
+                        <option value="1">API</option>
+                        <option value="2">播放地址</option>
+                    </select>
+                </div>
                 <input type="text" name="name" autocomplete="off" class="layui-input" placeholder="关键字" style="width: 100px;">
                 <button lay-submit lay-filter="search" class="layui-btn layui-btn-sm">搜索</button>
             </form>

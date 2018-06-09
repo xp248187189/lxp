@@ -17,6 +17,9 @@ class VipVideoController extends Controller
             if ($request->input('name')){
                 $whereArray[] = ['name','like','%'.$request->input('name').'%'];
             }
+            if ($request->input('type')){
+                $whereArray[] = ['type','=',$request->input('type')];
+            }
             $data = VipVideo::where($whereArray)
                 ->orderBy('sort','asc')
                 ->orderBy('id','asc')
