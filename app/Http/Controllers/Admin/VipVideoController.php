@@ -18,6 +18,7 @@ class VipVideoController extends Controller
                 $whereArray[] = ['name','like','%'.$request->input('name').'%'];
             }
             $data = VipVideo::where($whereArray)
+                ->orderBy('sort','asc')
                 ->paginate($request->input('limit'))
                 ->toArray();
             $return['count'] = $data['total'];
@@ -39,6 +40,7 @@ class VipVideoController extends Controller
         $orm->url = $request->input('url');
         $orm->type = $request->input('type');
         $orm->status = $request->input('status');
+        $orm->sort = $request->input('sort');
         $orm->save();
         $res['status'] = true;
         $res['echo'] = '添加成功';
@@ -67,6 +69,9 @@ class VipVideoController extends Controller
         }
         if ($request->input('status') !== null){
             $orm->status = $request->input('status');
+        }
+        if ($request->input('sort')){
+            $orm->sort = $request->input('sort');
         }
         $orm->save();
         $res['status'] = true;

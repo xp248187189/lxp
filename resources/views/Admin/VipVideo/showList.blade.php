@@ -62,6 +62,7 @@
                     {field:'url',title:'URL',edit:'text',sort:true,align:'center'},
                     {field:'status',title:'状态',sort:true,align:'center',templet:'#statusTemplet'},
                     {field:'type',title:'类型',sort:true,align:'center',templet:'#typeTemplet'},
+                    {field:'sort',title:'排序',edit:'text',sort:true,align:'center'},
                     {fixed:'right',title:'操作',align:'center',toolbar: '#barDemo'},
                 ]],
                 done:function(res, curr, count){
