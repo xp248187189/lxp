@@ -24,6 +24,7 @@ class VipVideoController extends Controller
             $data = Cache::remember(sha1($request->fullUrl().'_vipVideoUrl_cache'),10,function () use ($whereArray,$request){
                 return VipVideo::where($whereArray)
                     ->orderBy('sort','asc')
+                    ->orderBy('id','asc')
                     ->paginate($request->input('limit'))
                     ->toArray();
             });
@@ -33,7 +34,11 @@ class VipVideoController extends Controller
         }
         //api
         $vipVideoApi = Cache::remember(sha1($request->fullUrl().'_vipVideoApi_cache'),10,function (){
-            return VipVideo::where('status','=','1')->where('type','=','1')->orderBy('sort','asc')->get();
+            return VipVideo::where('status','=','1')
+                ->where('type','=','1')
+                ->orderBy('sort','asc')
+                ->orderBy('id','asc')
+                ->get();
         });
         //关于博客
         $blogInfo = Cache::remember(sha1($request->fullUrl().'_blogInfo_cache'),10,function (){

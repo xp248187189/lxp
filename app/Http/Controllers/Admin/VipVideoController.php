@@ -19,6 +19,7 @@ class VipVideoController extends Controller
             }
             $data = VipVideo::where($whereArray)
                 ->orderBy('sort','asc')
+                ->orderBy('id','asc')
                 ->paginate($request->input('limit'))
                 ->toArray();
             $return['count'] = $data['total'];
