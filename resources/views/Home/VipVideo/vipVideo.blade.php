@@ -109,7 +109,7 @@
             where: searchFormData,
             cols:[[
                 {field:'name',title:'名称',align:'left',width:'80%'},
-                {fixed:'right',title:'操作',align:'center',toolbar: '#barDemo',width:'20%',minWidth:'50'},
+                {fixed:'right',title:'操作',align:'center',toolbar: '#barDemo',width:'20%',minWidth:'70'},
             ]]
         });
     }
