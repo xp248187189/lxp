@@ -56,18 +56,18 @@ class NoteController extends Controller
     public function ajaxEdit(Request $request){
         $id = $request->input('id');
         $orm = Note::find($id);
-        if ($request->input('title')){
+        //if ($request->input('title')){
             $orm->title = $request->input('title');
-        }
-        if ($request->input('url')){
+        //}
+        //if ($request->input('url')){
             $orm->url = $request->input('url');
-        }
-        if ($request->input('account')){
+        //}
+        //if ($request->input('account')){
             $orm->account = $request->input('account');
-        }
-        if ($request->input('password')){
+        //}
+        //if ($request->input('password')){
             $orm->password = $request->input('password');
-        }
+        //}
         $orm->save();
         $res['status'] = true;
         $res['echo'] = '修改成功';
