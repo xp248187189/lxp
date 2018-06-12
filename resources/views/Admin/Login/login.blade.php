@@ -48,10 +48,7 @@
         //自定义验证
         form.verify({
             account: function(value, item){ //value：表单的值、item：表单的DOM对象
-                if($.trim(value)==''){
-                    return '请正确填写用户名';
-                }
-                if($.trim(value).length<3){
+                if(value.length<=2){
                     return '用户名不应该少于3位字符';
                 }
                 if(!new RegExp("^[a-zA-Z0-9_\u4e00-\u9fa5\\s·]+$").test(value)){
@@ -126,13 +123,13 @@
             loginHtml += '<div class="layui-form-item">';
             loginHtml += '<label class="layui-form-label">账号</label>';
             loginHtml += '<div class="layui-input-inline pm-login-input">';
-            loginHtml += '<input type="text" name="account" lay-verify="account|required" placeholder="请输入账号" value="" autocomplete="off" class="layui-input">';
+            loginHtml += '<input type="text" name="account" lay-verify="required|account" placeholder="请输入账号" value="" autocomplete="off" class="layui-input">';
             loginHtml += '</div>';
             loginHtml += '</div>';
             loginHtml += '<div class="layui-form-item">';
             loginHtml += '<label class="layui-form-label">密码</label>';
             loginHtml += '<div class="layui-input-inline pm-login-input">';
-            loginHtml += '<input type="password" name="password" lay-verify="password|required" placeholder="请输入密码" value="" autocomplete="off" class="layui-input">';
+            loginHtml += '<input type="password" name="password" lay-verify="required|password" placeholder="请输入密码" value="" autocomplete="off" class="layui-input">';
             loginHtml += '</div>';
             loginHtml += '</div>';
             loginHtml += '<div class="layui-form-item">';
