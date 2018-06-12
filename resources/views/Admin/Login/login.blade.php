@@ -48,6 +48,12 @@
         //自定义验证
         form.verify({
             account: function(value, item){ //value：表单的值、item：表单的DOM对象
+                if($.trim(value)==''){
+                    return '请正确填写用户名';
+                }
+                if($.trim(value).length<3){
+                    return '用户名不应该少于3位字符';
+                }
                 if(!new RegExp("^[a-zA-Z0-9_\u4e00-\u9fa5\\s·]+$").test(value)){
                     return '用户名不能有特殊字符';
                 }
@@ -80,7 +86,7 @@
                     }else{
                         layer.close(index);
                         layer.msg(data.echo,{icon:5});
-                        getVerify();
+                        $('#verify_img').attr('src','{{captcha_src()}}'+Math.random());
                         $('input[name=verify]').val('');
                     }
                 },
@@ -98,9 +104,14 @@
                     //登录框不存在，则显示登录框
                     loginHtml();
                 } else {
-                    //登录框存在不做任何操作
-                    //因为layui表单自动绑定了Enter键提交表单，所以不用再模拟点击一次
-                    // $('button[lay-filter=login]').click();
+                    //判断三个输入框是否获取焦点，都没有获取焦点就模拟点击
+                    //如果获取了焦点，因为layui表单自动绑定了Enter键提交表单，所以不用再模拟点击一次
+                    var accountInputIsFocus =  $('input[name="account"]').is(':focus');
+                    var passwordInputIsFocus =  $('input[name="password"]').is(':focus');
+                    var verifyInputIsFocus =  $('input[name="verify"]').is(':focus');
+                    if (accountInputIsFocus==false && passwordInputIsFocus==false && verifyInputIsFocus==false){
+                        $('button[lay-filter=login]').click();
+                    }
                 }
             }
         });
