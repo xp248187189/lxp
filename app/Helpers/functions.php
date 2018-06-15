@@ -212,6 +212,7 @@ function caculateAKSN($ak, $sk, $uri, $querystring_arrays, $method = 'GET'){
 }
 
 /**
+ * 自己封装的 cURL 方法
  * @param $url 请求网址
  * @param bool $params 请求参数
  * @param bool $ispost 是否post请求
