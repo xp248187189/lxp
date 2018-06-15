@@ -111,23 +111,24 @@ function getIpLookup($ip = ''){
     if(empty($ip)){
         return false;
     }
-    $res = @file_get_contents('http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=js&ip=' . $ip);
-    if(empty($res)){
-        return false;
+    $url = "https://api.map.baidu.com/location/ip?ip=%s&ak=%s&sn=%s";
+    $uri = '/location/ip';
+    $ak = config('baiduApi.baidu_ak');
+    $sk = config('baiduApi.baidu_sk');
+    $querystring_arrays = array(
+        'ip' => $ip,
+        'ak' => $ak,
+    );
+    //调用sn计算函数
+    $sn = caculateAKSN($ak, $sk, $uri, $querystring_arrays);
+    //完整请求的url，请求参数中有中文、特殊字符等需要进行urlencode，确保请求串与sn对应
+    $target = sprintf($url, $ip, $ak, $sn);
+    //发送请求 ($res 是 stdClass 对象)
+    $res = json_decode(curl($target,false,false,true));
+    if ($res->status === 0){
+        return $res;
     }
-    $jsonMatches = array();
-    preg_match('#\{.+?\}#', $res, $jsonMatches);
-    if(!isset($jsonMatches[0])){
-        return false;
-    }
-    $json = json_decode($jsonMatches[0],true);
-    if(isset($json['ret']) && $json['ret'] == 1){
-        $json['ip'] = $ip;
-        unset($json['ret']);
-    }else{
-        return false;
-    }
-    return $json;
+    return false;
 }
 /**
  * 二维数组根据字段进行排序
@@ -191,4 +192,67 @@ function deep_in_array(string $value,array $array) {
         }
     }
     return false;
+}
+
+/**
+ * 百度地图开放平台获取 sn
+ * @param  string $ak                 应用ak
+ * @param  string $sk                 应用sk
+ * @param  string $uri                get请求uri前缀
+ * @param  string $querystring_arrays 请求串数组
+ * @param  string $method             请求类型
+ * @return string                     sn
+ */
+function caculateAKSN($ak, $sk, $uri, $querystring_arrays, $method = 'GET'){
+    if ($method === 'POST'){
+        ksort($querystring_arrays);
+    }
+    $querystring = http_build_query($querystring_arrays);
+    return md5(urlencode($uri.'?'.$querystring.$sk));
+}
+
+/**
+ * @param $url 请求网址
+ * @param bool $params 请求参数
+ * @param bool $ispost 是否post请求
+ * @param bool $https https协议
+ * @return bool|mixed
+ */
+function curl($url, $params = false, $ispost = false, $https = false){
+    $httpInfo = array();
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_1);
+    curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.118 Safari/537.36');
+    curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 30);
+    curl_setopt($ch, CURLOPT_TIMEOUT, 30);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    if ($https) {
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE); // 对认证证书来源的检查
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE); // 从证书中检查SSL加密算法是否存在
+    }
+    if ($ispost) {
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $params);
+        curl_setopt($ch, CURLOPT_URL, $url);
+    } else {
+        if ($params) {
+            if (is_array($params)) {
+                $params = http_build_query($params);
+            }
+            curl_setopt($ch, CURLOPT_URL, $url . '?' . $params);
+        } else {
+            curl_setopt($ch, CURLOPT_URL, $url);
+        }
+    }
+
+    $response = curl_exec($ch);
+
+    if ($response === FALSE) {
+        //echo "cURL Error: " . curl_error($ch);
+        return false;
+    }
+    $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    $httpInfo = array_merge($httpInfo, curl_getinfo($ch));
+    curl_close($ch);
+    return $response;
 }

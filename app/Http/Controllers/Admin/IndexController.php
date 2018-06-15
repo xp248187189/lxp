@@ -77,8 +77,8 @@ class IndexController extends Controller
             ->get();
         if ($lastLoginInfo->count()==2){
             if(getIpLookup($lastLoginInfo[1]->ip)){
-                $lastLoginInfo[1]->province = getIpLookup($lastLoginInfo[1]->ip)['province'];
-                $lastLoginInfo[1]->city = getIpLookup($lastLoginInfo[1]->ip)['city'];
+                $lastLoginInfo[1]->province = getIpLookup($lastLoginInfo[1]->ip)->content->address_detail->province;
+                $lastLoginInfo[1]->city = getIpLookup($lastLoginInfo[1]->ip)->content->address_detail->city;
             }else{
                 $lastLoginInfo[1]->province = '未知';
                 $lastLoginInfo[1]->city = '';
