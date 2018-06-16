@@ -157,6 +157,10 @@ class ArticleController extends Controller
                 ->take(8)
                 ->get();
         });
+        //评论
+        $articleComment = ArticleComment::where('article_id','=',$id)
+            ->orderBy('time','desc')
+            ->paginate(8);
         //判断是否登录
         if(\Cookie::has('user_openid')){
             $isLogin = true;
@@ -171,6 +175,7 @@ class ArticleController extends Controller
             ->with('keyWordsInfo',$keyWordsInfo)
             ->with('descriptionInfo',$descriptionInfo)
             ->with('controllerName','Article')
+            ->with('articleComment',$articleComment)
             ->with('isLogin',$isLogin);
     }
 

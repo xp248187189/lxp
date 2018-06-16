@@ -10,6 +10,7 @@
 @section('loadCss')
     {{--<link rel="stylesheet" type="text/css" href="{{ asset('Home/css/prettify.css') }}">--}}
     <link rel="stylesheet" type="text/css" href="{{ asset('Home/css/detail.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('Common/css/page.css') }}">
 @endsection
 {{--body内容--}}
 @section('body')
@@ -32,7 +33,7 @@
                         <iframe id="showUEditorContentIframe" src="{{url('/Detail/'.$info->id.'?iframeGetData=get')}}" width="100%" height="0" scrolling="no" frameborder="0" onload="setShowUEditorContentIframeHeight();"></iframe>
                     </div>
                     {{--评论区域--}}
-                    <div class="blog-module shadow" style="box-shadow: 0 1px 8px #a6a6a6;">
+                    <div class="blog-module shadow" style="box-shadow: 0 1px 8px #a6a6a6;" id="commentDiv">
                         <fieldset class="layui-elem-field layui-field-title" style="margin-bottom:0">
                             <legend>来说两句吧</legend>
                             <div class="layui-field-box">
@@ -48,9 +49,23 @@
                             </div>
                         </fieldset>
                         <div class="blog-module-title">最新评论</div>
-                        <ul class="blog-comment" id="commentList">
-
+                        <ul class="blog-comment">
+                            @foreach($articleComment as $key => $value)
+                                <li>
+                                    <div class="comment-parent">
+                                        <img lay-src="{{$value->user_head}}"/>
+                                        <div class="info">
+                                            <span class="username">{{$value->user_account}}</span>
+                                            <span class="time">{{date('Y-m-d H:i:s',$value->time)}}</span>
+                                        </div>
+                                        <div class="content">
+                                            {{$value->connect}}
+                                        </div>
+                                    </div>
+                                </li>
+                            @endforeach
                         </ul>
+                        {{ $articleComment->fragment('commentDiv')->links() }}
                     </div>
                 </div>
                 <div class="blog-main-right">
@@ -106,31 +121,7 @@
 {{--js内容--}}
 @section('script')
     <script type="text/javascript">
-        flow.load({
-            elem: '#commentList',
-            isLazyimg:true,
-            done: function(page, next){
-                var lis = [];
-                $.get('/getArticleComment/{{$info->id}}?page='+page, function(res){
-                    layui.each(res.data, function(index, item){
-                        var str ='<li>';
-                        str+=   '<div class="comment-parent">'
-                        str+=         '<img src="'+item.user_head+'" />'
-                        str+=         '<div class="info">'
-                        str+=            '<span class="username">'+item.user_account+'</span>'
-                        str+=            '<span class="time">'+date("Y-m-d H:i",item.time)+'</span>'
-                        str+=         '</div>'
-                        str+=         '<div class="content">'
-                        str+=            item.connect
-                        str+=         '</div>'
-                        str+=   '</div>'
-                        str+='</li>'
-                        lis.push(str);
-                    });
-                    next(lis.join(''), page < res.pageCount);
-                },'json');
-            }
-        });
+        flow.lazyimg();
         //iframe加载完成的函数
         function setShowUEditorContentIframeHeight() {
             //获取高度
