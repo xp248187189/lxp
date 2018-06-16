@@ -106,42 +106,6 @@ class ArticleController extends Controller
             ->with('controllerName','Article');
     }
 
-    //ajax获取流数据
-    public function getData(Request $request){
-        //where条件
-        $whereArray = [];
-        $whereArray[] = ['status','=','1'];
-        if (intval(\Route::input('category'))){
-            $whereArray[] = ['category_id','=',intval(\Route::input('category'))];
-        }
-        if (trim(\Route::input('keyWord'))){
-            $whereArray[] = ['title','like','%'.trim(\Route::input('keyWord')).'%'];
-        }
-        //查询数据并写入缓存
-        $list = Cache::remember(sha1($request->fullUrl().'_list_cache'),10,function () use ($whereArray){
-            return Article::where($whereArray)
-                ->orderBy('sort','asc')
-                ->orderBy('addTime','desc')
-                ->paginate(8);
-        });
-        //判断是否有数据
-        if ($list->isEmpty()){
-            //没有数据的话，随机查询8条数据，因为是随机，所以不写缓存
-            $list = Cache::remember(sha1($request->fullUrl().'_inRandomOrderList_cache'),10,function (){
-                return Article::inRandomOrder()
-                    ->where('status','=','1')
-                    ->take(8)
-                    ->get();
-            });
-            //返回数据
-            return ['data'=>$list,'pageCount'=>0];
-        }else{
-            //返回数据
-            $list = $list->toArray();
-            return ['data'=>$list['data'],'pageCount'=>$list['last_page']];
-        }
-    }
-
     //详情
     public function detail(Request $request){
         $id = intval(\Route::input('id'));
