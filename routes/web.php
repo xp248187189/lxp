@@ -12,8 +12,6 @@ Route::domain(config('domin.home_domin'))->namespace('Home')->middleware('BlackL
     Route::get('Search/{keyWord}','ArticleController@articleList');
     //文章详情
     Route::get('Detail/{id}','ArticleController@detail')->where('id','[0-9]+');
-    //获取评论
-    Route::get('getArticleComment/{articleId}','ArticleController@getArticleComment')->where('articleId','[0-9]+');
     //提交评论
     Route::post('ArticleComment','ArticleController@articleComment');
     //时间轴

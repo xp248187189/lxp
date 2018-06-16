@@ -179,16 +179,6 @@ class ArticleController extends Controller
             ->with('isLogin',$isLogin);
     }
 
-    //获取评论
-    public function getArticleComment(){
-        $articleId = intval(\Route::input('articleId'));
-        $articleComment = ArticleComment::where('article_id','=',$articleId)
-            ->orderBy('time','desc')
-            ->paginate(8)
-            ->toArray();
-        return ['data'=>$articleComment['data'],'pageCount'=>$articleComment['last_page']];
-    }
-
     //提交评论
     public function articleComment(Request $request){
         $openid = \Cookie::get('user_openid');
