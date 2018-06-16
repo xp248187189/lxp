@@ -76,7 +76,7 @@
                 <div class="blog-main-right">
                     <div class="blogerinfo shadow">
                         <div class="blogerinfo-figure">
-                            <img src="{{ asset('uploads').'/'.$bloggerInfo->img }}" alt="{{$bloggerInfo->name}}" style="width:100px;height: 100px;"/>
+                            <img src="{{ asset('uploads/'.$bloggerInfo->img) }}" alt="{{$bloggerInfo->name}}" style="width:100px;height: 100px;"/>
                         </div>
                         <p class="blogerinfo-nickname">{{$bloggerInfo->name}}</p>
                         <p class="blogerinfo-introduce">{{$bloggerInfo->introduce}}</p>
