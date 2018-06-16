@@ -30,7 +30,7 @@
                     @foreach($articleList as $key => $value)
                         <div class="article shadow">
                             <div class="article-left">
-                                <img src="{{asset('uploads/'.$value->img)}}"/>
+                                <img lay-src="{{asset('uploads/'.$value->img)}}"/>
                             </div>
                             <div class="article-right">
                                 <div class="article-title">
@@ -138,5 +138,6 @@
             window.location.href="{{url('/')}}/Search/"+$('input[name="keyWord"]').val();
             return false;
         });
+        flow.lazyimg();
     </script>
 @endsection
