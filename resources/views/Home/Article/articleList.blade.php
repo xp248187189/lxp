@@ -9,7 +9,7 @@
 {{--引入css文件--}}
 @section('loadCss')
     <link rel="stylesheet" type="text/css" href="{{ asset('Home/css/article.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/app.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('Common/css/page.css') }}">
 @endsection
 {{--body内容--}}
 @section('body')
