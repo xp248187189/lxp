@@ -59,7 +59,7 @@
                                             <span class="time">{{date('Y-m-d H:i:s',$value->time)}}</span>
                                         </div>
                                         <div class="content">
-                                            {{$value->connect}}
+                                            {!! $value->connect !!}
                                         </div>
                                     </div>
                                 </li>
