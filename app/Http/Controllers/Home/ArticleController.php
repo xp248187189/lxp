@@ -61,7 +61,7 @@ class ArticleController extends Controller
             return Article::where($whereArray)
                 ->orderBy('sort','asc')
                 ->orderBy('addTime','desc')
-                ->paginate(2);
+                ->paginate(8);
         });
         $hasArticleList = true;
         if ($articleList->isEmpty()){
