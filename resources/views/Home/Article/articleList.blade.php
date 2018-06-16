@@ -9,6 +9,7 @@
 {{--引入css文件--}}
 @section('loadCss')
     <link rel="stylesheet" type="text/css" href="{{ asset('Home/css/article.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/app.css') }}">
 @endsection
 {{--body内容--}}
 @section('body')
@@ -21,7 +22,37 @@
             </blockquote>
             <div class="blog-main">
                 <div class="blog-main-left" id="leftArticleList">
-
+                    @if($hasArticleList === false)
+                        <div class="shadow" style="text-align:center;font-size:16px;padding:40px 15px;background:#fff;margin-bottom:15px;">
+                            未找到有关的文章，随便看看吧
+                        </div>
+                    @endif
+                    @foreach($articleList as $key => $value)
+                        <div class="article shadow">
+                            <div class="article-left">
+                                <img src="{{asset('uploads/'.$value->img)}}"/>
+                            </div>
+                            <div class="article-right">
+                                <div class="article-title">
+                                    <a href="{{url('/Detail/'.$value->id)}}">{{$value->title}}</a>
+                                </div>
+                                <div class="article-abstract">
+                                    {{$value->outline}}
+                                </div>
+                            </div>
+                            <div class="clear"></div>
+                            <div class="article-footer">
+                                <span><i class="fa fa-clock-o"></i>&nbsp;&nbsp;{{date('Y-m-d',$value->addTime)}}</span>
+                                <span class="article-author"><i class="fa fa-user"></i>&nbsp;&nbsp;{{$value->author}}</span>
+                                <span><i class="fa fa-tag"></i>&nbsp;&nbsp;<a href="{{url('/Category/'.$value->category_id)}}">{{$value->category_name}}</a></span>
+                                <span class="article-viewinfo"><i class="fa fa-eye"></i>&nbsp;{{$value->showNum}}</span>
+                                <span class="article-viewinfo"><i class="fa fa-commenting"></i>&nbsp;{{$value->commentCount}}</span>
+                            </div>
+                        </div>
+                    @endforeach
+                    @if($hasArticleList)
+                        {{ $articleList->links() }}
+                    @endif
                 </div>
                 <div class="blog-main-right">
                     <div class="blog-search">
@@ -106,45 +137,6 @@
         form.on('submit(formSearch)', function(data){
             window.location.href="{{url('/')}}/Search/"+$('input[name="keyWord"]').val();
             return false;
-        });
-        flow.load({
-            elem: '#leftArticleList',
-            isLazyimg:true,
-            done: function(page, next){
-                    @php
-                        echo 'var keyWord="'.(!empty($keyWord)?$keyWord:'0').'";';
-                        echo 'var category='.(!empty($category)?$category:'0').';';
-                    @endphp
-                var lis = [];
-                $.get('{{url('/getData')}}/'+keyWord+'/'+category+'?page='+page, function(res){
-                    if (res.pageCount == 0) {
-                        lis.push('<div class="shadow" style="text-align:center;font-size:16px;padding:40px 15px;background:#fff;margin-bottom:15px;">未找到有关的文章，随便看看吧</div>');
-                    };
-                    layui.each(res.data, function(index, item){
-                        var str ='<div class="article shadow">';
-                        str+=   '<div class="article-left">'
-                        str+=        '<img lay-src="{{asset('uploads')}}/'+item.img+'"/>'
-                        str+=   '</div>'
-                        str+=   '<div class="article-right">'
-                        str+=       '<div class="article-title">'
-                        str+=            '<a href="{{url('/Detail')}}/'+item.id+'">'+item.title+'</a>'
-                        str+=       '</div>'
-                        str+=       '<div class="article-abstract">'+item.outline+'</div>'
-                        str+=   '</div>'
-                        str+=   '<div class="clear"></div>'
-                        str+=   '<div class="article-footer">'
-                        str+=       '<span><i class="fa fa-clock-o"></i>&nbsp;&nbsp;'+date("Y-m-d",item.addTime)+'</span>'
-                        str+=       '<span class="article-author"><i class="fa fa-user"></i>&nbsp;&nbsp;'+item.author+'</span>'
-                        str+=       '<span><i class="fa fa-tag"></i>&nbsp;&nbsp;<a href="{{url('/Category')}}/'+item.category_id+'">'+item.category_name+'</a></span>'
-                        str+=       '<span class="article-viewinfo"><i class="fa fa-eye"></i>&nbsp;'+item.showNum+'</span>'
-                        str+=       '<span class="article-viewinfo"><i class="fa fa-commenting"></i>&nbsp;'+item.commentCount+'</span>'
-                        str+=   '</div>'
-                        str+='</div>'
-                        lis.push(str);
-                    });
-                    next(lis.join(''), page < res.pageCount);
-                },'json');
-            }
         });
     </script>
 @endsection

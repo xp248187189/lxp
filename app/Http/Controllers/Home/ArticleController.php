@@ -36,6 +36,8 @@ class ArticleController extends Controller
         });
         $keyWord = '';
         $category = 0;
+        $whereArray = [];
+        $whereArray[] = ['status','=','1'];
         //设置title
         if (intval(\Route::input('category'))){
             $categoryName = Cache::remember(sha1($request->fullUrl().'_categoryName_cache'),10,function (){
@@ -46,11 +48,31 @@ class ArticleController extends Controller
             }
             $titleName = $categoryName->name;
             $category = intval(\Route::input('category'));
+            $whereArray[] = ['category_id','=',$category];
         }else if(trim(\Route::input('keyWord')) !== ''){
             $titleName = trim(\Route::input('keyWord'));
             $keyWord = trim(\Route::input('keyWord'));
+            $whereArray[] = ['title','like','%'.$keyWord.'%'];
         }else{
             $titleName = '文章专栏';
+        }
+        //查询数据
+        $articleList = Cache::remember(sha1($request->fullUrl().'_articleList_cache'),10,function () use ($whereArray){
+            return Article::where($whereArray)
+                ->orderBy('sort','asc')
+                ->orderBy('addTime','desc')
+                ->paginate(2);
+        });
+        $hasArticleList = true;
+        if ($articleList->isEmpty()){
+            //没有数据的话，随机查询8条数据
+            $articleList = Cache::remember(sha1($request->fullUrl().'_inRandomOrderList_cache'),10,function (){
+                return Article::inRandomOrder()
+                    ->where('status','=','1')
+                    ->take(8)
+                    ->get();
+            });
+            $hasArticleList = false;
         }
         //作者推荐
         $isRecommendList = Cache::remember(sha1($request->fullUrl().'_isRecommendList_cache'),10,function (){
@@ -79,6 +101,8 @@ class ArticleController extends Controller
             ->with('titleName',$titleName)
             ->with('keyWord',$keyWord)
             ->with('category',$category)
+            ->with('articleList',$articleList)
+            ->with('hasArticleList',$hasArticleList)
             ->with('controllerName','Article');
     }
 
