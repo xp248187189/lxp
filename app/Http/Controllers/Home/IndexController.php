@@ -22,7 +22,7 @@ class IndexController extends Controller
                 ->where('isHome','=',1)
                 ->orderBy('sort','asc')
                 ->orderBy('addTime','desc')
-                ->take(8)
+                //->take(8)
                 ->get();
         });
         if ($isHomeList->isEmpty()){//inRandomOrder
