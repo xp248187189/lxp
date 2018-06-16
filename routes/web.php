@@ -6,8 +6,6 @@
 Route::domain(config('domin.home_domin'))->namespace('Home')->middleware('BlackList')->group(function (){
     //首页
     Route::get('/','IndexController@index');
-    //首页ajax获取数据
-    Route::get('/getDataForIndex','IndexController@getDataForIndex');
     //文章列表 全部/分类/标题
     Route::get('Article','ArticleController@articleList');
     Route::get('Category/{category}','ArticleController@articleList')->where('category','[0-9]+');

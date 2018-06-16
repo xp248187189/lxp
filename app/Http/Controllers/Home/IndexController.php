@@ -104,26 +104,4 @@ class IndexController extends Controller
             ->with('isHomeList',$isHomeList)
             ->with('controllerName','Index');
     }
-
-    //ajax获取数据
-    public function getDataForIndex(Request $request){
-        //首页流加载文章
-        $isHomeList = Cache::remember(sha1($request->fullUrl().'_isHomeList_cache'),10,function (){
-            return Article::where('status','=','1')
-                ->where('isHome','=',1)
-                ->orderBy('sort','asc')
-                ->orderBy('addTime','desc')
-                ->take(8)
-                ->get();
-        });
-        if ($isHomeList->isEmpty()){//inRandomOrder
-            $isHomeList = Cache::remember(sha1($request->fullUrl().'_inRandomOrder_cache'),10,function (){
-                return Article::inRandomOrder()
-                    ->where('status','=','1')
-                    ->take(8)
-                    ->get();
-            });
-        }
-        return ['data'=>$isHomeList,'pageCount'=>1];
-    }
 }
