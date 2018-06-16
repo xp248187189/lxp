@@ -16,6 +16,23 @@ class IndexController extends Controller
 {
     //首页
     public function index(Request $request){
+        //首页文章
+        $isHomeList = Cache::remember(sha1($request->fullUrl().'_isHomeList_cache'),10,function (){
+            return Article::where('status','=','1')
+                ->where('isHome','=',1)
+                ->orderBy('sort','asc')
+                ->orderBy('addTime','desc')
+                ->take(8)
+                ->get();
+        });
+        if ($isHomeList->isEmpty()){//inRandomOrder
+            $isHomeList = Cache::remember(sha1($request->fullUrl().'_inRandomOrder_cache'),10,function (){
+                return Article::inRandomOrder()
+                    ->where('status','=','1')
+                    ->take(8)
+                    ->get();
+            });
+        }
         //推荐文章
         $isRecommendList = Cache::remember(sha1($request->fullUrl().'_isRecommendList_cache'),10,function (){
             return Article::where('status','=','1')
@@ -84,6 +101,7 @@ class IndexController extends Controller
             ->with('noticeList',$noticeList)
             ->with('keyWordsInfo',$keyWordsInfo)
             ->with('descriptionInfo',$descriptionInfo)
+            ->with('isHomeList',$isHomeList)
             ->with('controllerName','Index');
     }
 

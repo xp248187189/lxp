@@ -48,6 +48,29 @@
                 </div>
                 {{--左边文章列表--}}
                 <div class="blog-main-left" id="leftArticleList">
+                    @foreach($isHomeList as $key => $value)
+                        <div class="article shadow">
+                            <div class="article-left">
+                                <img lay-src="{{asset('uploads/'.$value->img)}}"/>
+                            </div>
+                            <div class="article-right">
+                                <div class="article-title">
+                                    <a href="{{url('/Detail/'.$value->id)}}">{{$value->title}}</a>
+                                </div>
+                                <div class="article-abstract">
+                                    {{$value->outline}}
+                                </div>
+                            </div>
+                            <div class="clear"></div>
+                            <div class="article-footer">
+                                <span><i class="fa fa-clock-o"></i>&nbsp;&nbsp;{{date('Y-m-d',$value->addTime)}}</span>
+                                <span class="article-author"><i class="fa fa-user"></i>&nbsp;&nbsp;{{$value->author}}</span>
+                                <span><i class="fa fa-tag"></i>&nbsp;&nbsp;<a href="{{url('/Category/'.$value->category_id)}}">{{$value->category_name}}</a></span>
+                                <span class="article-viewinfo"><i class="fa fa-eye"></i>&nbsp;{{$value->showNum}}</span>
+                                <span class="article-viewinfo"><i class="fa fa-commenting"></i>&nbsp;{{$value->commentCount}}</span>
+                            </div>
+                        </div>
+                    @endforeach
                 </div>
                 {{--右边小栏目--}}
                 <div class="blog-main-right">
@@ -127,38 +150,6 @@
 {{--js内容--}}
 @section('script')
     <script type="text/javascript">
-        flow.load({
-            elem: '#leftArticleList',
-            end: '<a style="color:#777" href="{{url('/Article')}}">点我前往文章专栏查看更多</a>',
-            isLazyimg:true,
-            done: function(page, next){
-                var lis = [];
-                $.get('{{url('/getDataForIndex')}}'+'?page='+page, function(res){
-                    layui.each(res.data, function(index, item){
-                        var str ='<div class="article shadow">';
-                        str+=	'<div class="article-left">'
-                        str+=        '<img lay-src="{{asset('uploads')}}/'+item.img+'"/>'
-                        str+=	'</div>'
-                        str+=   '<div class="article-right">'
-                        str+=		'<div class="article-title">'
-                        str+=            '<a href="{{url('/Detail')}}/'+item.id+'">'+item.title+'</a>'
-                        str+=       '</div>'
-                        str+=       '<div class="article-abstract">'+item.outline+'</div>'
-                        str+=	'</div>'
-                        str+=   '<div class="clear"></div>'
-                        str+=   '<div class="article-footer">'
-                        str+=		'<span><i class="fa fa-clock-o"></i>&nbsp;&nbsp;'+date("Y-m-d",item.addTime)+'</span>'
-                        str+=		'<span class="article-author"><i class="fa fa-user"></i>&nbsp;&nbsp;'+item.author+'</span>'
-                        str+=		'<span><i class="fa fa-tag"></i>&nbsp;&nbsp;<a href="{{url('/Category')}}/'+item.category_id+'">'+item.category_name+'</a></span>'
-                        str+=		'<span class="article-viewinfo"><i class="fa fa-eye"></i>&nbsp;'+item.showNum+'</span>'
-                        str+=		'<span class="article-viewinfo"><i class="fa fa-commenting"></i>&nbsp;'+item.commentCount+'</span>'
-                        str+=	'</div>'
-                        str+='</div>'
-                        lis.push(str);
-                    });
-                    next(lis.join(''), page < res.pageCount);
-                },'json');
-            }
-        });
+        flow.lazyimg();
     </script>
 @endsection
