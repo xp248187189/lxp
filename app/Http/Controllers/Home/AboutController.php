@@ -43,13 +43,13 @@ class AboutController extends Controller
         }else{
             $isLogin = false;
         }
-        //查询父级
+        //查询父级留言
         $userComment = UserComment::orderBy('time','desc')
             ->where('pid','=','0')
             ->paginate(8);
         //父级数据
         $userCommentArr = $userComment->toArray()['data'];
-        //查询子集
+        //查询子集留言
         $sonComment = UserComment::orderBy('time','asc')
             ->where('pid','>','0')
             ->get()
@@ -72,34 +72,6 @@ class AboutController extends Controller
             ->with('userComment',$userComment)
             ->with('userCommentArr',$userCommentArr)
             ->with('isLogin',$isLogin);
-    }
-
-    //获取留言
-    public function getUserComment(){
-        //查询父级
-        $userComment = UserComment::orderBy('time','desc')
-            ->where('pid','=','0')
-            ->paginate(8)
-            ->toArray();
-        //页数
-        $pageCount = $userComment['last_page'];
-        //父级数据
-        $newList = $userComment['data'];
-        //查询子集
-        $sonComment = UserComment::orderBy('time','asc')
-            ->where('pid','>','0')
-            ->get()
-            ->toArray();
-        //组合
-        foreach ($newList as $k => $v){
-            $newList[$k]['son'] = [];
-            foreach ($sonComment as $kk => $vv){
-                if ($v['id'] == $vv['pid']){
-                    $newList[$k]['son'][] = $vv;
-                }
-            }
-        }
-        return ['data'=>$newList,'pageCount'=>$pageCount];
     }
 
     //提交留言

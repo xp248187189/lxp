@@ -18,8 +18,6 @@ Route::domain(config('domin.home_domin'))->namespace('Home')->middleware('BlackL
     Route::get('TimeAxis','TimeAxisController@timeAxis');
     //关于本站
     Route::get('About','AboutController@about');
-    //获取留言
-    Route::get('getUserComment','AboutController@getUserComment');
     //提交留言
     Route::post('UserComment','AboutController@userComment');
     //QQ登录
