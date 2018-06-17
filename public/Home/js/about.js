@@ -16,7 +16,16 @@ var layid = location.hash.replace(/^#tabIndex=/, '');
 if (layid == "") {
     element.tabChange('tabAbout', 1);
 }
+//切换
 element.tabChange('tabAbout', layid);
+//判断是否该滚蛋到指定位置
+if (layid == 4){
+    var page = GetQueryString('page');
+    if (page != null){
+        $(document).scrollTop(400);
+    }
+}
+//更改hash
 element.on('tab(tabAbout)', function (elem) {
     location.hash = 'tabIndex=' + $(this).attr('lay-id');
 });

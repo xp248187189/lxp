@@ -43,12 +43,34 @@ class AboutController extends Controller
         }else{
             $isLogin = false;
         }
+        //查询父级
+        $userComment = UserComment::orderBy('time','desc')
+            ->where('pid','=','0')
+            ->paginate(8);
+        //父级数据
+        $userCommentArr = $userComment->toArray()['data'];
+        //查询子集
+        $sonComment = UserComment::orderBy('time','asc')
+            ->where('pid','>','0')
+            ->get()
+            ->toArray();
+        //组合
+        foreach ($userCommentArr as $k => $v){
+            $userCommentArr[$k]['son'] = [];
+            foreach ($sonComment as $kk => $vv){
+                if ($v['id'] == $vv['pid']){
+                    $userCommentArr[$k]['son'][] = $vv;
+                }
+            }
+        }
         return view('Home.About.about')->with('linkList',$linkList)
             ->with('blogInfo',$blogInfo)
             ->with('keyWordsInfo',$keyWordsInfo)
             ->with('descriptionInfo',$descriptionInfo)
             ->with('bloggerInfo',$bloggerInfo)
             ->with('controllerName','About')
+            ->with('userComment',$userComment)
+            ->with('userCommentArr',$userCommentArr)
             ->with('isLogin',$isLogin);
     }
 

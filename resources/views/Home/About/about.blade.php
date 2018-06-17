@@ -9,6 +9,7 @@
 {{--引入css文件--}}
 @section('loadCss')
     <link rel="stylesheet" type="text/css" href="{{ asset('Home/css/about.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('Common/css/page.css') }}">
 @endsection
 {{--body内容--}}
 @section('body')
@@ -139,8 +140,47 @@
                                                 </div>
                                             </form>
                                             <ul class="blog-comment" id="commentList">
-
+                                                @foreach($userCommentArr as $k => $v)
+                                                    <li>
+                                                        <div class="comment-parent">
+                                                            <img src="{{$v['user_head']}}" />
+                                                            <div class="info">
+                                                                <span class="username">{{$v['user_account']}}</span>
+                                                            </div>
+                                                            <div class="content">
+                                                                {!! $v['connect'] !!}
+                                                            </div>
+                                                            <p class="info info-footer">
+                                                                <span class="time">{{date('Y-m-d H:i',$v['time'])}}</span>
+                                                                <a class="btn-reply" href="javascript:;" @php echo $isLogin===false?'':'onclick="btnReplyClick(this)"'; @endphp>
+                                                                    @php echo $isLogin===false?'<span style="color:#CCCCCC">请先登录</span>':'回复'; @endphp
+                                                                </a>
+                                                            </p>
+                                                        </div>
+                                                        @foreach($v['son'] as $kk => $vv)
+                                                            <div class="comment-child">
+                                                                <img src="{{$vv['user_head']}}"/>
+                                                                <div class="info">
+                                                                    <span class="username">{{$vv['user_account']}}</span><span>{!! $vv['connect'] !!}</span>
+                                                                </div>
+                                                                <p class="info"><span class="time">{{date('Y-m-d H:i',$vv['time'])}}</span></p>
+                                                            </div>
+                                                        @endforeach
+                                                        <div class="replycontainer layui-hide">
+                                                            <form class="layui-form" action="">
+                                                                <div class="layui-form-item">
+                                                                    <input type="hidden" name="pid" value="{{$v['id']}}"/>
+                                                                    <textarea name="replyContent" lay-verify="replyContent" placeholder="请输入回复内容" class="layui-textarea" style="min-height:80px;"></textarea>
+                                                                </div>
+                                                                <div class="layui-form-item">
+                                                                    <button class="layui-btn layui-btn-mini" lay-submit="formReply" lay-filter="formReply">提交</button>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </li>
+                                                @endforeach
                                             </ul>
+                                            {{$userComment->fragment('tabIndex=4')->links()}}
                                         </div>
                                     </div>
                                 </fieldset>
@@ -159,54 +199,54 @@
 {{--js内容--}}
 @section('script')
     <script type="text/javascript">
-        var isLogin = @php echo $isLogin===false?'false;':'true;'; @endphp
-        flow.load({
-            elem: '#commentList',
-            isLazyimg:true,
-            done: function(page, next){
-                var lis = [];
-                $.get('/getUserComment?page='+page, function(res){
-                    layui.each(res.data, function(index, item){
-                        var str ='<li>';
-                        str+=   '<div class="comment-parent">'
-                        str+=         '<img src="'+item.user_head+'" />'
-                        str+=         '<div class="info">'
-                        str+=            '<span class="username">'+item.user_account+'</span>'
-                        str+=         '</div>'
-                        str+=         '<div class="content">'
-                        str+=            item.connect
-                        str+=         '</div>'
-                        str+=         '<p class="info info-footer"><span class="time">'+date("Y-m-d H:i",item.time)+'</span><a class="btn-reply" href="javascript:;" '+(isLogin===false?'':'onclick="btnReplyClick(this)"')+'>'+(isLogin===false?'<span style="color:#CCCCCC">请先登录</span>':'回复')+'</a></p>'
-                        str+=   '</div>'
-                        if(item.son.length > 0){
-                            str+='<hr />';
-                            for (var i = 0; i < item.son.length; i++) {
-                                str+='<div class="comment-child">';
-                                str+=   '<img src="'+item.son[i]['user_head']+'" alt="Absolutely" />'
-                                str+=   '<div class="info">'
-                                str+=       '<span class="username">'+item.son[i]['user_account']+'</span><span>'+item.son[i]['connect']+'</span>';
-                                str+=   '</div>';
-                                str+=   '<p class="info"><span class="time">'+date("Y-m-d H:i",item.son[i]['time'])+'</span></p>';
-                                str+='</div>';
-                            }
-                        }
-                        str+='<div class="replycontainer layui-hide">';
-                        str+=   '<form class="layui-form" action="">';
-                        str+=       '<div class="layui-form-item">';
-                        str+=           '<input type="hidden" name="pid" value="'+item.id+'"/>';
-                        str+=           '<textarea name="replyContent" lay-verify="replyContent" placeholder="请输入回复内容" class="layui-textarea" style="min-height:80px;"></textarea>';
-                        str+=       '</div>';
-                        str+=       '<div class="layui-form-item">';
-                        str+=           '<button class="layui-btn layui-btn-mini" lay-submit="formReply" lay-filter="formReply">提交</button>';
-                        str+=       '</div>';
-                        str+=   '</form>';
-                        str+='</div>';
-                        str+='</li>'
-                        lis.push(str);
-                    });
-                    next(lis.join(''), page < res.pageCount);
-                },'json');
-            }
-        });
+        {{--var isLogin = @php echo $isLogin===false?'false;':'true;'; @endphp--}}
+        // flow.load({
+        //     elem: '#commentList',
+        //     isLazyimg:true,
+        //     done: function(page, next){
+        //         var lis = [];
+        //         $.get('/getUserComment?page='+page, function(res){
+        //             layui.each(res.data, function(index, item){
+        //                 var str ='<li>';
+        //                 str+=   '<div class="comment-parent">'
+        //                 str+=         '<img src="'+item.user_head+'" />'
+        //                 str+=         '<div class="info">'
+        //                 str+=            '<span class="username">'+item.user_account+'</span>'
+        //                 str+=         '</div>'
+        //                 str+=         '<div class="content">'
+        //                 str+=            item.connect
+        //                 str+=         '</div>'
+        //                 str+=         '<p class="info info-footer"><span class="time">'+date("Y-m-d H:i",item.time)+'</span><a class="btn-reply" href="javascript:;" '+(isLogin===false?'':'onclick="btnReplyClick(this)"')+'>'+(isLogin===false?'<span style="color:#CCCCCC">请先登录</span>':'回复')+'</a></p>'
+        //                 str+=   '</div>'
+        //                 if(item.son.length > 0){
+        //                     str+='<hr />';
+        //                     for (var i = 0; i < item.son.length; i++) {
+        //                         str+='<div class="comment-child">';
+        //                         str+=   '<img src="'+item.son[i]['user_head']+'" alt="Absolutely" />'
+        //                         str+=   '<div class="info">'
+        //                         str+=       '<span class="username">'+item.son[i]['user_account']+'</span><span>'+item.son[i]['connect']+'</span>';
+        //                         str+=   '</div>';
+        //                         str+=   '<p class="info"><span class="time">'+date("Y-m-d H:i",item.son[i]['time'])+'</span></p>';
+        //                         str+='</div>';
+        //                     }
+        //                 }
+        //                 str+='<div class="replycontainer layui-hide">';
+        //                 str+=   '<form class="layui-form" action="">';
+        //                 str+=       '<div class="layui-form-item">';
+        //                 str+=           '<input type="hidden" name="pid" value="'+item.id+'"/>';
+        //                 str+=           '<textarea name="replyContent" lay-verify="replyContent" placeholder="请输入回复内容" class="layui-textarea" style="min-height:80px;"></textarea>';
+        //                 str+=       '</div>';
+        //                 str+=       '<div class="layui-form-item">';
+        //                 str+=           '<button class="layui-btn layui-btn-mini" lay-submit="formReply" lay-filter="formReply">提交</button>';
+        //                 str+=       '</div>';
+        //                 str+=   '</form>';
+        //                 str+='</div>';
+        //                 str+='</li>'
+        //                 lis.push(str);
+        //             });
+        //             next(lis.join(''), page < res.pageCount);
+        //         },'json');
+        //     }
+        // });
     </script>
 @endsection
