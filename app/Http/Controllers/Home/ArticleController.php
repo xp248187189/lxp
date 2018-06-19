@@ -61,7 +61,7 @@ class ArticleController extends Controller
             return Article::where($whereArray)
                 ->orderBy('sort','asc')
                 ->orderBy('addTime','desc')
-                ->paginate(8);
+                ->paginate(8,['*'],'p');
         });
         $hasArticleList = true;
         if ($articleList->isEmpty()){
@@ -160,7 +160,7 @@ class ArticleController extends Controller
         //评论
         $articleComment = ArticleComment::where('article_id','=',$id)
             ->orderBy('time','desc')
-            ->paginate(8);
+            ->paginate(8,['*'],'p');
         //判断是否登录
         if(\Cookie::has('user_openid')){
             $isLogin = true;

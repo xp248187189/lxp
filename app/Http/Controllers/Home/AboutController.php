@@ -46,7 +46,7 @@ class AboutController extends Controller
         //查询父级留言
         $userComment = UserComment::orderBy('time','desc')
             ->where('pid','=','0')
-            ->paginate(8);
+            ->paginate(8,['*'],'p');
         //父级数据
         $userCommentArr = $userComment->toArray()['data'];
         //查询子集留言
