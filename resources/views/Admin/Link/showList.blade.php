@@ -23,6 +23,12 @@
             <input type="checkbox" name="status" title="启用" value="@{{d.id}}" lay-filter="status" @{{a}}>
         </form>
     </script>
+    <script type="text/html" id="isHomeTemplet">
+        <form class="layui-form">
+            @{{# var a= '';if(d.isHome==1){var a='checked';} }}
+            <input type="checkbox" name="isHome" title="是" value="@{{d.id}}" lay-filter="isHome" @{{a}}>
+        </form>
+    </script>
     <script type="text/html" id="barDemo">
         <a class="layui-btn layui-btn-sm" lay-event="edit">编辑</a>
         <a class="layui-btn layui-btn-sm layui-btn-danger" lay-event="del">删除</a>
@@ -51,6 +57,7 @@
                     {field:'name',title:'名称',edit:'text',sort:true,align:'center'},
                     {field:'url',title:'URL',edit:'text',sort:true,align:'center'},
                     {field:'sort',title:'排序',edit:'text',sort:true,align:'center'},
+                    {field:'status',title:'首页显示',sort:true,align:'center',templet:'#isHomeTemplet'},
                     {field:'status',title:'状态',sort:true,align:'center',templet:'#statusTemplet'},
                     {fixed:'right',title:'操作',align:'center',toolbar: '#barDemo'},
                 ]],
@@ -71,6 +78,17 @@
                 var statusVal = 0;
             }
             $.post('{{url("/Link/ajaxEdit")}}',{id:data.value,status:statusVal},function(result){
+                layer.msg(result.echo);
+            },'json').error(function(){layer.msg('程序错误!');});
+        });
+        //监听首页显示
+        form.on('checkbox(isHome)', function(data){
+            if (data.elem.checked){
+                var isHomeVal = 1;
+            }else{
+                var isHomeVal = 0;
+            }
+            $.post('{{url("/Link/ajaxEdit")}}',{id:data.value,isHome:isHomeVal},function(result){
                 layer.msg(result.echo);
             },'json').error(function(){layer.msg('程序错误!');});
         });
@@ -107,7 +125,7 @@
                 layer.open({
                     title:data.name,
                     type:2,
-                    area:['700px', '350px'],
+                    area:['700px', '370px'],
                     maxmin: true,
                     content: '@php echo url("/Link/edit/'+data.id+'")@endphp',
                     end:function(){
@@ -123,7 +141,7 @@
             layer.open({
                 title:'添加',
                 type:2,
-                area:['700px', '350px'],
+                area:['700px', '370px'],
                 maxmin: true,
                 content: '{{url("/Link/add")}}',
                 end:function(){

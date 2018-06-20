@@ -39,6 +39,7 @@ class LinkController extends Controller
         $orm->name = $request->input('name');
         $orm->url = $request->input('url');
         $orm->sort = $request->input('sort');
+        $orm->isHome = $request->input('isHome');
         $orm->status = $request->input('status');
         $orm->save();
         $res['status'] = true;
@@ -65,6 +66,9 @@ class LinkController extends Controller
         }
         if ($request->input('sort')){
             $orm->sort = $request->input('sort');
+        }
+        if ($request->input('isHome') !== null){
+            $orm->isHome = $request->input('isHome');
         }
         if ($request->input('status') !== null){
             $orm->status = $request->input('status');

@@ -24,6 +24,13 @@
             </div>
         </div>
         <div class="layui-form-item">
+            <label class="layui-form-label">首页显示</label>
+            <div class="layui-input-block">
+                <input type="radio" name="isHome" value="1" title="是" checked>
+                <input type="radio" name="isHome" value="0" title="否">
+            </div>
+        </div>
+        <div class="layui-form-item">
             <label class="layui-form-label">状态</label>
             <div class="layui-input-block">
                 <input type="radio" name="status" value="1" title="启用" checked>
