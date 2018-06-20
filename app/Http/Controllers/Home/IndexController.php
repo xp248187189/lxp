@@ -67,6 +67,7 @@ class IndexController extends Controller
         //友情链接
         $linkList = Cache::remember(sha1($request->fullUrl().'_linkList_cache'),10,function (){
             return Link::where('status','=','1')
+                ->where('isHome','=','1')
                 ->orderBy('sort','asc')
                 ->get();
         });
