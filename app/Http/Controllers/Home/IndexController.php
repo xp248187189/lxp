@@ -16,10 +16,10 @@ class IndexController extends Controller
 {
     //首页
     public function index(Request $request){
-        //首页文章
+        //首页文章(推荐文章)
         $isHomeList = Cache::remember(sha1($request->fullUrl().'_isHomeList_cache'),10,function (){
             return Article::where('status','=','1')
-                ->where('isHome','=',1)
+                ->where('isRecommend','=','1')
                 ->orderBy('sort','asc')
                 ->orderBy('created_at','desc')
                 //->take(8)
@@ -33,16 +33,6 @@ class IndexController extends Controller
                     ->get();
             });
         }
-        //推荐文章
-        $isRecommendList = Cache::remember(sha1($request->fullUrl().'_isRecommendList_cache'),10,function (){
-            return Article::where('status','=','1')
-                ->where('isRecommend','=','1')
-                ->orderBy('sort','asc')
-                ->orderBy('created_at','desc')
-                ->select('id','title')
-                ->take(8)
-                ->get();
-        });
         //最新文章
         $newestList = Cache::remember(sha1($request->fullUrl().'_newestList_cache'),10,function (){
             return Article::where('status','=','1')
@@ -93,8 +83,7 @@ class IndexController extends Controller
                 ->orderBy('sort','asc')
                 ->get();
         });
-        return view('Home.Index.index')->with('isRecommendList',$isRecommendList)
-            ->with('newestList',$newestList)
+        return view('Home.Index.index')->with('newestList',$newestList)
             ->with('timeAxisList',$timeAxisList)
             ->with('linkList',$linkList)
             ->with('blogInfo',$blogInfo)

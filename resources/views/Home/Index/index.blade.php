@@ -89,20 +89,6 @@
                             <a target="_blank" title="Github" href="https://github.com/xp248187189"><i class="fa fa-git fa-2x"></i></a>
                         </div>
                     </div>
-                    <div></div>{{--占位--}}
-                    <div class="blog-module shadow">
-                        <div class="blog-module-title">作者推荐</div>
-                        <ul class="fa-ul blog-module-ul">
-                            @foreach($isRecommendList as $key => $value)
-                                <li>
-                                    <i class="fa-li fa fa-hand-o-right"></i>
-                                    <a href="{{url('/Detail/'.$value->id)}}">
-                                        {{$value->title}}
-                                    </a>
-                                </li>
-                            @endforeach
-                        </ul>
-                    </div>
                     <div class="blog-module shadow">
                         <div class="blog-module-title">最新发表</div>
                         <ul class="fa-ul blog-module-ul">
