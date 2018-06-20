@@ -82,22 +82,9 @@
                         <div class="clear"></div>
                     </div>
                     <div class="blog-module shadow">
-                        <div class="blog-module-title">相似文章</div>
+                        <div class="blog-module-title">推荐</div>
                         <ul class="fa-ul blog-module-ul">
-                            @foreach($xiangshiList as $key => $value)
-                                <li>
-                                    <i class="fa-li fa fa-hand-o-right"></i>
-                                    <a href="{{url('/Detail/'.$value->id)}}">
-                                        {{$value->title}}
-                                    </a>
-                                </li>
-                            @endforeach
-                        </ul>
-                    </div>
-                    <div class="blog-module shadow">
-                        <div class="blog-module-title">随便看看</div>
-                        <ul class="fa-ul blog-module-ul">
-                            @foreach($suijiList as $key => $value)
+                            @foreach($isRecommendList as $key => $value)
                                 <li>
                                     <i class="fa-li fa fa-hand-o-right"></i>
                                     <a href="{{url('/Detail/'.$value->id)}}">

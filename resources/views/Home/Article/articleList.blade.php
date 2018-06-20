@@ -77,7 +77,7 @@
                         <div class="clear"></div>
                     </div>
                     <div class="blog-module shadow">
-                        <div class="blog-module-title">作者推荐</div>
+                        <div class="blog-module-title">推荐</div>
                         <ul class="fa-ul blog-module-ul">
                             @foreach($isRecommendList as $key => $value)
                                 <li>

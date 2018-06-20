@@ -129,22 +129,13 @@ class ArticleController extends Controller
             return Category::where('status','=','1')
                 ->get();
         });
-        //相似推荐
-        $xiangshiList = Cache::remember(sha1($request->fullUrl().'_xiangshiList_cache'),10,function () use ($info){
+        //作者推荐
+        $isRecommendList = Cache::remember(sha1($request->fullUrl().'_isRecommendList_cache'),10,function (){
             return Article::where('status','=','1')
-                ->where('category_id','=',$info->category_id)
+                ->where('isRecommend','=','1')
                 ->orderBy('sort','asc')
                 ->orderBy('created_at','desc')
                 ->select('id','title')
-                ->take(8)
-                ->get();
-        });
-        //随便看看
-        $suijiList = Cache::remember(sha1($request->fullUrl().'_suijiList_cache'),10,function (){
-            return Article::where('status','=','1')
-                ->inRandomOrder()
-                ->select('id','title')
-                ->take(8)
                 ->get();
         });
         //评论
@@ -159,8 +150,7 @@ class ArticleController extends Controller
         }
         return view('Home.Article.detail')->with('blogInfo',$blogInfo)
             ->with('categoryList',$categoryList)
-            ->with('xiangshiList',$xiangshiList)
-            ->with('suijiList',$suijiList)
+            ->with('isRecommendList',$isRecommendList)
             ->with('info',$info)
             ->with('keyWordsInfo',$keyWordsInfo)
             ->with('descriptionInfo',$descriptionInfo)
