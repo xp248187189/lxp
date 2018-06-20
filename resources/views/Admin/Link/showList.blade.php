@@ -57,8 +57,8 @@
                     {field:'name',title:'名称',edit:'text',sort:true,align:'center'},
                     {field:'url',title:'URL',edit:'text',sort:true,align:'center'},
                     {field:'sort',title:'排序',edit:'text',sort:true,align:'center'},
-                    {field:'status',title:'首页显示',sort:true,align:'center',templet:'#isHomeTemplet'},
                     {field:'status',title:'状态',sort:true,align:'center',templet:'#statusTemplet'},
+                    {field:'status',title:'首页显示',sort:true,align:'center',templet:'#isHomeTemplet'},
                     {fixed:'right',title:'操作',align:'center',toolbar: '#barDemo'},
                 ]],
                 done:function(res, curr, count){
