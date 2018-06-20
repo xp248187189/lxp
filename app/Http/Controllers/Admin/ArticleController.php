@@ -24,7 +24,7 @@ class ArticleController extends Controller
             }
             $data = Article::where($whereArr)
                 ->orderBy('sort','asc')
-                ->orderBy('addTime','desc')
+                ->orderBy('created_at','desc')
                 ->paginate($request->input('limit'))
                 ->toArray();
             $return['count'] = $data['total'];
@@ -56,7 +56,7 @@ class ArticleController extends Controller
             $path = $request->file('img')->store('article/'.date('Y-m-d'),'myUploads');
             $articleOrm->img = $path;
         }
-        $articleOrm->addTime = time();
+        $articleOrm->addDate = date('Y-m-d');
         $articleOrm->author = session()->get('adminInfo')['name'];
         $articleOrm->showNum = 0;
         $articleOrm->category_id = $request->input('category_id');

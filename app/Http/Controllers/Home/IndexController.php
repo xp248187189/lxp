@@ -21,7 +21,7 @@ class IndexController extends Controller
             return Article::where('status','=','1')
                 ->where('isHome','=',1)
                 ->orderBy('sort','asc')
-                ->orderBy('addTime','desc')
+                ->orderBy('created_at','desc')
                 //->take(8)
                 ->get();
         });
@@ -38,7 +38,7 @@ class IndexController extends Controller
             return Article::where('status','=','1')
                 ->where('isRecommend','=','1')
                 ->orderBy('sort','asc')
-                ->orderBy('addTime','desc')
+                ->orderBy('created_at','desc')
                 ->select('id','title')
                 ->take(8)
                 ->get();
@@ -46,7 +46,7 @@ class IndexController extends Controller
         //最新文章
         $newestList = Cache::remember(sha1($request->fullUrl().'_newestList_cache'),10,function (){
             return Article::where('status','=','1')
-                ->orderBy('addTime','desc')
+                ->orderBy('created_at','desc')
                 ->orderBy('sort','asc')
                 ->select('id','title')
                 ->take(8)

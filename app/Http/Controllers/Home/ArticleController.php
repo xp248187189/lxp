@@ -60,7 +60,7 @@ class ArticleController extends Controller
         $articleList = Cache::remember(sha1($request->fullUrl().'_articleList_cache'),10,function () use ($whereArray){
             return Article::where($whereArray)
                 ->orderBy('sort','asc')
-                ->orderBy('addTime','desc')
+                ->orderBy('created_at','desc')
                 ->paginate(8,['*'],'p');
         });
         $hasArticleList = true;
@@ -79,7 +79,7 @@ class ArticleController extends Controller
             return Article::where('status','=','1')
                 ->where('isRecommend','=','1')
                 ->orderBy('sort','asc')
-                ->orderBy('addTime','desc')
+                ->orderBy('created_at','desc')
                 ->select('id','title')
                 ->take(8)
                 ->get();
@@ -144,7 +144,7 @@ class ArticleController extends Controller
             return Article::where('status','=','1')
                 ->where('category_id','=',$info->category_id)
                 ->orderBy('sort','asc')
-                ->orderBy('addTime','desc')
+                ->orderBy('created_at','desc')
                 ->select('id','title')
                 ->take(8)
                 ->get();
