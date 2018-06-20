@@ -89,19 +89,6 @@
                             @endforeach
                         </ul>
                     </div>
-                    <div class="blog-module shadow">
-                        <div class="blog-module-title">随便看看</div>
-                        <ul class="fa-ul blog-module-ul">
-                            @foreach($suijiList as $key => $value)
-                                <li>
-                                    <i class="fa-li fa fa-hand-o-right"></i>
-                                    <a href="{{url('/Detail/'.$value->id)}}">
-                                        {{$value->title}}
-                                    </a>
-                                </li>
-                            @endforeach
-                        </ul>
-                    </div>
                     <!--右边悬浮 平板或手机设备显示-->
                     <div class="category-toggle"><i class="fa fa-chevron-left"></i></div>
                 </div>

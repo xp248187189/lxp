@@ -81,21 +81,11 @@ class ArticleController extends Controller
                 ->orderBy('sort','asc')
                 ->orderBy('created_at','desc')
                 ->select('id','title')
-                ->take(8)
-                ->get();
-        });
-        //随便看看
-        $suijiList = Cache::remember(sha1($request->fullUrl().'_suijiList_cache'),10,function (){
-            return Article::where('status','=','1')
-                ->inRandomOrder()
-                ->select('id','title')
-                ->take(8)
                 ->get();
         });
         return view('Home.Article.articleList')->with('blogInfo',$blogInfo)
             ->with('categoryList',$categoryList)
             ->with('isRecommendList',$isRecommendList)
-            ->with('suijiList',$suijiList)
             ->with('keyWordsInfo',$keyWordsInfo)
             ->with('descriptionInfo',$descriptionInfo)
             ->with('titleName',$titleName)
