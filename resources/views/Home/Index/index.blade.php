@@ -63,7 +63,7 @@
                             </div>
                             <div class="clear"></div>
                             <div class="article-footer">
-                                <span><i class="fa fa-clock-o"></i>&nbsp;&nbsp;{{date('Y-m-d',$value->addTime)}}</span>
+                                <span><i class="fa fa-clock-o"></i>&nbsp;&nbsp;{{$value->addDate}}</span>
                                 <span class="article-author"><i class="fa fa-user"></i>&nbsp;&nbsp;{{$value->author}}</span>
                                 <span><i class="fa fa-tag"></i>&nbsp;&nbsp;<a href="{{url('/Category/'.$value->category_id)}}">{{$value->category_name}}</a></span>
                                 <span class="article-viewinfo"><i class="fa fa-eye"></i>&nbsp;{{$value->showNum}}</span>
