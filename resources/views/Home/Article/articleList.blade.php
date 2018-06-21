@@ -123,10 +123,10 @@
             var str = $(this).val();
             $(this).val(str.replace(/[%#]/g,''));
         });
-        //回车事件
+        {{--回车事件--}}
         document.onkeydown = function (event) {
             var e = event || window.event;
-            if (e && e.keyCode == 13) { //回车键的键值为13
+            if (e && e.keyCode == 13) { {{--回车键的键值为13--}}
                 if ($('input[name="keyWord"]').is(":focus")) {
                     $('.search-btn').click();
                 };
