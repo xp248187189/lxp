@@ -71,6 +71,12 @@
                 <div class="blog-main-right">
                     {{--右边悬浮 平板或手机设备显示--}}
                     <div class="category-toggle"><i class="fa fa-chevron-left"></i></div>{{--这个div位置不能改，否则需要添加一个div来代替它或者修改样式表--}}
+                    <div class="blog-module shadow" id="showDate" style="padding: 0;">
+                        {{--这里是日期显示，为了给用户良好体验，加载未完成的时候给个加载动画height: 324px;--}}
+                        <div id="showDateLoding" align="center" style="width: 100%;height: 100px;line-height: 100px;">
+                            <img src="{{asset('/Common/loading.gif')}}" />
+                        </div>
+                    </div>
                     <div class="article-category shadow">
                         <div class="article-category-title">分类导航</div>
                         {{--点击分类后的页面和artile.html页面一样，只是数据是某一类别的--}}
@@ -108,6 +114,18 @@
 {{--js内容--}}
 @section('script')
     <script type="text/javascript">
+        laydate.render({
+            elem: '#showDate',
+            position: 'static',
+            calendar: true,
+            showBottom: true,
+            btns: ['now'],
+            ready: function (date) {
+                $('#showDate').find('div,table').attr('style','width:100%');
+                $('#showDate').find('.laydate-btns-now').attr('style','float:right');
+                $('#showDateLoding').hide();
+            }
+        });
         flow.lazyimg();
         //iframe加载完成的函数
         function setShowUEditorContentIframeHeight() {
