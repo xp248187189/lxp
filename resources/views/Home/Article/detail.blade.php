@@ -71,9 +71,9 @@
                 <div class="blog-main-right">
                     {{--右边悬浮 平板或手机设备显示--}}
                     <div class="category-toggle"><i class="fa fa-chevron-left"></i></div>{{--这个div位置不能改，否则需要添加一个div来代替它或者修改样式表--}}
-                    <div class="blog-module shadow" id="showDate" style="padding: 0;">
-                        {{--这里是日期显示，为了给用户良好体验，加载未完成的时候给个加载动画height: 324px;--}}
-                        <div id="showDateLoding" align="center" style="width: 100%;height: 100px;line-height: 100px;">
+                    <div class="blog-module shadow" id="showDate" style="padding: 0;height: 324px;">
+                        {{--这里是日期显示，为了给用户良好体验，加载未完成的时候给个加载动画--}}
+                        <div id="showDateLoding" align="center" style="width: 100%;height: 324px;line-height:324px;">
                             <img src="{{asset('/Common/loading.gif')}}" />
                         </div>
                     </div>

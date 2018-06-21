@@ -55,6 +55,12 @@
                     @endif
                 </div>
                 <div class="blog-main-right">
+                    <div class="blog-module shadow" id="showDate" style="padding: 0;height: 324px;">
+                        {{--这里是日期显示，为了给用户良好体验，加载未完成的时候给个加载动画--}}
+                        <div id="showDateLoding" align="center" style="width: 100%;height: 324px;line-height:324px;">
+                            <img src="{{asset('/Common/loading.gif')}}" />
+                        </div>
+                    </div>
                     <div class="blog-search">
                         <form class="layui-form" action="/Search" id="searchForm">
                             <div class="layui-form-item">
@@ -100,6 +106,18 @@
 {{--js内容--}}
 @section('script')
     <script type="text/javascript">
+        laydate.render({
+            elem: '#showDate',
+            position: 'static',
+            calendar: true,
+            showBottom: true,
+            btns: ['now'],
+            ready: function (date) {
+                $('#showDate').find('div,table').attr('style','width:100%');
+                $('#showDate').find('.laydate-btns-now').attr('style','float:right');
+                $('#showDateLoding').hide();
+            }
+        });
         {{--监听搜索框不能出现%和#--}}
         $('input[name="keyWord"]').bind('input propertychange', function() {
             var str = $(this).val();
