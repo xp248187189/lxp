@@ -116,7 +116,7 @@
     }
     form.on('submit(search)', function(data) {
         getDataTable();
-        return false;//阻止表单跳转。
+        return false;{{--阻止表单跳转。--}}
     });
     table.on('tool(dataTable)', function(obj) {
         var data = obj.data;

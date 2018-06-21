@@ -22,7 +22,7 @@
     @show
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <script>
-        // 百度统计代码
+        {{--百度统计代码--}}
         var _hmt = _hmt || [];
         (function() {
             var hm = document.createElement("script");
@@ -106,7 +106,7 @@
 {{--遮罩--}}
 <div class="blog-mask animated layui-hide"></div>
 <script>
-    // 百度搜索资源平台(自动推送工具)
+    {{--百度搜索资源平台(自动推送工具)--}}
     (function(){
         var bp = document.createElement('script');
         var curProtocol = window.location.protocol.split(':')[0];
@@ -129,7 +129,7 @@
 @show
 <script type="text/javascript">
     $.ajaxSetup({headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});
-    //百度分享插件
+    {{--百度分享插件--}}
     window._bd_share_config = {
         "common": {
             "bdSnsKey": {},
