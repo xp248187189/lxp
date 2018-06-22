@@ -56,7 +56,7 @@
                 <a href="{{url('/Article')}}"><i class="fa fa-file-text fa-fw"></i>&nbsp;文章专栏</a>
             </li>
             <li class="layui-nav-item @php echo $controllerName=='Archive'?'layui-this':'' @endphp">
-                <a href="{{url('/Archive')}}"><i class="fa fa-file-text fa-fw"></i>&nbsp;文章归档</a>
+                <a href="{{url('/Archive')}}"><i class="fa fa-folder-open fa-fw"></i>&nbsp;文章归档</a>
             </li>
             <li class="layui-nav-item @php echo $controllerName=='TimeAxis'?'layui-this':'' @endphp">
                 <a href="{{url('/TimeAxis')}}"><i class="fa fa-hourglass-half fa-fw"></i>&nbsp;点点滴滴</a>
@@ -87,7 +87,7 @@
         <a href="{{url('/Article')}}"><i class="fa fa-file-text fa-fw"></i>&nbsp;文章专栏</a>
     </li>
     <li class="layui-nav-item @php echo $controllerName=='Archive'?'layui-this':'' @endphp">
-        <a href="{{url('/Archive')}}"><i class="fa fa-file-text fa-fw"></i>&nbsp;文章归档</a>
+        <a href="{{url('/Archive')}}"><i class="fa fa-folder-open fa-fw"></i>&nbsp;文章归档</a>
     </li>
     <li class="layui-nav-item @php echo $controllerName=='TimeAxis'?'layui-this':'' @endphp">
         <a href="{{url('/TimeAxis')}}"><i class="fa fa-road fa-fw"></i>&nbsp;点点滴滴</a>
