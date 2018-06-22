@@ -312,11 +312,11 @@ function timeAgo(string $paramDate){
     if ($paramTime >= $todayStartTime) {
         if ($timeDifference <= 10) {
             return '刚刚';
-        }else if($timeDifference >10 && $timeDifference <= 60){
+        }else if($timeDifference >10 && $timeDifference < 60){
             return $timeDifference.'秒前';
-        }else if($timeDifference >60 && $timeDifference <= 3600){
+        }else if($timeDifference >=60 && $timeDifference < 3600){
             return intval(($timeDifference/60)).'分钟前';
-        }else if($timeDifference >3600 && $timeDifference <= $todayStartTimeToNowTime){
+        }else if($timeDifference >=3600 && $timeDifference <= $todayStartTimeToNowTime){
             return intval(($timeDifference/3600)).'小时前';
         }else{
             return $paramDate;
