@@ -24,23 +24,17 @@ class ArchiveController extends Controller
             return About::find(4);
         });
         //归档列表
-        // $archiveList = Cache::remember(sha1($request->fullUrl().'_archiveList_cache'),10,function (){
-        //     return Article::where('status','=','1')
-        //         ->select(\DB::raw('count(*) as article_count,addDate'))
-        //         ->groupBy('addDate')
-        //         ->get();
-        // });
-        $list = Article::where('status','=','1')
-            ->orderBy('created_at','desc')
-            ->select('id','title','addDate')
-            ->get()
-            ->toArray();
+        $list = Cache::remember(sha1($request->fullUrl().'_archiveList_cache'),10,function (){
+             return Article::where('status','=','1')
+                ->orderBy('created_at','desc')
+                ->select('id','title','addDate')
+                ->get()
+                ->toArray();
+        });
         foreach ($list as $key => $value){
             $list[$key]['addYearMonth'] = substr($value['addDate'],0,7);
         }
         $new_list = arrayGroupBy($list,'addYearMonth');
-        // dd($new_list);
-
         return view('Home.Archive.archive')->with('archiveList',$new_list)
             ->with('blogInfo',$blogInfo)
             ->with('keyWordsInfo',$keyWordsInfo)
