@@ -151,7 +151,8 @@
                                                                 {!! $v['connect'] !!}
                                                             </div>
                                                             <p class="info info-footer">
-                                                                <span class="time">{{date('Y-m-d H:i',$v['time'])}}</span>
+                                                                {{--<span class="time">{{date('Y-m-d H:i',$v['time'])}}</span>--}}
+                                                                <span class="time">{{timeAgo($v['created_at'])}}</span>
                                                                 <a class="btn-reply" href="javascript:;" @php echo $isLogin===false?'':'onclick="btnReplyClick(this)"'; @endphp>
                                                                     @php echo $isLogin===false?'<span style="color:#CCCCCC">请先登录</span>':'回复'; @endphp
                                                                 </a>
@@ -163,7 +164,8 @@
                                                                 <div class="info">
                                                                     <span class="username">{{$vv['user_account']}}</span><span>{!! $vv['connect'] !!}</span>
                                                                 </div>
-                                                                <p class="info"><span class="time">{{date('Y-m-d H:i',$vv['time'])}}</span></p>
+                                                                {{--<p class="info"><span class="time">{{date('Y-m-d H:i',$vv['time'])}}</span></p>--}}
+                                                                <p class="info"><span class="time">{{timeAgo($vv['created_at'])}}</span></p>
                                                             </div>
                                                         @endforeach
                                                         <div class="replycontainer layui-hide">

@@ -275,3 +275,58 @@ function curl($url, $params = false, $ispost = false, $https = false){
     //这里就直接返回接收到的数据，不反悔http信息了
     return $response;
 }
+
+/**
+ * @param $paramDate 日期 格式为2018-05-02 10:30:05
+ * @return string
+ */
+function timeAgo(string $paramDate){
+    //设置中国时区
+    // date_default_timezone_set('PRC');
+    //前天的开始时间 0点0分0秒
+    $beforeYesterdayStartTime = mktime(0,0,0,date('m'),date('d')-2,date('Y'));
+    //前天的结束时间 23点59分59秒
+    $beforeYesterdayEndTime = mktime(0,0,0,date('m'),date('d')-1,date('Y'))-1;
+    //昨天的开始时间 0点0分0秒
+    $yesterdayStartTime = mktime(0,0,0,date('m'),date('d')-1,date('Y'));
+    //昨天的结束时间 23点59分59秒
+    $yesterdayEndTime = mktime(0,0,0,date('m'),date('d'),date('Y'))-1;
+    //今天的开始时间 0点0分0秒
+    $todayStartTime = mktime(0,0,0,date('m'),date('d'),date('Y'));
+    //今天的结束时间 23点59分59秒
+    $todayEndTime = mktime(0,0,0,date('m'),date('d')+1,date('Y'))-1;
+    //目前的时间
+    $nowTime = time();
+    // $nowTime = 1529661050;
+    //今天的开始时间到目前时间的秒数
+    $todayStartTimeToNowTime = $nowTime - $todayStartTime;
+    //参数的时间戳
+    $paramTime = strtotime($paramDate);
+    //判断是否是未来时间(未来时间直接返回)
+    if ($nowTime < $paramTime) {
+        return $paramDate;
+    }
+    //时间差
+    $timeDifference = $nowTime - $paramTime;
+    //判断参数时间是否是在今天
+    if ($paramTime >= $todayStartTime) {
+        if ($timeDifference <= 10) {
+            return '刚刚';
+        }else if($timeDifference >10 && $timeDifference <= 60){
+            return $timeDifference.'秒前';
+        }else if($timeDifference >60 && $timeDifference <= 3600){
+            return intval(($timeDifference/60)).'分钟前';
+        }else if($timeDifference >3600 && $timeDifference <= $todayStartTimeToNowTime){
+            return intval(($timeDifference/3600)).'小时前';
+        }else{
+            return $paramDate;
+        }
+    }
+    if ($paramTime >= $yesterdayStartTime && $paramTime <= $yesterdayEndTime) {
+        return '昨天';
+    }
+    if ($paramTime >= $beforeYesterdayStartTime && $paramTime <= $beforeYesterdayEndTime) {
+        return '前天';
+    }
+    return $paramDate;
+}
