@@ -40,12 +40,12 @@
                             </div>
                         </li>
                         @endforeach
-                            <li class="layui-timeline-item">
-                                <i class="layui-icon layui-timeline-axis">&#xe63f;</i>
-                                <div class="layui-timeline-content layui-text">
-                                    <div class="layui-timeline-title">END</div>
-                                </div>
-                            </li>
+                        <li class="layui-timeline-item">
+                            <i class="layui-icon layui-timeline-axis">&#xe63f;</i>
+                            <div class="layui-timeline-content layui-text">
+                                <h3 class="layui-timeline-title">END</h3>
+                            </div>
+                        </li>
                     </ul>
                 </div>
             </div>
