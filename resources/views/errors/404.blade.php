@@ -39,7 +39,7 @@
                 <span>All Rights Reserved</span>
             </p>
             <p>
-                <a href="http://www.miitbeian.gov.cn/" target="_blank">蜀ICP备17041911号-1</a>
+                <a href="http://www.miitbeian.gov.cn/" target="_blank">蜀ICP备17041911号</a>
             </p>
         </div>
     </div>
