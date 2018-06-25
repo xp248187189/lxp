@@ -2,12 +2,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-
-    <!-- Viewport metatags -->
     <meta name="HandheldFriendly" content="true" />
     <meta name="MobileOptimized" content="320" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-
     <link rel="stylesheet" type="text/css" href="{{asset('404/css/dandelion.css')}}"  media="screen" />
     <style type="text/css">
         #da-footer p span,a{
@@ -17,42 +14,35 @@
             text-decoration: none;
         }
     </style>
-
     <title>404</title>
-
 </head>
-
 <body>
-
-<!-- Main Wrapper. Set this to 'fixed' for fixed layout and 'fluid' for fluid layout' -->
 <div id="da-wrapper" class="fluid">
-
-    <!-- Content -->
     <div id="da-content">
-
-        <!-- Container -->
         <div class="da-container clearfix">
-
             <div id="da-error-wrapper">
-
                 <div id="da-error-pin"></div>
                 <div id="da-error-code">
-                    error <span>404</span>                    </div>
-
+                    error <span>404</span>
+                </div>
                 <h1 class="da-error-heading">哎哟喂！页面让狗狗叼走了！</h1>
-
             </div>
         </div>
     </div>
-
-    <!-- Footer -->
     <div id="da-footer">
         <div class="da-container clearfix">
-            <p><span>Copyright</span><span>&copy;</span><span>2017@php echo date("Y")==2017?'':'-'.date("Y");@endphp</span><a href="{{url('/')}}">记忆碎片</a><span>All Rights Reserved</span></p>
-            <p><a href="http://www.miitbeian.gov.cn/" target="_blank">蜀ICP备17041911号-1</a></p>
+            <p>
+                <span>Copyright</span>
+                <span>&copy;</span>
+                <span>2017@php echo date("Y")==2017?'':'-'.date("Y");@endphp</span>
+                <a href="{{url('/')}}">记忆碎片</a>
+                <span>All Rights Reserved</span>
+            </p>
+            <p>
+                <a href="http://www.miitbeian.gov.cn/" target="_blank">蜀ICP备17041911号-1</a>
+            </p>
+        </div>
     </div>
-
 </div>
-
 </body>
 </html>
