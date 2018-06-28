@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
     <meta name="keywords" content="@yield('keywords')">
     <meta name="description" content="@yield('description')">
+    <link rel="icon" href="{{asset('favicon.ico')}}" />
     {{--百度搜索资源平台(验证)--}}
     <meta name="baidu-site-verification" content="hQ7PceVrnU" />
     {{--Google Search Console(验证)--}}
