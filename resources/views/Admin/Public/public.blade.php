@@ -6,6 +6,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('Common/layui/css/layui.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('Common/font-awesome/css/font-awesome.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('Admin/css/style.css') }}">
+    <link rel="icon" href="{{asset('favicon.ico')}}" />
     @section('loadCss')
 
     @show
