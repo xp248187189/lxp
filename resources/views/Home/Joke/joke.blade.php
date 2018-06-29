@@ -1,11 +1,7 @@
 {{--继承模板--}}
 @extends('Home.Public.public')
 {{--设置title--}}
-@section('title', $blogInfo->name.' - 轻松一刻')
-{{--设置关键字--}}
-@section('keywords', $keyWordsInfo->label)
-{{--设置描述--}}
-@section('description', $descriptionInfo->label)
+@section('title', cache('about_cache')[1]->name.' - 轻松一刻')
 {{--设置样式--}}
 @section('style')
     <style>
