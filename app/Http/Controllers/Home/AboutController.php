@@ -21,22 +21,6 @@ class AboutController extends Controller
                 ->orderBy('sort','asc')
                 ->get();
         });
-        //关于博客
-        $blogInfo = Cache::remember(sha1($request->fullUrl().'_blogInfo_cache'),10,function (){
-            return About::find(2);
-        });
-        //关于博主
-        $bloggerInfo = Cache::remember(sha1($request->fullUrl().'_bloggerInfo_cache'),10,function (){
-            return About::find(1);
-        });
-        //关键字
-        $keyWordsInfo = Cache::remember(sha1($request->fullUrl().'_keyWordsInfo_cache'),10,function (){
-            return About::find(3);
-        });
-        //描述
-        $descriptionInfo = Cache::remember(sha1($request->fullUrl().'_descriptionInfo_cache'),10,function (){
-            return About::find(4);
-        });
         //判断是否登录
         if(\Cookie::has('user_openid')){
             $isLogin = true;
@@ -64,10 +48,6 @@ class AboutController extends Controller
             }
         }
         return view('Home.About.about')->with('linkList',$linkList)
-            ->with('blogInfo',$blogInfo)
-            ->with('keyWordsInfo',$keyWordsInfo)
-            ->with('descriptionInfo',$descriptionInfo)
-            ->with('bloggerInfo',$bloggerInfo)
             ->with('controllerName','About')
             ->with('userComment',$userComment)
             ->with('userCommentArr',$userCommentArr)

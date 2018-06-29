@@ -1,11 +1,7 @@
 {{--继承模板--}}
 @extends('Home.Public.public')
 {{--设置title--}}
-@section('title', $blogInfo->name.' - 关于本站')
-{{--设置关键字--}}
-@section('keywords', $keyWordsInfo->label)
-{{--设置描述--}}
-@section('description', $descriptionInfo->label)
+@section('title', cache('about_cache')[1]->name.' - 关于本站')
 {{--引入css文件--}}
 @section('loadCss')
     <link rel="stylesheet" type="text/css" href="{{ asset('Home/css/about.css') }}">
@@ -32,10 +28,10 @@
                         <div class="layui-tab-item layui-show">
                             <div class="aboutinfo">
                                 <div class="aboutinfo-figure">
-                                    <img src="{{asset('/Home/image/Logo_100.png')}}" alt="{{$blogInfo->name}}" />
+                                    <img src="{{asset('/Home/image/Logo_100.png')}}" alt="{{cache('about_cache')[1]->name}}" />
                                 </div>
-                                <p class="aboutinfo-nickname">{{$blogInfo->name}}</p>
-                                <p class="aboutinfo-introduce">{{$blogInfo->introduce}}</p>
+                                <p class="aboutinfo-nickname">{{cache('about_cache')[1]->name}}</p>
+                                <p class="aboutinfo-introduce">{{cache('about_cache')[1]->introduce}}</p>
                                 <p class="aboutinfo-location"><i class="fa fa-link"></i>&nbsp;&nbsp;<a target="_blank" href="{{url('/')}}">{{url('/')}}</a></p>
                                 <hr />
                                 <div class="aboutinfo-contact">
@@ -46,7 +42,7 @@
                                 <fieldset class="layui-elem-field layui-field-title">
                                     <legend>简介</legend>
                                     <div class="layui-field-box aboutinfo-abstract">
-                                        {{showUEditorContent($blogInfo->detail)}}
+                                        {{showUEditorContent(cache('about_cache')[1]->detail)}}
                                         <h1 style="text-align:center;">The End</h1>
                                     </div>
                                 </fieldset>
@@ -55,11 +51,11 @@
                         <div class="layui-tab-item">
                             <div class="aboutinfo">
                                 <div class="aboutinfo-figure">
-                                    <img src="{{ asset('uploads').'/'.$bloggerInfo->img }}" alt="{{$bloggerInfo->name}}" style="width:100px;height: 100px;"/>
+                                    <img src="{{ asset('uploads').'/'.cache('about_cache')[0]->img }}" alt="{{cache('about_cache')[0]->name}}" style="width:100px;height: 100px;"/>
                                 </div>
-                                <p class="aboutinfo-nickname">{{$bloggerInfo->name}}</p>
-                                <p class="aboutinfo-introduce">{{$bloggerInfo->introduce}}</p>
-                                <p class="aboutinfo-location"><i class="fa fa-location-arrow"></i>&nbsp;{{$bloggerInfo->label}}</p>
+                                <p class="aboutinfo-nickname">{{cache('about_cache')[0]->name}}</p>
+                                <p class="aboutinfo-introduce">{{cache('about_cache')[0]->introduce}}</p>
+                                <p class="aboutinfo-location"><i class="fa fa-location-arrow"></i>&nbsp;{{cache('about_cache')[0]->label}}</p>
                                 <hr />
                                 <div class="aboutinfo-contact">
                                     <a target="_blank" title="QQ交流" href="http://wpa.qq.com/msgrd?v=3&uin=248187189&site=qq&menu=yes"><i class="fa fa-qq fa-2x"></i></a>
@@ -70,7 +66,7 @@
                                 <fieldset class="layui-elem-field layui-field-title">
                                     <legend>简介</legend>
                                     <div class="layui-field-box aboutinfo-abstract abstract-bloger">
-                                        {{showUEditorContent($bloggerInfo->detail)}}
+                                        {{showUEditorContent(cache('about_cache')[0]->detail)}}
                                         <h1 style="text-align:center;">The End</h1>
                                     </div>
                                 </fieldset>
@@ -82,7 +78,7 @@
                                     <img width="100px" src="{{asset('/Home/image/recommend.png')}}" alt="网站推荐" />
                                 </div>
                                 <p class="aboutinfo-nickname">网站推荐</p>
-                                <p class="aboutinfo-introduce">Name：{{$blogInfo->name}}&nbsp;&nbsp;&nbsp;&nbsp;Site：{{url('/')}}</p>
+                                <p class="aboutinfo-introduce">Name：{{cache('about_cache')[1]->name}}&nbsp;&nbsp;&nbsp;&nbsp;Site：{{url('/')}}</p>
                                 <p class="aboutinfo-location">
                                     <i class="fa fa-close"></i>经常宕机&nbsp;
                                     <i class="fa fa-close"></i>不合法规&nbsp;

@@ -47,7 +47,7 @@
         </a>
         @endif
         {{--记忆碎片--}}
-        <a class="blog-logo" href="{{url('/')}}">{{$blogInfo->name}}</a>
+        <a class="blog-logo" href="{{url('/')}}">{{cache('about_cache')[1]->name}}</a>
         {{--导航菜单--}}
         <ul class="layui-nav" lay-filter="nav">
             <li class="layui-nav-item @php echo $controllerName=='Index'?'layui-this':'' @endphp">
