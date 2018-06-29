@@ -17,18 +17,6 @@ class ArticleController extends Controller
 {
     //列表
     public function articleList(Request $request){
-        //关键字
-        $keyWordsInfo = Cache::remember(sha1($request->fullUrl().'_keyWordsInfo_cache'),10,function (){
-            return About::find(3);
-        });
-        //描述
-        $descriptionInfo = Cache::remember(sha1($request->fullUrl().'_descriptionInfo_cache'),10,function (){
-            return About::find(4);
-        });
-        //关于博客
-        $blogInfo = Cache::remember(sha1($request->fullUrl().'_blogInfo_cache'),10,function (){
-            return About::find(2);
-        });
         //分类
         $categoryList = Cache::remember(sha1($request->fullUrl().'_categoryList_cache'),10,function (){
             return Category::where('status','=','1')
@@ -83,11 +71,8 @@ class ArticleController extends Controller
                 ->select('id','title')
                 ->get();
         });
-        return view('Home.Article.articleList')->with('blogInfo',$blogInfo)
-            ->with('categoryList',$categoryList)
+        return view('Home.Article.articleList')->with('categoryList',$categoryList)
             ->with('isRecommendList',$isRecommendList)
-            ->with('keyWordsInfo',$keyWordsInfo)
-            ->with('descriptionInfo',$descriptionInfo)
             ->with('titleName',$titleName)
             ->with('keyWord',$keyWord)
             ->with('category',$category)
