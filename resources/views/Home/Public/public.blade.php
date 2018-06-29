@@ -4,8 +4,8 @@
     <title>@yield('title')</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-    <meta name="keywords" content="@yield('keywords')">
-    <meta name="description" content="@yield('description')">
+    <meta name="keywords" content="{{cache('about_cache')[2]->label}}">
+    <meta name="description" content="{{cache('about_cache')[3]->label}}">
     <link rel="icon" href="{{asset('favicon.ico')}}" />
     {{--百度搜索资源平台(验证)--}}
     <meta name="baidu-site-verification" content="hQ7PceVrnU" />

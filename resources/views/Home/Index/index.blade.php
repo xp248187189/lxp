@@ -1,11 +1,7 @@
 {{--继承模板--}}
 @extends('Home.Public.public')
 {{--设置title--}}
-@section('title', $blogInfo->name.' - '.$blogInfo->introduce)
-{{--设置关键字--}}
-@section('keywords', $keyWordsInfo->label)
-{{--设置描述--}}
-@section('description', $descriptionInfo->label)
+@section('title', cache('about_cache')[1]->name.' - '.cache('about_cache')[1]->introduce)
 {{--引入css文件--}}
 @section('loadCss')
     <link rel="stylesheet" type="text/css" href="{{ asset('Home/css/home.css') }}">
@@ -76,11 +72,11 @@
                 <div class="blog-main-right">
                     <div class="blogerinfo shadow">
                         <div class="blogerinfo-figure">
-                            <img src="{{ asset('uploads/'.$bloggerInfo->img) }}" alt="{{$bloggerInfo->name}}" style="width:100px;height: 100px;"/>
+                            <img src="{{ asset('uploads/'.cache('about_cache')[0]->img) }}" alt="{{cache('about_cache')[0]->name}}" style="width:100px;height: 100px;"/>
                         </div>
-                        <p class="blogerinfo-nickname">{{$bloggerInfo->name}}</p>
-                        <p class="blogerinfo-introduce">{{$bloggerInfo->introduce}}</p>
-                        <p class="blogerinfo-location"><i class="fa fa-location-arrow"></i>&nbsp;{{$bloggerInfo->label}}</p>
+                        <p class="blogerinfo-nickname">{{cache('about_cache')[0]->name}}</p>
+                        <p class="blogerinfo-introduce">{{cache('about_cache')[0]->introduce}}</p>
+                        <p class="blogerinfo-location"><i class="fa fa-location-arrow"></i>&nbsp;{{cache('about_cache')[0]->label}}</p>
                         <hr />
                         <div class="blogerinfo-contact">
                             <a target="_blank" title="QQ交流" href="http://wpa.qq.com/msgrd?v=3&uin=248187189&site=qq&menu=yes"><i class="fa fa-qq fa-2x"></i></a>

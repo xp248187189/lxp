@@ -61,22 +61,6 @@ class IndexController extends Controller
                 ->orderBy('sort','asc')
                 ->get();
         });
-        //关于博客
-        $blogInfo = Cache::remember(sha1($request->fullUrl().'_blogInfo_cache'),10,function (){
-            return About::find(2);
-        });
-        //关于博主
-        $bloggerInfo = Cache::remember(sha1($request->fullUrl().'_bloggerInfo_cache'),10,function (){
-            return About::find(1);
-        });
-        //关键字
-        $keyWordsInfo = Cache::remember(sha1($request->fullUrl().'_keyWordsInfo_cache'),10,function (){
-            return About::find(3);
-        });
-        //描述
-        $descriptionInfo = Cache::remember(sha1($request->fullUrl().'_descriptionInfo_cache'),10,function (){
-            return About::find(4);
-        });
         //网站公告
         $noticeList = Cache::remember(sha1($request->fullUrl().'_noticeList_cache'),10,function (){
             return Notice::where('status','=','1')
@@ -86,11 +70,7 @@ class IndexController extends Controller
         return view('Home.Index.index')->with('newestList',$newestList)
             ->with('timeAxisList',$timeAxisList)
             ->with('linkList',$linkList)
-            ->with('blogInfo',$blogInfo)
-            ->with('bloggerInfo',$bloggerInfo)
             ->with('noticeList',$noticeList)
-            ->with('keyWordsInfo',$keyWordsInfo)
-            ->with('descriptionInfo',$descriptionInfo)
             ->with('isHomeList',$isHomeList)
             ->with('controllerName','Index');
     }
