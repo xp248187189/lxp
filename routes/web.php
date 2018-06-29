@@ -18,6 +18,8 @@ Route::domain(config('domin.home_domin'))->namespace('Home')->middleware('BlackL
     Route::get('Archive','ArchiveController@archive');
     //时间轴
     Route::get('TimeAxis','TimeAxisController@timeAxis');
+    //轻松一刻
+    Route::get('Joke','JokeController@joke');
     //关于本站
     Route::get('About','AboutController@about');
     //提交留言
