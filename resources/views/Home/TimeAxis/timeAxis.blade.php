@@ -1,11 +1,7 @@
 {{--继承模板--}}
 @extends('Home.Public.public')
 {{--设置title--}}
-@section('title', $blogInfo->name.' - 点点滴滴')
-{{--设置关键字--}}
-@section('keywords', $keyWordsInfo->label)
-{{--设置描述--}}
-@section('description', $descriptionInfo->label)
+@section('title', cache('about_cache')[1]->name.' - 点点滴滴')
 {{--引入css文件--}}
 @section('loadCss')
     <link rel="stylesheet" type="text/css" href="{{ asset('Home/css/animate.min.css') }}">
