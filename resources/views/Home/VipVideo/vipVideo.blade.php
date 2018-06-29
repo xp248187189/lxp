@@ -1,11 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>{{$blogInfo->name.' - vip视频解析'}}</title>
+    <title>{{cache('about_cache')[1]->name.' - vip视频解析'}}</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-    <meta name="keywords" content="{{$keyWordsInfo->label}}">
-    <meta name="description" content="{{$descriptionInfo->label}}">
     {{--百度搜索资源平台(验证)--}}
     {{--<meta name="baidu-site-verification" content="hQ7PceVrnU" />--}}
     {{--Google Search Console(验证)--}}

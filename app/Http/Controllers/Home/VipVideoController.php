@@ -40,22 +40,7 @@ class VipVideoController extends Controller
                 ->orderBy('id','asc')
                 ->get();
         });
-        //关于博客
-        $blogInfo = Cache::remember(sha1($request->fullUrl().'_blogInfo_cache'),10,function (){
-            return About::find(2);
-        });
-        //关键字
-        $keyWordsInfo = Cache::remember(sha1($request->fullUrl().'_keyWordsInfo_cache'),10,function (){
-            return About::find(3);
-        });
-        //描述
-        $descriptionInfo = Cache::remember(sha1($request->fullUrl().'_descriptionInfo_cache'),10,function (){
-            return About::find(4);
-        });
         return view('Home.VipVideo.vipVideo')->with('vipVideoApi',$vipVideoApi)
-            ->with('blogInfo',$blogInfo)
-            ->with('keyWordsInfo',$keyWordsInfo)
-            ->with('descriptionInfo',$descriptionInfo)
             ->with('controllerName','VipVideo');
     }
 }
