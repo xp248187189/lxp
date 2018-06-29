@@ -63,7 +63,7 @@
                 <a href="{{url('/TimeAxis')}}"><i class="fa fa-hourglass-half fa-fw"></i>&nbsp;点点滴滴</a>
             </li>
             <li class="layui-nav-item @php echo $controllerName=='Joke'?'layui-this':'' @endphp">
-                <a href="{{url('/Joke')}}"><i class="fa fa-folder-open fa-fw"></i>&nbsp;轻松一刻</a>
+                <a href="{{url('/Joke')}}"><i class="fa fa-pagelines fa-fw"></i>&nbsp;轻松一刻</a>
             </li>
             <li class="layui-nav-item @php echo $controllerName=='About'?'layui-this':'' @endphp">
                 <a href="{{url('/About')}}"><i class="fa fa-info fa-fw"></i>&nbsp;关于本站</a>
@@ -97,7 +97,7 @@
         <a href="{{url('/TimeAxis')}}"><i class="fa fa-road fa-fw"></i>&nbsp;点点滴滴</a>
     </li>
     <li class="layui-nav-item @php echo $controllerName=='Joke'?'layui-this':'' @endphp">
-        <a href="{{url('/Joke')}}"><i class="fa fa-folder-open fa-fw"></i>&nbsp;轻松一刻</a>
+        <a href="{{url('/Joke')}}"><i class="fa fa-pagelines fa-fw"></i>&nbsp;轻松一刻</a>
     </li>
     <li class="layui-nav-item @php echo $controllerName=='About'?'layui-this':'' @endphp">
         <a href="{{url('/About')}}"><i class="fa fa-info fa-fw"></i>&nbsp;关于本站</a>
