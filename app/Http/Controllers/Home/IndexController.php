@@ -71,7 +71,6 @@ class IndexController extends Controller
             ->with('timeAxisList',$timeAxisList)
             ->with('linkList',$linkList)
             ->with('noticeList',$noticeList)
-            ->with('isHomeList',$isHomeList)
-            ->with('controllerName','Index');
+            ->with('isHomeList',$isHomeList);
     }
 }

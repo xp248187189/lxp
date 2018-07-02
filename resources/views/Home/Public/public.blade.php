@@ -34,6 +34,17 @@
     </script>
 </head>
 <body>
+@php
+    //获取当前路由 格式:App\Http\Controllers\Admin\IndexController@index
+   $action = request()->route()->getAction();
+   $controllerName = $action['controller'];
+   $controllerNameArr = explode('\\',$controllerName);
+    //获取控制器及方法 格式:IndexController@index
+    $end = end($controllerNameArr);
+    $endArr = explode('@',$end);
+    $endArr[0] = substr($endArr[0],0,-10);
+    $controllerName = $endArr[0];
+@endphp
 <nav class="blog-nav layui-header">
     <div class="blog-container">
         {{--QQ互联登陆--}}

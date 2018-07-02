@@ -40,7 +40,6 @@ class VipVideoController extends Controller
                 ->orderBy('id','asc')
                 ->get();
         });
-        return view('Home.VipVideo.vipVideo')->with('vipVideoApi',$vipVideoApi)
-            ->with('controllerName','VipVideo');
+        return view('Home.VipVideo.vipVideo')->with('vipVideoApi',$vipVideoApi);
     }
 }

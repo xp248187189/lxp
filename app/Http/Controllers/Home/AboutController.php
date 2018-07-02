@@ -48,7 +48,6 @@ class AboutController extends Controller
             }
         }
         return view('Home.About.about')->with('linkList',$linkList)
-            ->with('controllerName','About')
             ->with('userComment',$userComment)
             ->with('userCommentArr',$userCommentArr)
             ->with('isLogin',$isLogin);

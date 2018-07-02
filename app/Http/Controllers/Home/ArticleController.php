@@ -77,8 +77,7 @@ class ArticleController extends Controller
             ->with('keyWord',$keyWord)
             ->with('category',$category)
             ->with('articleList',$articleList)
-            ->with('hasArticleList',$hasArticleList)
-            ->with('controllerName','Article');
+            ->with('hasArticleList',$hasArticleList);
     }
 
     //详情
@@ -124,7 +123,6 @@ class ArticleController extends Controller
         return view('Home.Article.detail')->with('categoryList',$categoryList)
             ->with('isRecommendList',$isRecommendList)
             ->with('info',$info)
-            ->with('controllerName','Article')
             ->with('articleComment',$articleComment)
             ->with('isLogin',$isLogin);
     }

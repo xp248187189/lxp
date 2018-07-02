@@ -23,7 +23,6 @@ class ArchiveController extends Controller
             }
             return arrayGroupBy($list,'addYearMonth');
         });
-        return view('Home.Archive.archive')->with('archiveList',$new_list)
-            ->with('controllerName','Archive');
+        return view('Home.Archive.archive')->with('archiveList',$new_list);
     }
 }

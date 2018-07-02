@@ -30,7 +30,6 @@ class TimeAxisController extends Controller
             }
             return $yearGroup;
         });
-        return view('Home.TimeAxis.timeAxis')->with('timeAxisList',$yearGroup)
-            ->with('controllerName','TimeAxis');
+        return view('Home.TimeAxis.timeAxis')->with('timeAxisList',$yearGroup);
     }
 }
