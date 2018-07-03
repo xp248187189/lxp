@@ -52,8 +52,7 @@
                                         <img lay-src="{{$value->user_head}}"/>
                                         <div class="info">
                                             <span class="username">{{$value->user_account}}</span>
-                                            {{--<span class="time">{{date('Y-m-d H:i:s',$value->time)}}</span>--}}
-                                            <span class="time">{{timeAgo($value['created_at'])}}</span>
+                                            <span class="time">{{\Carbon\Carbon::parse($value['created_at'])->diffForHumans()}}</span>
                                         </div>
                                         <div class="content">
                                             {!! $value->connect !!}
