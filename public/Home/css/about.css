@@ -121,9 +121,3 @@
         display: inline-block;
     }
 }
-/* 中等屏幕（桌面显示器，大于等于 992px） */
-/*@media (min-width: 992px) {*/
-    /*.blog-container {*/
-        /*width: 962px;*/
-    /*}*/
-/*}*/
