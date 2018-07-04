@@ -123,7 +123,7 @@
             loginHtml += '<div class="layui-form-item">';
             loginHtml += '<label class="layui-form-label">账号</label>';
             loginHtml += '<div class="layui-input-inline pm-login-input">';
-            loginHtml += '<input type="text" name="account" lay-verify="required|account" placeholder="请输入账号" value="" autocomplete="off" class="layui-input">';
+            loginHtml += '<input type="text" name="account" lay-verify="required|account" placeholder="请输入账号" value="" autocomplete="off" autofocus="autofocus" class="layui-input">';
             loginHtml += '</div>';
             loginHtml += '</div>';
             loginHtml += '<div class="layui-form-item">';
