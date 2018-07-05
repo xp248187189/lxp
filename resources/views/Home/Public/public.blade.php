@@ -78,6 +78,14 @@
             </li>
             <li class="layui-nav-item @php echo $controllerName=='About'?'layui-this':'' @endphp">
                 <a href="{{url('/About')}}"><i class="fa fa-info fa-fw"></i>&nbsp;关于本站</a>
+                @if($controllerName != 'About')
+                <dl class="layui-nav-child">
+                    <dd><a href="{{url('/About#tabIndex=1')}}">关于博客</a></dd>
+                    <dd><a href="{{url('/About#tabIndex=2')}}">关于作者</a></dd>
+                    <dd><a href="{{url('/About#tabIndex=3')}}">网站推荐</a></dd>
+                    <dd><a href="{{url('/About#tabIndex=4')}}">留言墙</a></dd>
+                </dl>
+                @endif
             </li>
         </ul>
         {{--手机和平板的导航开关--}}
@@ -112,6 +120,14 @@
     </li>
     <li class="layui-nav-item @php echo $controllerName=='About'?'layui-this':'' @endphp">
         <a href="{{url('/About')}}"><i class="fa fa-info fa-fw"></i>&nbsp;关于本站</a>
+        @if($controllerName != 'About')
+            <dl class="layui-nav-child">
+                <dd><a href="{{url('/About#tabIndex=1')}}">关于博客</a></dd>
+                <dd><a href="{{url('/About#tabIndex=2')}}">关于作者</a></dd>
+                {{--<dd><a href="{{url('/About#tabIndex=3')}}">网站推荐</a></dd>--}}
+                <dd><a href="{{url('/About#tabIndex=4')}}">留言墙</a></dd>
+            </dl>
+        @endif
     </li>
 </ul>
 {{--分享窗体--}}
