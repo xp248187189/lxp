@@ -122,7 +122,7 @@
         <a href="{{url('/TimeAxis')}}"><i class="fa fa-road fa-fw"></i>&nbsp;点点滴滴</a>
     </li>
     <li class="layui-nav-item @php echo $controllerName=='Joke'?'layui-this':'' @endphp">
-        <a href="{{url('/Joke')}}"><i class="fa fa-pagelines fa-fw"></i>&nbsp;轻松一刻</a>
+        <a href="javascript:void(0)"><i class="fa fa-pagelines fa-fw"></i>&nbsp;轻松一刻</a>
         @if($controllerName != 'Joke')
             <dl class="layui-nav-child">
                 <dd><a href="{{url('/Joke#tabIndex=1')}}">开心一笑</a></dd>
@@ -131,7 +131,7 @@
         @endif
     </li>
     <li class="layui-nav-item @php echo $controllerName=='About'?'layui-this':'' @endphp">
-        <a href="{{url('/About')}}"><i class="fa fa-info fa-fw"></i>&nbsp;关于本站</a>
+        <a href="javascript:void(0)"><i class="fa fa-info fa-fw"></i>&nbsp;关于本站</a>
         @if($controllerName != 'About')
             <dl class="layui-nav-child">
                 <dd><a href="{{url('/About#tabIndex=1')}}">关于博客</a></dd>
