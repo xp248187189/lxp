@@ -75,6 +75,12 @@
             </li>
             <li class="layui-nav-item @php echo $controllerName=='Joke'?'layui-this':'' @endphp">
                 <a href="{{url('/Joke')}}"><i class="fa fa-pagelines fa-fw"></i>&nbsp;轻松一刻</a>
+                @if($controllerName != 'Joke')
+                    <dl class="layui-nav-child">
+                        <dd><a href="{{url('/Joke#tabIndex=1')}}">开心一笑</a></dd>
+                        <dd><a href="{{url('/Joke#tabIndex=2')}}">历史上的今天</a></dd>
+                    </dl>
+                @endif
             </li>
             <li class="layui-nav-item @php echo $controllerName=='About'?'layui-this':'' @endphp">
                 <a href="{{url('/About')}}"><i class="fa fa-info fa-fw"></i>&nbsp;关于本站</a>
@@ -117,6 +123,12 @@
     </li>
     <li class="layui-nav-item @php echo $controllerName=='Joke'?'layui-this':'' @endphp">
         <a href="{{url('/Joke')}}"><i class="fa fa-pagelines fa-fw"></i>&nbsp;轻松一刻</a>
+        @if($controllerName != 'Joke')
+            <dl class="layui-nav-child">
+                <dd><a href="{{url('/Joke#tabIndex=1')}}">开心一笑</a></dd>
+                <dd><a href="{{url('/Joke#tabIndex=2')}}">历史上的今天</a></dd>
+            </dl>
+        @endif
     </li>
     <li class="layui-nav-item @php echo $controllerName=='About'?'layui-this':'' @endphp">
         <a href="{{url('/About')}}"><i class="fa fa-info fa-fw"></i>&nbsp;关于本站</a>
