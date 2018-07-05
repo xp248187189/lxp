@@ -29,6 +29,10 @@
             <input type="checkbox" name="isHome" title="是" value="@{{d.id}}" lay-filter="isHome" @{{a}}>
         </form>
     </script>
+    <script type="text/html" id="imgDemo">
+        @{{# if(d.icoUrl == ''){var icoUrl = d.url+'/favicon.ico';}else{var icoUrl = d.icoUrl;} }}
+        <img style="height:40px;" src="@{{ icoUrl }}"/>
+    </script>
     <script type="text/html" id="barDemo">
         <a class="layui-btn layui-btn-sm" lay-event="edit">编辑</a>
         <a class="layui-btn layui-btn-sm layui-btn-danger" lay-event="del">删除</a>
@@ -59,6 +63,7 @@
                     {field:'sort',title:'排序',edit:'text',sort:true,align:'center'},
                     {field:'status',title:'状态',sort:true,align:'center',templet:'#statusTemplet'},
                     {field:'status',title:'首页显示',sort:true,align:'center',templet:'#isHomeTemplet'},
+                    {field:'icoUrl',title:'图标',sort:false,align:'center',minWidth:'100',event:'selImg',templet:'#imgDemo'},
                     {fixed:'right',title:'操作',align:'center',toolbar: '#barDemo'},
                 ]],
                 done:function(res, curr, count){
@@ -125,7 +130,7 @@
                 layer.open({
                     title:data.name,
                     type:2,
-                    area:['700px', '370px'],
+                    area:['700px', '420px'],
                     maxmin: true,
                     content: '@php echo url("/Link/edit/'+data.id+'")@endphp',
                     end:function(){
@@ -134,6 +139,20 @@
                         getDataTable();
                     }
                 });
+            }else if(layEvent === 'selImg'){
+                if(data.icoUrl == ''){
+                    var icoUrl = data.url+'/favicon.ico';
+                }else{
+                    var icoUrl = data.icoUrl;
+                }
+                layer.open({
+                    type: 1,
+                    area:'500px',
+                    title: false,
+                    closeBtn: 0,
+                    shadeClose: true,
+                    content: '<img style="width:500px;" src="'+icoUrl+'"/>'
+                });
             }
         });
         //添加
@@ -141,7 +160,7 @@
             layer.open({
                 title:'添加',
                 type:2,
-                area:['700px', '370px'],
+                area:['700px', '420px'],
                 maxmin: true,
                 content: '{{url("/Link/add")}}',
                 end:function(){

@@ -38,6 +38,7 @@ class LinkController extends Controller
         $orm = new Link();
         $orm->name = $request->input('name');
         $orm->url = $request->input('url');
+        $orm->icoUrl = $request->filled('icoUrl') ? $request->input('icoUrl') : '';
         $orm->sort = $request->input('sort');
         $orm->isHome = $request->input('isHome');
         $orm->status = $request->input('status');
@@ -64,6 +65,7 @@ class LinkController extends Controller
         if ($request->input('url')){
             $orm->url = $request->input('url');
         }
+        $orm->icoUrl = $request->filled('icoUrl') ? $request->input('icoUrl') : '';
         if ($request->input('sort')){
             $orm->sort = $request->input('sort');
         }
