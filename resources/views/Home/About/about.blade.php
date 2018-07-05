@@ -98,7 +98,11 @@
                                             @foreach($linkList as $key => $value)
                                             <li>
                                                 <a target="_blank" href="{{$value->url}}" title="{{$value->name}}" class="friendlink-item">
-                                                    <p class="friendlink-item-pic"><img src="{{$value->url}}/favicon.ico" alt="{{$value->name}}" /></p>
+                                                    @if($value->icoUrl == '')
+                                                        <p class="friendlink-item-pic"><img src="{{$value->url}}/favicon.ico" alt="{{$value->name}}" /></p>
+                                                    @else
+                                                        <p class="friendlink-item-pic"><img src="{{$value->icoUrl}}" alt="{{$value->name}}" /></p>
+                                                    @endif
                                                     <p class="friendlink-item-title">{{$value->name}}</p>
                                                     <p class="friendlink-item-domain">{{$value->url}}</p>
                                                 </a>
