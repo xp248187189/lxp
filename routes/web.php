@@ -3,7 +3,7 @@
 /**
  * 前台
  */
-Route::domain(config('domin.home_domin'))->namespace('Home')->middleware('BlackList')->group(function (){
+Route::domain(config('domin.home_domin'))->namespace('Home')->middleware('BlackList','throttle:60,1')->group(function (){
     //首页
     Route::get('/','IndexController@index');
     //文章列表 全部/分类/标题
@@ -35,9 +35,9 @@ Route::domain(config('domin.home_domin'))->namespace('Home')->middleware('BlackL
 /**
  * 后台
  */
-Route::domain(config('domin.admin_domin'))->namespace('Admin')->group(function () {
+Route::domain(config('domin.admin_domin'))->namespace('Admin')->middleware('AdminAuth')->group(function () {
     //默认Index/index页面
-    Route::middleware('AdminAuth')->get('/','IndexController@index');
+    Route::get('/','IndexController@index');
     //登陆页面
     Route::get('login','LoginController@login');
     //执行登陆
@@ -47,7 +47,7 @@ Route::domain(config('domin.admin_domin'))->namespace('Admin')->group(function (
     //登录验证码
     // Route::get();
     //Index控制器
-    Route::middleware('AdminAuth')->prefix('Index')->group(function (){
+    Route::prefix('Index')->group(function (){
         //首页
         Route::get('/index','IndexController@index');
         //welcome页
@@ -62,7 +62,7 @@ Route::domain(config('domin.admin_domin'))->namespace('Admin')->group(function (
         Route::get('/cacheFlush','IndexController@cacheFlush');
     });
     //Auth控制器
-    Route::middleware('AdminAuth')->prefix('Auth')->group(function (){
+    Route::prefix('Auth')->group(function (){
         //列表
         Route::any('/showList/{action?}/{id?}','AuthController@showList');
         //添加页
@@ -77,7 +77,7 @@ Route::domain(config('domin.admin_domin'))->namespace('Admin')->group(function (
         Route::get('/ajaxDel','AuthController@ajaxDel');
     });
     //Admin控制器
-    Route::middleware('AdminAuth')->prefix('Admin')->group(function (){
+    Route::prefix('Admin')->group(function (){
         //列表
         Route::any('/showList/{action?}','AdminController@showList');
         //添加页
@@ -92,7 +92,7 @@ Route::domain(config('domin.admin_domin'))->namespace('Admin')->group(function (
         Route::get('/ajaxDel','AdminController@ajaxDel');
     });
     //Role控制器
-    Route::middleware('AdminAuth')->prefix('Role')->group(function (){
+    Route::prefix('Role')->group(function (){
         //列表
         Route::any('/showList/{action?}','RoleController@showList');
         //添加页
@@ -107,7 +107,7 @@ Route::domain(config('domin.admin_domin'))->namespace('Admin')->group(function (
         Route::get('/ajaxDel','RoleController@ajaxDel');
     });
     //Article控制器
-    Route::middleware('AdminAuth')->prefix('Article')->group(function (){
+    Route::prefix('Article')->group(function (){
         //首页
         Route::any('/showList/{action?}','ArticleController@showList');
         //添加页
@@ -124,7 +124,7 @@ Route::domain(config('domin.admin_domin'))->namespace('Admin')->group(function (
         Route::any('/commentList/{article_id}/{action?}','ArticleController@commentList');
     });
     //category控制器
-    Route::middleware('AdminAuth')->prefix('Category')->group(function (){
+    Route::prefix('Category')->group(function (){
         //首页
         Route::any('/showList/{action?}','CategoryController@showList');
         //添加页
@@ -139,7 +139,7 @@ Route::domain(config('domin.admin_domin'))->namespace('Admin')->group(function (
         Route::get('/ajaxDel','CategoryController@ajaxDel');
     });
     //TimeAxis控制器
-    Route::middleware('AdminAuth')->prefix('TimeAxis')->group(function (){
+    Route::prefix('TimeAxis')->group(function (){
         //首页
         Route::any('/showList/{action?}','TimeAxisController@showList');
         //添加页
@@ -154,14 +154,14 @@ Route::domain(config('domin.admin_domin'))->namespace('Admin')->group(function (
         Route::get('/ajaxDel','TimeAxisController@ajaxDel');
     });
     //ArticelComment控制器
-    Route::middleware('AdminAuth')->prefix('ArticleComment')->group(function (){
+    Route::prefix('ArticleComment')->group(function (){
         //首页
         Route::any('/showList/{action?}','ArticleCommentController@showList');
         //删除
         Route::get('/ajaxDel','ArticleCommentController@ajaxDel');
     });
     //Link控制器
-    Route::middleware('AdminAuth')->prefix('Link')->group(function (){
+    Route::prefix('Link')->group(function (){
         //首页
         Route::any('/showList/{action?}','LinkController@showList');
         //添加页
@@ -176,14 +176,14 @@ Route::domain(config('domin.admin_domin'))->namespace('Admin')->group(function (
         Route::get('/ajaxDel','LinkController@ajaxDel');
     });
     //Blogger控制器
-    Route::middleware('AdminAuth')->prefix('Blogger')->group(function (){
+    Route::prefix('Blogger')->group(function (){
         //修改页
         Route::get('/show','BloggerController@show');
         //执行修改
         Route::post('/ajaxEdit','BloggerController@ajaxEdit');
     });
     //Link控制器
-    Route::middleware('AdminAuth')->prefix('Notice')->group(function (){
+    Route::prefix('Notice')->group(function (){
         //首页
         Route::any('/showList/{action?}','NoticeController@showList');
         //添加页
@@ -198,21 +198,21 @@ Route::domain(config('domin.admin_domin'))->namespace('Admin')->group(function (
         Route::get('/ajaxDel','NoticeController@ajaxDel');
     });
     //Blog控制器
-    Route::middleware('AdminAuth')->prefix('Blog')->group(function (){
+    Route::prefix('Blog')->group(function (){
         //修改页
         Route::get('/show','BlogController@show');
         //执行修改
         Route::post('/ajaxEdit','BlogController@ajaxEdit');
     });
     //Seo控制器
-    Route::middleware('AdminAuth')->prefix('Seo')->group(function (){
+    Route::prefix('Seo')->group(function (){
         //修改页
         Route::get('/show','SeoController@show');
         //执行修改
         Route::post('/ajaxEdit','SeoController@ajaxEdit');
     });
     //Note控制器
-    Route::middleware('AdminAuth')->prefix('Note')->group(function (){
+    Route::prefix('Note')->group(function (){
         //首页
         Route::any('/showList/{action?}','NoteController@showList');
         //添加页
@@ -227,28 +227,28 @@ Route::domain(config('domin.admin_domin'))->namespace('Admin')->group(function (
         Route::get('/ajaxDel','NoteController@ajaxDel');
     });
     //adminLogin控制器
-    Route::middleware('AdminAuth')->prefix('AdminLogin')->group(function (){
+    Route::prefix('AdminLogin')->group(function (){
         //首页
         Route::any('/showList/{action?}','AdminLoginController@showList');
         //删除
         Route::get('/ajaxDel','AdminLoginController@ajaxDel');
     });
     //userLogin控制器
-    Route::middleware('AdminAuth')->prefix('UserLogin')->group(function (){
+    Route::prefix('UserLogin')->group(function (){
         //首页
         Route::any('/showList/{action?}','UserLoginController@showList');
         //删除
         Route::get('/ajaxDel','UserLoginController@ajaxDel');
     });
     //User控制器
-    Route::middleware('AdminAuth')->prefix('User')->group(function (){
+    Route::prefix('User')->group(function (){
         //首页
         Route::any('/showList/{action?}','UserController@showList');
         //执行修改
         Route::post('/ajaxEdit','UserController@ajaxEdit');
     });
     //UserComment控制器
-    Route::middleware('AdminAuth')->prefix('UserComment')->group(function (){
+    Route::prefix('UserComment')->group(function (){
         //首页
         Route::any('/showList/{action?}','UserCommentController@showList');
         //删除
@@ -257,7 +257,7 @@ Route::domain(config('domin.admin_domin'))->namespace('Admin')->group(function (
         Route::any('/showHuiFuList/{id}/{action?}','UserCommentController@showHuiFuList');
     });
     //BlackList控制器
-    Route::middleware('AdminAuth')->prefix('BlackList')->group(function (){
+    Route::prefix('BlackList')->group(function (){
         //首页
         Route::any('/showList/{action?}','BlackListController@showList');
         //添加页
@@ -272,7 +272,7 @@ Route::domain(config('domin.admin_domin'))->namespace('Admin')->group(function (
         Route::get('/ajaxDel','BlackListController@ajaxDel');
     });
     //VipVideo控制器
-    Route::middleware('AdminAuth')->prefix('VipVideo')->group(function (){
+    Route::prefix('VipVideo')->group(function (){
         //首页
         Route::any('/showList/{action?}','VipVideoController@showList');
         //添加页
