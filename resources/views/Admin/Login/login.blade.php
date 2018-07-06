@@ -90,7 +90,7 @@
                 error : function(data) {
                     layer.close(index);
                     if(data.status == '429'){
-                        layer.msg('对不起！您访问的速度过快，请稍后再试！');
+                        layer.msg('对不起！系统检测到您疑是恶意登录！请过几分钟再试！');
                         return false;
                     }
                     layer.msg('程序异常,请稍后重试!');
