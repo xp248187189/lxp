@@ -3,7 +3,7 @@
 /**
  * 前台
  */
-Route::domain(config('domin.home_domin'))->namespace('Home')->middleware('BlackList','throttle:60,1')->group(function (){
+Route::domain(config('domin.home_domin'))->namespace('Home')->middleware('BlackList','throttle:40,1')->group(function (){
     //首页
     Route::get('/','IndexController@index');
     //文章列表 全部/分类/标题
