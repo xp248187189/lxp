@@ -39,7 +39,7 @@ Route::domain(config('domin.admin_domin'))->namespace('Admin')->group(function (
     //登陆页面
     Route::get('login','LoginController@login');
     //执行登陆
-    Route::post('doLogin','LoginController@doLogin');
+    Route::post('doLogin','LoginController@doLogin')->middleware('throttle:5,5');
     //退出登陆
     Route::get('doLogOut','LoginController@doLogOut');
 });
