@@ -35,17 +35,18 @@ Route::domain(config('domin.home_domin'))->namespace('Home')->middleware('BlackL
 /**
  * 后台
  */
-Route::domain(config('domin.admin_domin'))->namespace('Admin')->middleware('AdminAuth')->group(function () {
-    //默认Index/index页面
-    Route::get('/','IndexController@index');
+Route::domain(config('domin.admin_domin'))->namespace('Admin')->group(function () {
     //登陆页面
     Route::get('login','LoginController@login');
     //执行登陆
     Route::post('doLogin','LoginController@doLogin');
     //退出登陆
     Route::get('doLogOut','LoginController@doLogOut');
-    //登录验证码
-    // Route::get();
+});
+Route::domain(config('domin.admin_domin'))->namespace('Admin')->middleware('AdminAuth')->group(function () {
+    //默认Index/index页面
+    Route::get('/','IndexController@index');
+
     //Index控制器
     Route::prefix('Index')->group(function (){
         //首页
