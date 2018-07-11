@@ -113,8 +113,8 @@ function getIpLookup($ip = ''){
     }
     $url = "https://api.map.baidu.com/location/ip?ip=%s&ak=%s&sn=%s";
     $uri = '/location/ip';
-    $ak = config('baiduApi.baidu_ak');
-    $sk = config('baiduApi.baidu_sk');
+    $ak = config('api.baidu_ak');
+    $sk = config('api.baidu_sk');
     $querystring_arrays = array(
         'ip' => $ip,
         'ak' => $ak,

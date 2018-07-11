@@ -13,7 +13,7 @@ class JokeController extends Controller
     public function joke(Request $request){
         //笑话列表
         $list = Cache::remember(sha1($request->fullUrl().'_jokeList_cache'),15,function (){
-            return json_decode(curl('http://v.juhe.cn/joke/randJoke.php',['key'=>config('juheApi.juhe_key')]));
+            return json_decode(curl('http://v.juhe.cn/joke/randJoke.php',['key'=>config('api.juhe_key')]));
         });
         //历史上的今天
         $todayonhistory = Cache::remember(sha1($request->fullUrl().'_todayonhistory_cache'),15,function (){

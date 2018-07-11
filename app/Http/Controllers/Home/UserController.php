@@ -12,12 +12,12 @@ class UserController extends Controller
     //QQ登录
     public function qqLogin(Request $request){
         //申请QQ互联后得到的APP_ID 和 APP_KEY
-        $app_id = config('qqLogin.qq_app_id');
-        $app_key = config('qqLogin.qq_app_key');
+        $app_id = config('api.qq_app_id');
+        $app_key = config('api.qq_app_key');
         //回调接口，接受QQ服务器返回的信息的脚本
-        $callback = config('qqLogin.qq_call_back');
+        $callback = config('api.qq_call_back');
         //授权方法
-        $scope = config('qqLogin.qq_scope');
+        $scope = config('api.qq_scope');
         $code = $request->input('code');
         $state = $request->input('state');
         if (empty($code)){
