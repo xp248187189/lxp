@@ -140,6 +140,7 @@
                     }
                 });
             }else if(layEvent === 'selImg'){
+                return false;
                 if(data.icoUrl == ''){
                     var icoUrl = data.url+'/favicon.ico';
                 }else{

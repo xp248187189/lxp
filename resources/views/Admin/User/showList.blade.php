@@ -88,6 +88,7 @@
             var layEvent = obj.event; //获得 lay-event 对应的值
             var tr = obj.tr; //获得当前行 tr 的DOM对象
             if(layEvent === 'selImg'){
+                return false;
                 layer.open({
                     type: 1,
                     area:'500px',
