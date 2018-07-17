@@ -181,6 +181,8 @@ return [
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
         //验证码
         Mews\Captcha\CaptchaServiceProvider::class,
+        //图片处理工具
+        Intervention\Image\ImageServiceProvider::class,
 
     ],
 
@@ -232,6 +234,8 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         //验证码
         'Captcha' => Mews\Captcha\Facades\Captcha::class,
+        //图片处理工具
+        'Image' => Intervention\Image\Facades\Image::class,
 
     ],
 
