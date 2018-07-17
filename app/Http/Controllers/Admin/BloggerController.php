@@ -25,6 +25,12 @@ class BloggerController extends Controller
             @unlink(public_path('uploads/').$orm->img);
             $path = $request->file('img')->store('about/'.date('Y-m-d'),'myUploads');
             $orm->img = $path;
+            // $requestImg = $request->file('img');
+            // $fileName = md5(time().str_random()).'.'.$requestImg->getClientOriginalExtension();
+            // $path = public_path('uploads/about/'.date('Y-m-d').'/'.$fileName);
+            // $requestImgRealPath = $requestImg->getRealPath();
+            // \Image::make($requestImgRealPath)->insert(public_path('watermarkImg/watermark.png'),'bottom-right', 15, 10)->save($path);
+            // $orm->img = 'about/'.date('Y-m-d').'/'.$fileName;
         }
         $orm->save();
         $res['status'] = true;
