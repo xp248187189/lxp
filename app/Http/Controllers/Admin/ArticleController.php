@@ -63,7 +63,7 @@ class ArticleController extends Controller
                 //因为 \Image-->save($savePath); 用的是 file_put_contents() 方法
                 //而 file_put_contents() 方法不会创建文件夹，只会创建文件
                 //所以当 file_put_contents($savePath,$data) 找不到 $savePath 时会报错
-                mkdir($savePath);
+                mkdir($savePath,0777,true);
             }
             $requestImgRealPath = $requestImg->getRealPath();
             $watermarkImgPath = public_path('watermarkImg/watermark.png');
@@ -121,7 +121,7 @@ class ArticleController extends Controller
                 //因为 \Image-->save($savePath); 用的是 file_put_contents() 方法
                 //而 file_put_contents() 方法不会创建文件夹，只会创建文件
                 //所以当 file_put_contents($savePath,$data) 找不到 $savePath 时会报错
-                mkdir($savePath);
+                mkdir($savePath,0777,true);
             }
             $requestImgRealPath = $requestImg->getRealPath();
             $watermarkImgPath = public_path('watermarkImg/watermark.png');
