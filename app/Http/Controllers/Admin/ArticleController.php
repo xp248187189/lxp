@@ -53,8 +53,24 @@ class ArticleController extends Controller
         );
         $articleOrm = new Article();
         if ($request->file('img')){
-            $path = $request->file('img')->store('article/'.date('Y-m-d'),'myUploads');
-            $articleOrm->img = $path;
+            // $path = $request->file('img')->store('article/'.date('Y-m-d'),'myUploads');
+            // $articleOrm->img = $path;
+            $date = date('Y-m-d');
+            $requestImg = $request->file('img');
+            $saveFileName = md5(time().str_random()).'.'.$requestImg->getClientOriginalExtension();
+            $savePath = public_path('uploads/article/'.$date);
+            if(!is_dir($savePath)){
+                //因为 \Image-->save($savePath); 用的是 file_put_contents() 方法
+                //而 file_put_contents() 方法不会创建文件夹，只会创建文件
+                //所以当 file_put_contents($savePath,$data) 找不到 $savePath 时会报错
+                mkdir($savePath);
+            }
+            $requestImgRealPath = $requestImg->getRealPath();
+            $watermarkImgPath = public_path('watermarkImg/watermark.png');
+            \Image::make($requestImgRealPath)->insert($watermarkImgPath,'bottom-right', 15, 10)->resize(185,null,function ($constraint) {
+                $constraint->aspectRatio();
+            })->save($savePath.'/'.$saveFileName);
+            $articleOrm->img = 'article/'.$date.'/'.$saveFileName;
         }
         $articleOrm->addDate = date('Y-m-d');
         $articleOrm->author = session()->get('adminInfo')['name'];
@@ -95,8 +111,24 @@ class ArticleController extends Controller
         $articleOrm = Article::find($id);
         if ($request->file('img')){
             @unlink(public_path('uploads/').$articleOrm->img);
-            $path = $request->file('img')->store('article/'.date('Y-m-d'),'myUploads');
-            $articleOrm->img = $path;
+            // $path = $request->file('img')->store('article/'.date('Y-m-d'),'myUploads');
+            // $articleOrm->img = $path;
+            $date = date('Y-m-d');
+            $requestImg = $request->file('img');
+            $saveFileName = md5(time().str_random()).'.'.$requestImg->getClientOriginalExtension();
+            $savePath = public_path('uploads/article/'.$date);
+            if(!is_dir($savePath)){
+                //因为 \Image-->save($savePath); 用的是 file_put_contents() 方法
+                //而 file_put_contents() 方法不会创建文件夹，只会创建文件
+                //所以当 file_put_contents($savePath,$data) 找不到 $savePath 时会报错
+                mkdir($savePath);
+            }
+            $requestImgRealPath = $requestImg->getRealPath();
+            $watermarkImgPath = public_path('watermarkImg/watermark.png');
+            \Image::make($requestImgRealPath)->insert($watermarkImgPath,'bottom-right', 15, 10)->resize(185,null,function ($constraint) {
+                $constraint->aspectRatio();
+            })->save($savePath.'/'.$saveFileName);
+            $articleOrm->img = 'article/'.$date.'/'.$saveFileName;
         }
         if ($request->input('category_id')){
             $articleOrm->category_id = $request->input('category_id');
