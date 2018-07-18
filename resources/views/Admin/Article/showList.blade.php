@@ -170,6 +170,7 @@
                     }
                 });
             }else if(layEvent === 'selImg'){
+                return false;
                 layer.open({
                     type: 1,
                     area:'500px',
