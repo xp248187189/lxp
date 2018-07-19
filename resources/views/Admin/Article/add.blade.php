@@ -66,26 +66,25 @@
                 </div>
             </div>
         </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">主图</label>
-            <div class="layui-input-inline">
-                <button type="button" onclick="selImg();" class="layui-btn layui-btn-sm" style="margin-top: 4px;">
-                    <i class="fa fa-image"></i>
-                    浏览文件
-                </button>
-                <input type="file" name="img" id="img" style="display:none;">
-                <input type="hidden" id="checkCardPath" value="3" />
-            </div>
-            <div class="layui-form-mid layui-word-aux" id="showPath">
-
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label"></label>
-            <div class="layui-input-block">
-                <img style="width:150px;" id="show_img" src="">
-            </div>
-        </div>
+        {{--<div class="layui-form-item">--}}
+            {{--<label class="layui-form-label">主图</label>--}}
+            {{--<div class="layui-input-inline">--}}
+                {{--<button type="button" onclick="selImg();" class="layui-btn layui-btn-sm" style="margin-top: 4px;">--}}
+                    {{--<i class="fa fa-image"></i>--}}
+                    {{--浏览文件--}}
+                {{--</button>--}}
+                {{--<input type="file" name="img" id="img" style="display:none;">--}}
+                {{--<input type="hidden" id="checkCardPath" value="3" />--}}
+            {{--</div>--}}
+            {{--<div class="layui-form-mid layui-word-aux" id="showPath">--}}
+            {{--</div>--}}
+        {{--</div>--}}
+        {{--<div class="layui-form-item">--}}
+            {{--<label class="layui-form-label"></label>--}}
+            {{--<div class="layui-input-block">--}}
+                {{--<img style="width:150px;" id="show_img" src="">--}}
+            {{--</div>--}}
+        {{--</div>--}}
         <div class="layui-form-item">
             <label class="layui-form-label">内容</label>
             <div class="layui-input-block">

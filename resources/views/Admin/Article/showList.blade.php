@@ -81,7 +81,7 @@
                     {field:'isRecommend',title:'推荐',minWidth:'100',sort:true,align:'center',templet:'#isRecommendTemplet'},
                     {field:'status',title:'状态',minWidth:'110',sort:true,align:'center',templet:'#statusTemplet'},
                     {field:'sort',title:'排序',minWidth:'80',edit:'text',sort:true,align:'center'},
-                    {title:'主图',minWidth:'100',align:'center',event:'selImg',templet:'#imgDemo'},
+                    // {title:'主图',minWidth:'100',align:'center',event:'selImg',templet:'#imgDemo'},
                     {fixed:'right',title:'操作',minWidth:'230',align:'center',toolbar: '#barDemo'},
                 ]],
                 done:function(res, curr, count){
