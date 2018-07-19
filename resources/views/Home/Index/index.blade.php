@@ -44,10 +44,14 @@
                 </div>
                 {{--左边文章列表--}}
                 <div class="blog-main-left" id="leftArticleList">
+                    @php
+                        $apiArr = config('api.getImgApi');
+                    @endphp
                     @foreach($isHomeList as $key => $value)
                         <div class="article shadow">
                             <div class="article-left">
-                                <img lay-src="{{asset('uploads/'.$value->img)}}"/>
+                                {{--<img lay-src="{{asset('uploads/'.$value->img)}}"/>--}}
+                                <img lay-src="{{$apiArr[array_rand($apiArr)]['url'].'?a='.str_random()}}"/>
                             </div>
                             <div class="article-right">
                                 <div class="article-title">
