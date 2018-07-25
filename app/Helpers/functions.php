@@ -353,3 +353,13 @@ function array_iconv($data,$output = 'utf-8') {
         return $data;
     }
 }
+
+/**
+ * 随机获取存在本地的bing每日图片
+ * @return mixed
+ */
+function randGetBingEverydayImg(){
+    static $arr;
+    $arr = \Illuminate\Support\Facades\Storage::disk('bingEverydayImg')->allFiles();
+    return $arr[array_rand($arr,1)];
+}

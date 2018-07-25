@@ -68,6 +68,11 @@ return [
             'driver' => 'local',
             'root' => public_path('uploads'),
         ],
+        //存在本地的bing每日图片
+        'bingEverydayImg' => [
+            'driver' => 'local',
+            'root' => public_path('bingEverydayImg'),
+        ],
 
     ],
 
