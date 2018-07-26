@@ -26,7 +26,7 @@
                         <div id="showUEditorContentIframeLoding" align="center" style="width: 100%;height: 100px;line-height: 100px;">
                             <img src="{{asset('/Common/loading.gif')}}" />
                         </div>
-                        <iframe id="showUEditorContentIframe" src="{{url('/Detail/'.$info->id.'?iframeGetData=get')}}" width="100%" height="0" scrolling="no" frameborder="0" onload="setShowUEditorContentIframeHeight();"></iframe>
+                        <iframe id="showUEditorContentIframe" src="{{url('/Detail/'.$info->id.'/get')}}" width="100%" height="0" scrolling="no" frameborder="0" onload="setShowUEditorContentIframeHeight();"></iframe>
                     </div>
                     {{--评论区域--}}
                     <div class="blog-module shadow" style="box-shadow: 0 1px 8px #a6a6a6;" id="commentDiv">

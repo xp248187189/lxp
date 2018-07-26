@@ -11,7 +11,7 @@ Route::domain(config('domin.home_domin'))->namespace('Home')->middleware('BlackL
     Route::get('Category/{category}','ArticleController@articleList')->where('category','[0-9]+');
     Route::get('Search/{keyWord}','ArticleController@articleList');
     //文章详情
-    Route::get('Detail/{id}','ArticleController@detail')->where('id','[0-9]+');
+    Route::get('Detail/{id}/{iframeGetData?}','ArticleController@detail')->where('id','[0-9]+');
     //提交评论
     Route::post('ArticleComment','ArticleController@articleComment');
     //文章归档

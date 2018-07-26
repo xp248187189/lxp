@@ -123,7 +123,7 @@ class ArticleController extends Controller
         if (empty($info)){
             abort(404);
         }
-        if ($request->input('iframeGetData') == 'get'){
+        if (\Route::input('iframeGetData') == 'get'){
             showUEditorContent($info->content);
             exit;
         }
