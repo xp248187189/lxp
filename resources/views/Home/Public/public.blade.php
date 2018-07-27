@@ -11,6 +11,8 @@
     <meta name="baidu-site-verification" content="hQ7PceVrnU" />
     {{--Google Search Console(验证)--}}
     <meta name="google-site-verification" content="blCIvm274GhkrcVqo36Y8LEdbTFA5OorGpJFFDmBnZg" />
+    {{--必应搜索(验证)--}}
+    <meta name="msvalidate.01" content="11D6690AA495733E9C9557098289F370" />
     <link rel="stylesheet" type="text/css" href="{{ asset('Common/layui/css/layui.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('Common/font-awesome/css/font-awesome.css') }}">
     {{--全局样式--}}
