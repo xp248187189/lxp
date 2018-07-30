@@ -1,7 +1,7 @@
 {{--继承模板--}}
 @extends('Home.Public.public')
 {{--设置title--}}
-@section('title', cache('about_cache')[1]->name.' - 点点滴滴')
+@section('title', cache('about_cache')[1]->name.' - 心情驿站')
 {{--引入css文件--}}
 @section('loadCss')
     <link rel="stylesheet" type="text/css" href="{{ asset('Home/css/animate.min.css') }}">
@@ -14,12 +14,12 @@
         <div class="blog-container">
             <blockquote class="layui-elem-quote sitemap layui-breadcrumb shadow">
                 <a href="{{url('/')}}" title="网站首页">网站首页</a>
-                <a><cite>点点滴滴</cite></a>
+                <a><cite>心情驿站</cite></a>
             </blockquote>
             <div class="blog-main">
                 <div class="timeline-box shadow">
                     <div class="timeline-main">
-                        <h1><i class="fa fa-clock-o"></i>时光轴<span> —— 记录生活点点滴滴</span></h1>
+                        <h1><i class="fa fa-clock-o"></i>时光轴<span> —— 记录生活中的五味杂陈</span></h1>
                         <div class="timeline-line"></div>
                         @foreach($timeAxisList as $k => $v)
                         <div class="timeline-year">

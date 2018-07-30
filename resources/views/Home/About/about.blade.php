@@ -37,7 +37,7 @@
                                 <div class="aboutinfo-contact">
                                     <a target="_blank" title="网站首页" href="{{url('/')}}"><i class="fa fa-home fa-2x" style="font-size:2.5em;position:relative;top:3px"></i></a>
                                     <a target="_blank" title="文章专栏" href="{{url('/Article')}}"><i class="fa fa-file-text fa-2x"></i></a>
-                                    <a target="_blank" title="点点滴滴" href="{{url('/TimeAxis')}}"><i class="fa fa-hourglass-half fa-2x"></i></a>
+                                    <a target="_blank" title="心情驿站" href="{{url('/TimeAxis')}}"><i class="fa fa-hourglass-half fa-2x"></i></a>
                                 </div>
                                 <fieldset class="layui-elem-field layui-field-title">
                                     <legend>简介</legend>
