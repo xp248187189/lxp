@@ -308,7 +308,7 @@
             })
         }
     };
-    uParse = function(selector,opt){
+    uParse = function(selector,opt,callback){
         utils.domReady(function(){
             var contents;
             if(document.querySelectorAll){
@@ -330,6 +330,8 @@
             utils.each(contents,function(v){
                 UE.parse.load(utils.extend({root:v,selector:selector},opt))
             })
+            //这里加上一个渲染完成后的回调方法
+            callback();
         })
     }
 })();

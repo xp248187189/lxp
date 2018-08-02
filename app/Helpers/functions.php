@@ -83,12 +83,18 @@ function showUEditorContent($UEditorContent=''){
     //判断是否加载了配置文件和编辑器源码文件
     if ($isLodeScript === false){
         $str.= '<script type="text/javascript" src="'.asset('UEditor').'/ueditor.parse.js"></script>';
+        $str.= '<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>';
     }
     $str.= '<div id="showUEditorContent_'.$idName.'">';
     $str.= $UEditorContent;
     $str.= '</div>';
     $str.= '<script type="text/javascript">';
-    $str.= 'uParse("#showUEditorContent_'.$idName.'",{rootPath:"'.asset('UEditor').'"});';
+    $str.= 'var callback = function(){';
+    $str.= 'var body_width = document.body.clientWidth;';
+    $str.= 'var td_width = body_width-50;';
+    $str.= '$(".syntaxhighlighter .code .container").attr("style","width: "+td_width+"px!important;overflow-x: auto!important;")';
+    $str.= '};';
+    $str.= 'uParse("#showUEditorContent_'.$idName.'",{rootPath:"'.asset('UEditor').'"},callback);';
     $str.= '</script>';
     //这里给 li 标签加上 list-style:initial 属性是因为 layui 自带的css库里面的 li 标签的样式是全局的，这里要把它设置成默认值
     // style="list-style:initial";//将这个属性设置为默认值
