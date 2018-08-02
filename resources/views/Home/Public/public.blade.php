@@ -79,8 +79,8 @@
                 <a href="{{url('/Joke')}}"><i class="fa fa-pagelines fa-fw"></i>&nbsp;轻松一刻</a>
                 @if($controllerName != 'Joke')
                     <dl class="layui-nav-child" style="background-color: #393D49;">
-                        <dd><a href="{{url('/Joke#tabIndex=1')}}" style="color: #ffffff;">开心一笑</a></dd>
-                        <dd><a href="{{url('/Joke#tabIndex=2')}}" style="color: #ffffff;">历史上的今天</a></dd>
+                        <dd><a href="{{url('/Joke#tabIndex=1')}}" style="color: #5FB878;">开心一笑</a></dd>
+                        <dd><a href="{{url('/Joke#tabIndex=2')}}" style="color: #5FB878;">历史上的今天</a></dd>
                     </dl>
                 @endif
             </li>
@@ -88,10 +88,10 @@
                 <a href="{{url('/About')}}"><i class="fa fa-info fa-fw"></i>&nbsp;关于本站</a>
                 @if($controllerName != 'About')
                 <dl class="layui-nav-child" style="background-color: #393D49;">
-                    <dd><a href="{{url('/About#tabIndex=1')}}" style="color: #ffffff;">关于博客</a></dd>
-                    <dd><a href="{{url('/About#tabIndex=2')}}" style="color: #ffffff;">关于作者</a></dd>
-                    <dd><a href="{{url('/About#tabIndex=3')}}" style="color: #ffffff;">网站推荐</a></dd>
-                    <dd><a href="{{url('/About#tabIndex=4')}}" style="color: #ffffff;">留言墙</a></dd>
+                    <dd><a href="{{url('/About#tabIndex=1')}}" style="color: #5FB878;">关于博客</a></dd>
+                    <dd><a href="{{url('/About#tabIndex=2')}}" style="color: #5FB878;">关于作者</a></dd>
+                    <dd><a href="{{url('/About#tabIndex=3')}}" style="color: #5FB878;">网站推荐</a></dd>
+                    <dd><a href="{{url('/About#tabIndex=4')}}" style="color: #5FB878;">留言墙</a></dd>
                 </dl>
                 @endif
             </li>
