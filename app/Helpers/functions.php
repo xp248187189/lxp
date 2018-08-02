@@ -92,7 +92,7 @@ function showUEditorContent($UEditorContent=''){
     $str.= 'var callback = function(){';
     $str.= 'var body_width = document.body.clientWidth;';
     $str.= 'var td_width = body_width-50;';
-    $str.= '$(".syntaxhighlighter .code .container").attr("style","width: "+td_width+"px!important;overflow-x: auto!important;")';
+    $str.= '$(".syntaxhighlighter .code .container").attr("style","width: "+td_width+"px!important;overflow-x: auto!important;overflow-y: hidden!important;")';
     $str.= '};';
     $str.= 'uParse("#showUEditorContent_'.$idName.'",{rootPath:"'.asset('UEditor').'"},callback);';
     $str.= '</script>';
