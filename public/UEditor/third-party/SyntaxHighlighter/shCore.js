@@ -2308,7 +2308,7 @@ if (typeof(SyntaxHighlighter) == 'undefined') var SyntaxHighlighter = function()
 
             if (this.getParam('quick-code'))
                 // attachEvent(findElement(div, '.code'), 'dblclick', quickCodeHandler);
-                attachEvent(findElement(div, '.code'), '', quickCodeHandler);//取消双击代码区域事件
+                attachEvent(findElement(div, '.code'), '', quickCodeHandler);//取消双击代码区域事件（取消双击代码显示textera框）
 
             return div;
         },
