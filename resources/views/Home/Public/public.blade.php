@@ -205,7 +205,7 @@
 </script>
 <script type="text/javascript">
     var message_Path = '/live2d/'
-    var home_Path = '{{\Illuminate\Support\Facades\Request::server("HTTP_HOST").'/'}}'  //此处修改为你的域名，必须带斜杠
+    var home_Path = '{{\Illuminate\Support\Facades\Request::server("HTTP_HOST").'/'}}' {{--此处修改为你的域名，必须带斜杠--}}
 </script>
 <script type="text/javascript" src="{{asset('live2d/js/live2d.js')}}"></script>
 <script type="text/javascript" src="{{asset('live2d/js/message.js')}}"></script>
