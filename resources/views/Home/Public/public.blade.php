@@ -17,6 +17,8 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('Common/font-awesome/css/font-awesome.css') }}">
     {{--全局样式--}}
     <link rel="stylesheet" type="text/css" href="{{ asset('Home/css/global.css') }}">
+    {{--看板娘--}}
+    <link rel="stylesheet" href="{{ asset('live2d/css/live2d.css') }}" />
     @section('loadCss')
 
     @show
@@ -159,6 +161,12 @@
 </div>
 {{--遮罩--}}
 <div class="blog-mask animated layui-hide"></div>
+{{--看板娘--}}
+<div id="landlord">
+    <div class="message" style="opacity:0"></div>
+    <canvas id="live2d" width="280" height="250" class="live2d"></canvas>
+    <div class="hide-button">隐藏</div>
+</div>
 <script>
     {{--百度搜索资源平台(自动推送工具)--}}
     (function(){
@@ -194,6 +202,15 @@
         "share": {}
     };
     with (document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src='{{asset("static/api/js/share.js")}}?cdnversion='+~(-new Date()/36e5)];
+</script>
+<script type="text/javascript">
+    var message_Path = '/live2d/'
+    var home_Path = '{{\Illuminate\Support\Facades\Request::server("HTTP_HOST").'/'}}'  //此处修改为你的域名，必须带斜杠
+</script>
+<script type="text/javascript" src="{{asset('live2d/js/live2d.js')}}"></script>
+<script type="text/javascript" src="{{asset('live2d/js/message.js')}}"></script>
+<script type="text/javascript">
+    loadlive2d("live2d", "/live2d/model/tia/model.json");
 </script>
 @section('script')
 
