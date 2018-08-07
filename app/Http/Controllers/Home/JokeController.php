@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Cache;
 class JokeController extends Controller
 {
     public function joke(Request $request){
-        $data = Cache::remember(sha1($request->fullUrl()),10,function (){
+        $data = Cache::remember(sha1($request->fullUrl()),20,function (){
             //笑话列表
             $list = json_decode(curl('http://v.juhe.cn/joke/randJoke.php',['key'=>config('api.juhe_key')]));
             //历史上的今天
