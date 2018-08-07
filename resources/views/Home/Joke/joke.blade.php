@@ -46,7 +46,7 @@
                         <div class="layui-tab-item layui-show">
                             <div class="timeline-box shadow">
                                 <ul class="layui-timeline">
-                                    @foreach($jokeList as $key => $value)
+                                    @foreach($data->jokeList as $key => $value)
                                         <li class="layui-timeline-item">
                                             <i class="layui-icon layui-timeline-axis">&#xe63f;</i>
                                             <div class="layui-timeline-content layui-text">
@@ -66,11 +66,11 @@
                         <div class="layui-tab-item">
                             <div class="timeline-box shadow">
                                 <ul class="layui-timeline">
-                                    @foreach($todayonhistory->result as $key => $value)
+                                    @foreach($data->todayonhistory->result as $key => $value)
                                         <li class="layui-timeline-item">
                                             <i class="layui-icon layui-timeline-axis">&#xe63f;</i>
                                             <div class="layui-timeline-content layui-text">
-                                                <h3 class="layui-timeline-title">{{$value->year}}年{{$todayonhistory->today}}</h3>
+                                                <h3 class="layui-timeline-title">{{$value->year}}年{{$data->todayonhistory->today}}</h3>
                                                 <p>{{$value->title}}</p>
                                             </div>
                                         </li>
