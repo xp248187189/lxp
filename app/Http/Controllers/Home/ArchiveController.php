@@ -12,7 +12,7 @@ class ArchiveController extends Controller
 {
     public function archive(Request $request){
         //归档列表
-        $new_list = Cache::remember(sha1($request->fullUrl().'_archiveList_cache'),10,function (){
+        $new_list = Cache::remember(sha1($request->fullUrl()),10,function (){
              $list = Article::where('status','=','1')
                 ->orderBy('created_at','desc')
                 ->select('id','title','addDate')
