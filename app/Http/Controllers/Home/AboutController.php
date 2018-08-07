@@ -16,7 +16,7 @@ class AboutController extends Controller
 {
     public function about(Request $request){
         //网站推荐
-        $linkList = Cache::remember(sha1($request->fullUrl().'_linkList_cache'),10,function (){
+        $linkList = Cache::remember(sha1($request->fullUrl()),10,function (){
             return Link::where('status','=','1')
                 ->orderBy('sort','asc')
                 ->get();
