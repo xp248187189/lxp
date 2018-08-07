@@ -104,7 +104,8 @@ initTips();
 window.setInterval(showHitokoto,30000);
 
 function showHitokoto(){
-    $.getJSON('https://sslapi.hitokoto.cn/',function(result){
+    // $.getJSON('https://sslapi.hitokoto.cn/',function(result){
+    $.getJSON('https://v1.hitokoto.cn/',function(result){
         showMessage(result.hitokoto, 5000);
     });
 }
