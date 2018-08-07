@@ -35,7 +35,7 @@
                 <div class="home-tips shadow">
                     <i style="float:left;line-height:17px;" class="fa fa-volume-up"></i>
                     <div class="home-tips-container">
-                        @foreach($noticeList as $key =>$value)
+                        @foreach($data->noticeList as $key =>$value)
                            <span style="color: #009688">
                                {!! $value->content !!}
                            </span>
@@ -44,7 +44,7 @@
                 </div>
                 {{--左边文章列表--}}
                 <div class="blog-main-left" id="leftArticleList">
-                    @foreach($isHomeList as $key => $value)
+                    @foreach($data->isHomeList as $key => $value)
                         <div class="article shadow">
                             <div class="article-left">
                                 <img lay-src="{{asset('bingEverydayImg/'.randGetBingEverydayImg())}}"/>
@@ -88,7 +88,7 @@
                     <div class="blog-module shadow">
                         <div class="blog-module-title">最新发表</div>
                         <ul class="fa-ul blog-module-ul">
-                            @foreach($newestList as $key => $value)
+                            @foreach($data->newestList as $key => $value)
                                 <li>
                                     <i class="fa-li fa fa-hand-o-right"></i>
                                     <a href="{{url('/Detail/'.$value->id)}}">
@@ -101,7 +101,7 @@
                     <div class="blog-module shadow">
                         <div class="blog-module-title">一路走来</div>
                         <dl class="footprint">
-                            @foreach($timeAxisList as $key => $value)
+                            @foreach($data->timeAxisList as $key => $value)
                                 <dt>{{$value->year}}年@php echo $value->month>9?$value->month:'0'.$value->month @endphp月@php echo $value->day>9?$value->day:'0'.$value->day @endphp日</dt>
                                 <dd>{!! $value->content !!}</dd>
                             @endforeach
@@ -110,7 +110,7 @@
                     <div class="blog-module shadow">
                         <div class="blog-module-title">网站推荐</div>
                         <ul class="blogroll">
-                            @foreach($linkList as $key => $value)
+                            @foreach($data->linkList as $key => $value)
                                 <li>
                                     <a target="_blank" href="{{$value->url}}" title="{{$value->name}}">
                                         {{$value->name}}
