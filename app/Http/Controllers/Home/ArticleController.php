@@ -62,38 +62,6 @@ class ArticleController extends Controller
             });
             $hasArticleList = false;
         }
-        // //根据图片接口获取图片
-        // $imgList = Cache::remember(sha1($request->fullUrl().'_imgList_cache'),15,function (){
-        //     //获取图片类别
-        //     $params = [
-        //         'showapi_appid' => config('api.showapi_appid'),
-        //         'showapi_sign' => config('api.showapi_sign'),
-        //     ];
-        //     $res = curl('https://route.showapi.com/852-1',$params,false,true);
-        //     $res = json_decode($res,true);
-        //     //把所有图片类别id放在一个数组
-        //     $typeList = [];
-        //     foreach ($res['showapi_res_body']['list'] as $key => $value){
-        //         foreach ($value['list'] as $k => $v){
-        //             $typeList[] = $v;
-        //         }
-        //     }
-        //     //获取图片
-        //     $params = [
-        //         'showapi_appid' => config('api.showapi_appid'),
-        //         'showapi_sign' => config('api.showapi_sign'),
-        //         'type' => $typeList[array_rand($typeList)]['id'],
-        //     ];
-        //     $res = curl('https://route.showapi.com/852-2',$params,false,true);
-        //     $res = json_decode($res,true);
-        //     $imgList = [];
-        //     foreach ($res['showapi_res_body']['pagebean']['contentlist'] as $key => $value){
-        //         foreach ($value['list'] as $k => $v){
-        //             $imgList[] = $v['middle'];
-        //         }
-        //     }
-        //     return $imgList;
-        // });
         //作者推荐
         $isRecommendList = Cache::remember(sha1($request->fullUrl().'_isRecommendList_cache'),10,function (){
             return Article::where('status','=','1')
