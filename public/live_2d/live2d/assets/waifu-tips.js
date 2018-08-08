@@ -230,7 +230,7 @@ function loadModel(modelId, modelTexturesId){
     localStorage.setItem('modelId', modelId);
     if (modelTexturesId === undefined) modelTexturesId = 0;
     localStorage.setItem('modelTexturesId', modelTexturesId);
-    loadlive2d('live2d', 'http://www.lxp.php/live_2d/live2dApi/get/?id='+modelId+'-'+modelTexturesId, console.log('live2d','模型 '+modelId+'-'+modelTexturesId+' 加载完成'));
+    loadlive2d('live2d', 'https://www.yxiupei.cn/live_2d/live2dApi/get/?id='+modelId+'-'+modelTexturesId, console.log('live2d','模型 '+modelId+'-'+modelTexturesId+' 加载完成'));
 }
 
 function loadRandModel(){
@@ -241,7 +241,7 @@ function loadRandModel(){
     
     $.ajax({
         cache: false,
-        url: 'http://www.lxp.php/live_2d/live2dApi/'+modelTexturesRandMode+'_textures/?id='+modelId+'-'+modelTexturesId,
+        url: 'https://www.yxiupei.cn/live_2d/live2dApi/'+modelTexturesRandMode+'_textures/?id='+modelId+'-'+modelTexturesId,
         dataType: "json",
         success: function (result){
             if (result.textures['id'] == 1 && (modelTexturesId == 1 || modelTexturesId == 0)) {
@@ -261,7 +261,7 @@ function loadOtherModel(){
     
     $.ajax({
         cache: false,
-        url: 'http://www.lxp.php/live_2d/live2dApi/'+modelTexturesRandMode+'/?id='+modelId,
+        url: 'https://www.yxiupei.cn/live_2d/live2dApi/'+modelTexturesRandMode+'/?id='+modelId,
         dataType: "json",
         success: function (result){
             loadModel(result.model['id']);
