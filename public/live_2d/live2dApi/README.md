@@ -1,6 +1,6 @@
 # Live2D API
 
-Live2D 看板娘插件 (https://www.fghrsh.net/post/123.html) 上使用的后端 API
+Live2D 看板娘插件 (https://www.yxiupei.cn) 上使用的后端 API
 
 ### 特性
 
@@ -162,11 +162,3 @@ model_list.json
 - `/switch/?id=1` 根据 上一分组 顺序切换
 - `/rand_textures/?id=1-23` 根据 上一皮肤 随机切换 同分组其他皮肤
 - `/switch_textures/?id=1-23` 根据 上一皮肤 顺序切换 同分组其他皮肤
-
-## 版权声明
-
-> (>▽<) 都看到这了，点个 Star 吧 ~
-
-**API 内所有模型 版权均属于原作者，仅供研究学习，不得用于商业用途**  
-
-MIT © FGHRSH
