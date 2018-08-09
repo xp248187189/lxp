@@ -214,7 +214,7 @@
 {{--看板娘--}}
 <script src="{{asset('live_2d/live2d/assets/waifu-tips.js')}}"></script>
 <script src="{{asset('live_2d/live2d/assets/live2d.js')}}"></script>
-<script type="text/javascript">initModel("{{url('/live_2d/live2d/assets/')}}")</script>
+<script type="text/javascript">initModel("{{url('/live_2d/live2d/assets').'/'}}")</script>
 @section('script')
 
 @show
