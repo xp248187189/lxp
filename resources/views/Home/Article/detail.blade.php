@@ -132,9 +132,9 @@
             {{--隐藏loding--}}
             $('#showUEditorContentIframeLoding').hide();
             {{--设置编辑器内容的图片宽高--}}
-            var img_max_width = $('.article-detail').width();
+            var img_max_width = $('.article-detail').width()-30-16;
             $('#showUEditorContentIframe').contents().find('img').each(function(){
-                var img_width  = $(this).width()-16;
+                var img_width  = $(this).width();
                 var img_heigth = $(this).height();
                 if (img_width>img_max_width) {
                     $(this).attr('width',img_max_width);
@@ -145,9 +145,9 @@
             });
             {{--浏览器窗口绑定resize事件,浏览器窗口大小改变，重新设置编辑器内容的图片宽高--}}
             $(window).on('resize',function(){
-                var img_max_width = $('.article-detail').width();
+                var img_max_width = $('.article-detail').width()-30-16;
                 $('#showUEditorContentIframe').contents().find('img').each(function(){
-                    var img_width  = $(this).width()-16;
+                    var img_width  = $(this).width();
                     var img_heigth = $(this).height();
                     if (img_width>img_max_width) {
                         $(this).attr('width',img_max_width);
