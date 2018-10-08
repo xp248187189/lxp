@@ -135,7 +135,7 @@
             var img_max_width = $('.article-detail').width();
             $('#showUEditorContentIframe').contents().find('img').each(function(){
                 var img_width  = $(this).width()-16;
-                var img_heigth = $(this).height()-16;
+                var img_heigth = $(this).height();
                 if (img_width>img_max_width) {
                     $(this).attr('width',img_max_width);
                     var bili = img_width/img_heigth;
@@ -147,7 +147,7 @@
             $(window).on('resize',function(){
                 var img_max_width = $('.article-detail').width();
                 $('#showUEditorContentIframe').contents().find('img').each(function(){
-                    var img_width  = $(this).width();
+                    var img_width  = $(this).width()-16;
                     var img_heigth = $(this).height();
                     if (img_width>img_max_width) {
                         $(this).attr('width',img_max_width);
