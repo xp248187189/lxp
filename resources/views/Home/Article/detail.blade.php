@@ -126,7 +126,7 @@
         {{--iframe加载完成的函数--}}
         function setShowUEditorContentIframeHeight() {
             {{--设置编辑器内容的图片宽高--}}
-            var img_max_width = $('.article-detail').width()-16;
+            var img_max_width = $('.article-detail').width()-16-20;
             $('#showUEditorContentIframe').contents().find('img').each(function(){
                 var img_width  = $(this).width();
                 var img_heigth = $(this).height();
@@ -147,7 +147,7 @@
 
             {{--浏览器窗口绑定resize事件,浏览器窗口大小改变，重新设置编辑器内容的图片宽高--}}
             $(window).on('resize',function(){
-                var img_max_width = $('.article-detail').width()-16;
+                var img_max_width = $('.article-detail').width()-16-20;
                 $('#showUEditorContentIframe').contents().find('img').each(function(){
                     var img_width  = $(this).width();
                     var img_heigth = $(this).height();
