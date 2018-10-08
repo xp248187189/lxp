@@ -137,7 +137,7 @@
                     $(this).attr('height',img_max_height);
                 };
             });
-            
+
             {{--获取高度--}}
             var height = $('#showUEditorContentIframe').contents().find("body").height()+50;
             {{--设置高度--}}
@@ -159,9 +159,9 @@
                     };
                 });
                 {{--获取高度--}}
-                var height = $('#showUEditorContentIframe').contents().find("body").height()+50;
+                //var height = $('#showUEditorContentIframe').contents().find("body").height()+50;
                 {{--设置高度--}}
-                $('#showUEditorContentIframe').height(height);
+                //$('#showUEditorContentIframe').height(height);
             });
             {{--编辑器内容的图片点击放大--}}
             $('#showUEditorContentIframe').contents().find('img').click(function(){
