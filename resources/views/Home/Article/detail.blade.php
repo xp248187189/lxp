@@ -125,7 +125,6 @@
         flow.lazyimg();
         {{--iframe加载完成的函数--}}
         function setShowUEditorContentIframeHeight() {
-
             {{--设置编辑器内容的图片宽高--}}
             var img_max_width = $('.article-detail').width()-16;
             $('#showUEditorContentIframe').contents().find('img').each(function(){
@@ -138,6 +137,14 @@
                     $(this).attr('height',img_max_height);
                 };
             });
+            
+            {{--获取高度--}}
+            var height = $('#showUEditorContentIframe').contents().find("body").height()+50;
+            {{--设置高度--}}
+            $('#showUEditorContentIframe').height(height);
+            {{--隐藏loding--}}
+            $('#showUEditorContentIframeLoding').hide();
+
             {{--浏览器窗口绑定resize事件,浏览器窗口大小改变，重新设置编辑器内容的图片宽高--}}
             $(window).on('resize',function(){
                 var img_max_width = $('.article-detail').width()-16;
@@ -151,13 +158,11 @@
                         $(this).attr('height',img_max_height);
                     };
                 });
+                {{--获取高度--}}
+                var height = $('#showUEditorContentIframe').contents().find("body").height()+50;
+                {{--设置高度--}}
+                $('#showUEditorContentIframe').height(height);
             });
-            {{--获取高度--}}
-            var height = $('#showUEditorContentIframe').contents().find("body").height()+50;
-            {{--设置高度--}}
-            $('#showUEditorContentIframe').height(height);
-            {{--隐藏loding--}}
-            $('#showUEditorContentIframeLoding').hide();
             {{--编辑器内容的图片点击放大--}}
             $('#showUEditorContentIframe').contents().find('img').click(function(){
                 var width = $(window).width()*0.7;
