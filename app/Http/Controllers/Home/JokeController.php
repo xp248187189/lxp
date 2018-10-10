@@ -21,9 +21,8 @@ class JokeController extends Controller
             $data->todayonhistory = $todayonhistory;
             return $data;
         });
-        echo '<pre>';
-        print_r($data);
-        echo '</pre>';
+        $todayonhistory = json_decode(curl('https://www.ipip5.com/today/api.php',['type'=>'json'],false,true));
+        dd($todayonhistory);
         //return view('Home.Joke.joke')->with('data',$data);
     }
 }
