@@ -23,7 +23,7 @@ class JokeController extends Controller
         });
         echo '<pre>';
         print_r($data);
-        echo '</pre>'
+        echo '</pre>';
         //return view('Home.Joke.joke')->with('data',$data);
     }
 }
