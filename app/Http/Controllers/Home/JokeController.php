@@ -21,6 +21,9 @@ class JokeController extends Controller
             $data->todayonhistory = $todayonhistory;
             return $data;
         });
-        return view('Home.Joke.joke')->with('data',$data);
+        echo '<pre>';
+        print_r($data);
+        echo '</pre>'
+        //return view('Home.Joke.joke')->with('data',$data);
     }
 }
