@@ -61,8 +61,8 @@ EOP;
     $str.= '</script>';
     //判断是否加载了配置文件和编辑器源码文件
     if ($isLodeScript === false){
-        $str.= '<script type="text/javascript" src="'.asset('UEditor').'/ueditor.config.js"></script>';//配置文件
-        $str.= '<script type="text/javascript" src="'.asset('UEditor').'/ueditor.all.js"></script>';//编辑器源码文件
+        $str.= '<script type="text/javascript" src="'.asset('UEditor/ueditor.config.js').'"></script>';//配置文件
+        $str.= '<script type="text/javascript" src="'.asset('UEditor/ueditor.all.js').'"></script>';//编辑器源码文件
     }
     $str.= '<script type="text/javascript">';
     $str.= 'var ue_'.$name.' = UE.getEditor("'.$name.'",{'.$config.'});';
@@ -82,7 +82,7 @@ function showUEditorContent($UEditorContent=''){
     $str = '';
     //判断是否加载了配置文件和编辑器源码文件
     if ($isLodeScript === false){
-        $str.= '<script type="text/javascript" src="'.asset('UEditor').'/ueditor.parse.js"></script>';
+        $str.= '<script type="text/javascript" src="'.asset('UEditor/ueditor.parse.js').'"></script>';
         $str.= '<script src="'.asset('Common/js/jquery-3.3.1.min.js').'"></script>';
     }
     $str.= '<div id="showUEditorContent_'.$idName.'">';
