@@ -83,7 +83,7 @@ function showUEditorContent($UEditorContent=''){
     //判断是否加载了配置文件和编辑器源码文件
     if ($isLodeScript === false){
         $str.= '<script type="text/javascript" src="'.asset('UEditor').'/ueditor.parse.js"></script>';
-        $str.= '<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>';
+        $str.= '<script src="'.asset('Common/js/jquery-3.3.1.min.js').'"></script>';
     }
     $str.= '<div id="showUEditorContent_'.$idName.'">';
     $str.= $UEditorContent;
