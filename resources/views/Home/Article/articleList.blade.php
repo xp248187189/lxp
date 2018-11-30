@@ -26,7 +26,7 @@
                     @foreach($articleList as $key => $value)
                         <div class="article shadow">
                             <div class="article-left">
-                                <img lay-src="{{randGetBingEverydayImgForOnline()}}"/>
+                                <img lay-src="{{$bingImgList[$key]}}"/>
                             </div>
                             <div class="article-right">
                                 <div class="article-title">

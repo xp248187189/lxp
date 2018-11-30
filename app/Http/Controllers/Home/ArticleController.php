@@ -71,13 +71,15 @@ class ArticleController extends Controller
                 ->select('id','title')
                 ->get();
         });
+        //图片不缓存是为了让每次刷新都是不一样的图片
+        $bingImgList = randGetBingEverydayImgForOnline($articleList->count());
         return view('Home.Article.articleList')->with('categoryList',$categoryList)
             ->with('isRecommendList',$isRecommendList)
             ->with('titleName',$titleName)
             ->with('keyWord',$keyWord)
             ->with('category',$category)
             ->with('articleList',$articleList)
-            // ->with('imgList',$imgList)
+            ->with('bingImgList',$bingImgList)
             ->with('hasArticleList',$hasArticleList);
     }
 

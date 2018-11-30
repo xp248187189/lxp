@@ -64,6 +64,8 @@ class IndexController extends Controller
             $data->noticeList = $noticeList;
             return $data;
         });
+        //图片不缓存是为了让每次刷新都是不一样的图片
+        $data->bingImgList = randGetBingEverydayImgForOnline($data->isHomeList->count());
         return view('Home.Index.index')->with('data',$data);
     }
 }
