@@ -375,7 +375,7 @@ function randGetBingEverydayImg(){
  * @return mixed
  */
 function randGetBingEverydayImgForOnline() {
-    //缓存24小时 也就是 1440分钟
+    //缓存24小时,避免一直请求外站 也就是 1440分钟
     $imgs = Illuminate\Support\Facades\Cache::remember('bingEverydayImgForOnline', 1440, function () {
         $img = [];
         for ($i = 0; $i <= 7; $i++) {
