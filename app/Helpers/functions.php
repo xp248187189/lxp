@@ -369,3 +369,28 @@ function randGetBingEverydayImg(){
     $arr = \Illuminate\Support\Facades\Storage::disk('bingEverydayImg')->allFiles();
     return $arr[array_rand($arr,1)];
 }
+
+/**
+ * 随机获取bing网站的每日图片
+ * @return mixed
+ */
+function randGetBingEverydayImgForOnline() {
+    //缓存24小时 也就是 1440分钟
+    $imgs = Illuminate\Support\Facades\Cache::remember('bingEverydayImgForOnline', 1440, function () {
+        $img = [];
+        for ($i = 0; $i <= 7; $i++) {
+            $url = 'https://www.bing.com/HPImageArchive.aspx?format=js&idx=' . $i . '&n=8';
+            $res = curl($url, false, false, true);
+            $res = json_decode($res, true);
+            foreach ($res['images'] as $key => $value) {
+                unset($res['images'][$key]['hs']);
+                $img[] = 'https://cn.bing.com' . $res['images'][$key]['url'];
+            }
+        }
+        //去重后就是最近15天的图片了
+        $img = array_unique($img);
+        return $img;
+    });
+    //随机返回一张
+    return $imgs[array_rand($imgs, 1)];
+}

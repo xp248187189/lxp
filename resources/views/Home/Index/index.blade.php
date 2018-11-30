@@ -47,7 +47,7 @@
                     @foreach($data->isHomeList as $key => $value)
                         <div class="article shadow">
                             <div class="article-left">
-                                <img lay-src="{{asset('bingEverydayImg/'.randGetBingEverydayImg())}}"/>
+                                <img lay-src="{{randGetBingEverydayImgForOnline()}}"/>
                             </div>
                             <div class="article-right">
                                 <div class="article-title">
