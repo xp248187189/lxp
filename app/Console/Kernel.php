@@ -28,11 +28,15 @@ class Kernel extends ConsoleKernel
         // $schedule->command('inspire')
         //          ->hourly();
         $schedule->call(function (){
+            //获取bing的每日一图
+            $res = curl('https://www.bing.com/HPImageArchive.aspx?format=js&idx=1&n=1',false,false,true);
+            $res = json_decode($res,true);
+            $bingImgArr = $res['images'][0];
             $bingImg = new BingImg();
-            $bingImg->date = '2018-12-03';
-            $bingImg->url = time();
+            $bingImg->date = date('Y-m-d',strtotime($bingImgArr['enddate']));
+            $bingImg->url = 'https://www.bing.com'.$bingImgArr['url'];
             $bingImg->save();
-        })->everyMinute();
+        })->daily()->timezone('PRC');
     }
 
     /**
