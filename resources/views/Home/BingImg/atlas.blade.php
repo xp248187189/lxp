@@ -27,7 +27,7 @@
             </blockquote>
             <div class="blog-main">
                 <div class="timeline-box shadow">
-                    <div class="layui-row">
+                    <div class="layui-row" id="layer-photos">
                         @foreach($data as $key => $value)
                         <div class="layui-col-sm3">
                             <div style="padding: 10px;">
@@ -46,5 +46,9 @@
 @section('script')
     <script type="text/javascript">
         flow.lazyimg();
+        layer.photos({
+            photos: '#layer-photos',
+            anim: 5 //0-6的选择，指定弹出图片动画类型，默认随机（请注意，3.0之前的版本用shift参数）
+        });
     </script>
 @endsection
