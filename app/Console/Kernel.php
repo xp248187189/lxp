@@ -36,7 +36,7 @@ class Kernel extends ConsoleKernel
             $bingImg->date = date('Y-m-d',strtotime($bingImgArr['enddate']));
             $bingImg->url = 'https://www.bing.com'.$bingImgArr['url'];
             $bingImg->save();
-        })->everyMinute()->timezone('PRC');
+        })->dailyAt('06:00')->timezone('PRC');
     }
 
     /**
