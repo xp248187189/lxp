@@ -30,6 +30,8 @@ Route::domain(config('domin.home_domin'))->namespace('Home')->middleware('BlackL
     Route::get('userLogOut','UserController@userLogOut');
     //vip视频解析
     Route::get('vip/{action?}','VipVideoController@vipVideo');
+    //图集
+    Route::get('atlas','BingImgController@atlas');
 });
 
 /**
