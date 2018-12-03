@@ -27,17 +27,10 @@
             </blockquote>
             <div class="blog-main">
                 <div class="timeline-box shadow">
-                    <div class="layui-row" id="layer-photos">
-                        @foreach($data as $key => $value)
-                        <div class="layui-col-sm3">
-                            <div style="padding: 10px;">
-                                <img lay-src="{{$value->url}}" width="100%">
-                            </div>
-                        </div>
-                        @endforeach
+                    <div class="layui-row" id="img_list">
+
                     </div>
                 </div>
-                {{$data->links()}}
             </div>
         </div>
     </div>
@@ -45,10 +38,27 @@
 {{--js内容--}}
 @section('script')
     <script type="text/javascript">
-        flow.lazyimg();
-        layer.photos({
-            photos: '#layer-photos',
-            anim: 5 //0-6的选择，指定弹出图片动画类型，默认随机（请注意，3.0之前的版本用shift参数）
+        flow.load({
+            elem: '#img_list', {{--指定列表容器--}}
+            isLazyimg:false, {{--如果用懒加载，点快了的话相册弹窗会出问题--}}
+            // end:' ',
+            done: function(page, next){ {{--到达临界点（默认滚动触发），触发下一页--}}
+                var lis = [];
+                {{--以jQuery的Ajax请求为例，请求下一页数据（注意：page是从2开始返回）--}}
+                $.get('/atlas/getData?page='+page, function(res){
+                    {{--假设你的列表返回在data集合中--}}
+                    layui.each(res.data, function(index, item){
+                        lis.push('<div class="layui-col-sm3"><div style="padding: 10px;" class="img-partent"><img src="'+item.url+'" width="100%"></div></div>');
+                    });
+                    {{--执行下一页渲染，第二参数为：满足“加载更多”的条件，即后面仍有分页--}}
+                    {{--pages为Ajax返回的总页数，只有当前页小于总页数的情况下，才会继续出现加载更多--}}
+                    next(lis.join(''), page < res.pages);
+                    layer.photos({
+                        photos: '.img-partent',
+                        anim: 5
+                    });
+                });
+            }
         });
     </script>
 @endsection
