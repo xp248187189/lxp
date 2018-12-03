@@ -26,6 +26,12 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')
         //          ->hourly();
+        $schedule->call(function (){
+            $bingImg = new BingImg();
+            $bingImg->date = '2018-12-03';
+            $bingImg->url = time();
+            $bingImg->save();
+        })->everyMinute();
     }
 
     /**
