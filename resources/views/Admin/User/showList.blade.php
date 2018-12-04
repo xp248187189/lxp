@@ -6,7 +6,7 @@
 @section('body')
     <blockquote class="layui-elem-quote" id="nav_blockquote">
         <div class="layui-inline">
-            <button class="layui-btn layui-btn-sm" onclick="delMore();">批量删除</button>
+            {{--<button class="layui-btn layui-btn-sm" onclick="delMore();">批量删除</button>--}}
         </div>
         <div class="layui-inline">
             <form class="layui-form" id="searchForm">
