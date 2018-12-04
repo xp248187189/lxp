@@ -57,6 +57,13 @@
                         photos: '.img-partent',
                         anim: 5
                     });
+                }).error(function(result){
+                    layer.close(index);
+                    if (result.responseJSON.echo){
+                        layer.msg(result.responseJSON.echo);
+                    }else{
+                        layer.msg('程序错误!');
+                    }
                 });
             }
         });
