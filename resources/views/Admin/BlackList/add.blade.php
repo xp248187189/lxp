@@ -39,7 +39,11 @@
                     layer.msg(result.echo);
                 },
                 error:function(result){
-                    layer.msg('程序错误!');
+                    if (result.responseJSON.echo){
+                        layer.msg(result.responseJSON.echo);
+                    }else{
+                        layer.msg('程序错误!');
+                    }
                 }
             });
             return false;
