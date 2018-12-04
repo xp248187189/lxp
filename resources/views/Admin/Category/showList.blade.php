@@ -71,7 +71,13 @@
             }
             $.post('{{url("/Category/ajaxEdit")}}',{id:data.value,status:statusVal},function(result){
                 layer.msg(result.echo);
-            },'json').error(function(){layer.msg('程序错误!');});
+            },'json').error(function(result){
+                if (result.responseJSON.echo){
+                    layer.msg(result.responseJSON.echo);
+                }else{
+                    layer.msg('程序错误!');
+                }
+            });
         });
         //监听单元格编辑
         table.on('edit(dataTable)', function(obj){
@@ -83,7 +89,13 @@
             data[obj.field] = obj.value;
             $.post('{{url("/Category/ajaxEdit")}}',data,function(result){
                 layer.msg(result.echo);
-            },'json');
+            },'json').error(function(result){
+                if (result.responseJSON.echo){
+                    layer.msg(result.responseJSON.echo);
+                }else{
+                    layer.msg('程序错误!');
+                }
+            });
         });
         //监听工具条点击
         table.on('tool(dataTable)', function(obj) {
@@ -100,7 +112,14 @@
                             obj.del(); //删除对应行（tr）的DOM结构
                             layer.close(index);
                         }
-                    },'json');
+                    },'json').error(function(result){
+                        layer.close(index);
+                        if (result.responseJSON.echo){
+                            layer.msg(result.responseJSON.echo);
+                        }else{
+                            layer.msg('程序错误!');
+                        }
+                    });
                 });
             }else if(layEvent === 'edit'){
                 layer.open({
@@ -153,7 +172,14 @@
                         form.render();
                         getDataTable();
                     }
-                },'json');
+                },'json').error(function(result){
+                    layer.close(index);
+                    if (result.responseJSON.echo){
+                        layer.msg(result.responseJSON.echo);
+                    }else{
+                        layer.msg('程序错误!');
+                    }
+                });
             });
         }
     </script>
