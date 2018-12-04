@@ -25,10 +25,13 @@
                 <div id="da-error-code">
                     error <span>403</span>
                 </div>
-                <h1 class="da-error-heading">对不起！您暂时无权访问此页面，请稍后再试！</h1>
+                <h1 class="da-error-heading">
+                    对不起！您暂时无权访问此页面，请稍后再试！
+                </h1>
             </div>
         </div>
     </div>
+    @if($exception->getMessage() !== 'form_admin')
     <div id="da-footer">
         <div class="da-container clearfix">
             <p>
@@ -43,6 +46,7 @@
             </p>
         </div>
     </div>
+    @endif
 </div>
 </body>
 </html>
