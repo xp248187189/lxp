@@ -55,7 +55,7 @@ class AdminAuth
                 //如果没有控制器的权限，或者没有方法的权限，就提示错误信息
                 if($isPass == 0){
                     if($request->ajax()){
-                        return response()->json(array('status'=>false,'echo'=>'对不起！您暂时无权访问此页面，请稍后再试！'));
+                        return response(['status'=>false,'echo'=>'对不起！您暂时无权访问此页面，请稍后再试！'],403)->header('Content-Type', 'application/json');
                     }else{
                         abort(403,'form_admin');
                     }
