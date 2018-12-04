@@ -277,7 +277,13 @@
                     if (resule.status) {
                         window.location.href = "{{ url('/login') }}";
                     };
-                },'json');
+                },'json').error(function(result){
+                    if (result.responseJSON.echo){
+                        layer.msg(result.responseJSON.echo);
+                    }else{
+                        layer.msg('程序错误!');
+                    }
+                });
             });
         }
 
@@ -286,7 +292,13 @@
             layer.confirm('确定清空前端缓存', function(index) {
                 $.get('{{ url('/Index/cacheFlush') }}',{},function(resule){
                     layer.msg('清空成功');
-                },'json');
+                },'json').error(function(result){
+                    if (result.responseJSON.echo){
+                        layer.msg(result.responseJSON.echo);
+                    }else{
+                        layer.msg('程序错误!');
+                    }
+                });
             });
         }
 	</script>
