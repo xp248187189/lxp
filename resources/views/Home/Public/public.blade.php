@@ -75,7 +75,7 @@
                 <a href="{{url('/Archive')}}"><i class="fa fa-folder-open fa-fw"></i>&nbsp;文章归档</a>
             </li>
             <li class="layui-nav-item @php echo $controllerName=='BingImg'?'layui-this':'' @endphp">
-                <a href="{{url('/atlas')}}"><i class="fa fa-fw fa-picture-o"></i>&nbsp;高清壁纸</a>
+                <a href="{{url('/atlas')}}"><i class="fa fa-fw fa-picture-o"></i>&nbsp;高清图集</a>
             </li>
             <li class="layui-nav-item @php echo $controllerName=='TimeAxis'?'layui-this':'' @endphp">
                 <a href="{{url('/TimeAxis')}}"><i class="fa fa-hourglass-half fa-fw"></i>&nbsp;心情驿站</a>
@@ -126,7 +126,7 @@
         <a href="{{url('/Archive')}}"><i class="fa fa-folder-open fa-fw"></i>&nbsp;文章归档</a>
     </li>
     <li class="layui-nav-item @php echo $controllerName=='BingImg'?'layui-this':'' @endphp">
-        <a href="{{url('/atlas')}}"><i class="fa fa-fw fa-picture-o"></i>&nbsp;高清壁纸</a>
+        <a href="{{url('/atlas')}}"><i class="fa fa-fw fa-picture-o"></i>&nbsp;高清图集</a>
     </li>
     <li class="layui-nav-item @php echo $controllerName=='TimeAxis'?'layui-this':'' @endphp">
         <a href="{{url('/TimeAxis')}}"><i class="fa fa-road fa-fw"></i>&nbsp;心情驿站</a>

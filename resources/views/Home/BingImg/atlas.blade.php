@@ -1,7 +1,7 @@
 {{--继承模板--}}
 @extends('Home.Public.public')
 {{--设置title--}}
-@section('title', cache('about_cache')[1]->name.' - 高清壁纸')
+@section('title', cache('about_cache')[1]->name.' - 高清图集')
 @section('loadCss')
     <link rel="stylesheet" type="text/css" href="{{ asset('Common/css/page.css') }}">
 @endsection
@@ -23,7 +23,7 @@
         <div class="blog-container">
             <blockquote class="layui-elem-quote sitemap layui-breadcrumb shadow">
                 <a href="{{url('/')}}" title="网站首页">网站首页</a>
-                <a><cite>高清壁纸</cite></a>
+                <a><cite>高清图集</cite></a>
             </blockquote>
             <div class="blog-main">
                 <div class="timeline-box shadow">
