@@ -90,7 +90,13 @@
             }
             $.post('{{url("/VipVideo/ajaxEdit")}}',{id:data.value,status:statusVal},function(result){
                 layer.msg(result.echo);
-            },'json').error(function(){layer.msg('程序错误!');});
+            },'json').error(function(result){
+                if (result.responseJSON.echo){
+                    layer.msg(result.responseJSON.echo);
+                }else{
+                    layer.msg('程序错误!');
+                }
+            });
         });
         //监听单元格编辑
         table.on('edit(dataTable)', function(obj){
