@@ -80,7 +80,13 @@
             }
             $.post('{{url("/User/ajaxEdit")}}',{id:data.value,status:statusVal},function(result){
                 layer.msg(result.echo);
-            },'json').error(function(){layer.msg('程序错误!');});
+            },'json').error(function(result){
+                if (result.responseJSON.echo){
+                    layer.msg(result.responseJSON.echo);
+                }else{
+                    layer.msg('程序错误!');
+                }
+            });
         });
         //监听工具条点击
         table.on('tool(dataTable)', function(obj) {
