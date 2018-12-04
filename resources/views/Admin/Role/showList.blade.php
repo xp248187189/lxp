@@ -68,7 +68,13 @@
             data[obj.field] = obj.value;
             $.post('{{url("/Role/ajaxEdit")}}',data,function(result){
                 layer.msg(result.echo);
-            },'json');
+            },'json').error(function(result){
+                if (result.responseJSON.echo){
+                    layer.msg(result.responseJSON.echo);
+                }else{
+                    layer.msg('程序错误!');
+                }
+            });
         });
         //监听工具条点击
         table.on('tool(dataTable)', function(obj) {
@@ -85,7 +91,14 @@
                             obj.del(); //删除对应行（tr）的DOM结构
                             layer.close(index);
                         }
-                    },'json');
+                    },'json').error(function(result){
+                        layer.close(index);
+                        if (result.responseJSON.echo){
+                            layer.msg(result.responseJSON.echo);
+                        }else{
+                            layer.msg('程序错误!');
+                        }
+                    });
                 });
             }else if(layEvent === 'edit'){
                 layer.open({
@@ -138,7 +151,14 @@
                         form.render();
                         getDataTable();
                     }
-                },'json');
+                },'json').error(function(result){
+                    layer.close(index);
+                    if (result.responseJSON.echo){
+                        layer.msg(result.responseJSON.echo);
+                    }else{
+                        layer.msg('程序错误!');
+                    }
+                });
             });
         }
     </script>
