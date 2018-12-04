@@ -29,12 +29,12 @@ class Kernel extends ConsoleKernel
         //          ->hourly();
         $schedule->call(function (){
             //获取bing的每日一图
-            $res = curl('https://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1',false,false,true);
+            $res = curl('https://cn.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1',false,false,true);
             $res = json_decode($res,true);
             $bingImgArr = $res['images'][0];
             $bingImg = new BingImg();
             $bingImg->date = date('Y-m-d',strtotime($bingImgArr['enddate']));
-            $bingImg->url = 'https://www.bing.com'.$bingImgArr['url'];
+            $bingImg->url = 'https://cn.bing.com'.$bingImgArr['url'];
             $bingImg->save();
         })->dailyAt('06:00')->timezone('PRC');
     }
