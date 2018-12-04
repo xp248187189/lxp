@@ -79,7 +79,14 @@
                             obj.del(); //删除对应行（tr）的DOM结构
                             layer.close(index);
                         }
-                    },'json');
+                    },'json').error(function(result){
+                        layer.close(index);
+                        if (result.responseJSON.echo){
+                            layer.msg(result.responseJSON.echo);
+                        }else{
+                            layer.msg('程序错误!');
+                        }
+                    });
                 });
             }else if(layEvent === 'detail'){
                 layer.open({
@@ -131,7 +138,14 @@
                         form.render();
                         getDataTable();
                     }
-                },'json');
+                },'json').error(function(result){
+                    layer.close(index);
+                    if (result.responseJSON.echo){
+                        layer.msg(result.responseJSON.echo);
+                    }else{
+                        layer.msg('程序错误!');
+                    }
+                });
             });
         }
     </script>

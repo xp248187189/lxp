@@ -81,7 +81,14 @@
                         form.render();
                         getDataTable();
                     }
-                },'json');
+                },'json').error(function(result){
+                    layer.close(index);
+                    if (result.responseJSON.echo){
+                        layer.msg(result.responseJSON.echo);
+                    }else{
+                        layer.msg('程序错误!');
+                    }
+                });
             });
         }
     </script>
