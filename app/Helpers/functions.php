@@ -382,7 +382,7 @@ function randGetBingEverydayImgForOnline(int $num = 1) {
     $imgs = Illuminate\Support\Facades\Cache::remember('bingEverydayImgForOnline', 1440, function () {
         $img = [];
         for ($i = 0; $i <= 7; $i++) {
-            $url = 'https://www.bing.com/HPImageArchive.aspx?format=js&idx=' . $i . '&n=8';
+            $url = 'https://cn.bing.com/HPImageArchive.aspx?format=js&idx=' . $i . '&n=8';
             $res = curl($url, false, false, true);
             $res = json_decode($res, true);
             foreach ($res['images'] as $key => $value) {
