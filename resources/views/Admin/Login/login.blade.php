@@ -104,7 +104,7 @@
         });
         {{--检测键盘按下--}}
         $('body').keyup(function (e) {
-            if (e.keyCode == 13) {  //Enter键
+            if (e.keyCode == 13) {  {{--Enter键--}}
                 if ($('#layer-login').length <= 0) {
                     {{--登录框不存在，则显示登录框--}}
                     loginHtml();
