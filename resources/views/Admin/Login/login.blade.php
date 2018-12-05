@@ -88,12 +88,13 @@
                     }
                 },
                 error : function(data) {
+                    var retry_after = data.getResponseHeader('retry-after');
                     layer.close(index);
-                    if(data.status == '429'){
-                        layer.msg('对不起！系统检测到您疑是恶意登录！请过几分钟再试！');
-                        return false;
+                    if (data.responseJSON.echo){
+                        layer.msg('对不起！系统检测到您疑是恶意登录，请'+retry_after+'秒后再试！');
+                    }else{
+                        layer.msg('程序错误!');
                     }
-                    layer.msg('程序异常,请稍后重试!');
                 }
             });
             return false;

@@ -60,5 +60,6 @@ class Kernel extends HttpKernel
         //自定义中间件
         'AdminAuth' => \App\Http\Middleware\AdminAuth::class,
         'BlackList' => \App\Http\Middleware\BlackList::class,
+        'throttleForJson' => \App\Http\Middleware\ThrottleRequestsForJson::class,
     ];
 }
