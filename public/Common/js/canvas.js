@@ -25,7 +25,19 @@ window.onmouseout = function(e) {
 // 添加粒子
 // x，y为粒子坐标，xa, ya为粒子xy轴加速度，max为连线的最大距离
 var dots = [];
-for (var i = 0; i < 300; i++) {
+//定义最大粒子数，防止手机(屏幕小)和电脑(屏幕大)的粒子一样多
+$os = getOs();
+if ($os == 'mobile'){
+    var max_num = 100;
+} else if ($os == 'tablet'){
+    var max_num = 200;
+} else if($os == 'pc'){
+    var max_num = 300;
+} else{
+    var max_num = 150;
+}
+console.log(max_num);
+for (var i = 0; i < max_num; i++) {
     var x = Math.random() * canvas.width;
     var y = Math.random() * canvas.height;
     var xa = Math.random() * 2 - 1;
