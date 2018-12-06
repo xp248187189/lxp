@@ -385,8 +385,9 @@
                     $(this).siblings(".admin-header-lock-input").val('');
                     if (result.status){
                         window.sessionStorage.setItem("lockcms",false);
-                        layer.msg('验证成功，已为您解锁');
-                        layer.closeAll("page");
+                        layer.msg('验证成功，正在为您解锁',function () {
+                            layer.closeAll("page");
+                        });
                     } else{
                         layer.msg("密码错误，请重新输入！");
                         $(this).siblings(".admin-header-lock-input").val('').focus();
