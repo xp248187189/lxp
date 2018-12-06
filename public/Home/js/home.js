@@ -15,9 +15,9 @@ function playAnnouncement(interval) {
     }, interval);
 }
 //画canvas
-// DrawCanvas();
+//DrawCanvas();
+/*
 function DrawCanvas() {
-    return false;
     var canvas = document.getElementById('canvas-banner');
     canvas.width = window.document.body.clientWidth;    //需要重新设置canvas宽度，因为dom加载完毕后有可能没有滚动条
     var ctx = canvas.getContext('2d');
@@ -160,11 +160,14 @@ function DrawCanvas() {
     createDots();
     requestAnimationFrame(animateDots);
 }
+*/
 //监听窗口大小改变
-// window.addEventListener("resize", resizeCanvas, false);
+//window.addEventListener("resize", resizeCanvas, false);
 //窗口大小改变时改变canvas宽度
+/*
 function resizeCanvas() {
     var canvas = document.getElementById('canvas-banner');
     canvas.width = window.document.body.clientWidth;
     canvas.height = window.innerHeight * 1 / 3;
 }
+*/
