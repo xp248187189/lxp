@@ -368,7 +368,7 @@
                 type : 1,
                 content : str,
                 closeBtn : 0,
-                shade : 0.5
+                shade : 0.7
             })
             $(".admin-header-lock-input").focus();
         }
