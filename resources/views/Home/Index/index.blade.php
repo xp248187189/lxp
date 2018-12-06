@@ -17,22 +17,22 @@
     {{--主体（一般只改变这里的内容）--}}
     <div class="blog-body">
         {{--canvas--}}
-        <canvas id="canvas-banner" style="background: #393D49;"></canvas>
+        {{--<canvas id="canvas-banner" style="background: #393D49;"></canvas>--}}
         {{--为了及时效果需要立即设置canvas宽高，否则就在home.js中设置--}}
-        <script type="text/javascript">
-            var canvas = document.getElementById('canvas-banner');
-            canvas.width = window.document.body.clientWidth - 10;{{--减去滚动条的宽度--}}
-            if (screen.width >= 992) {
-                canvas.height = window.innerHeight * 1 / 3;
-            } else {
-                canvas.height = window.innerHeight * 2 / 7;
-            }
-        </script>
+        {{--<script type="text/javascript">--}}
+            {{--var canvas = document.getElementById('canvas-banner');--}}
+            {{--canvas.width = window.document.body.clientWidth - 10;--}}{{--减去滚动条的宽度--}}
+            {{--if (screen.width >= 992) {--}}
+                {{--canvas.height = window.innerHeight * 1 / 3;--}}
+            {{--} else {--}}
+                {{--canvas.height = window.innerHeight * 2 / 7;--}}
+            {{--}--}}
+        {{--</script>--}}
         {{--这个一般才是真正的主体内容--}}
         <div class="blog-container">
             <div class="blog-main">
                 {{--网站公告提示--}}
-                <div class="home-tips shadow">
+                <div class="home-tips shadow" style="margin-top:79px;">
                     <i style="float:left;line-height:17px;" class="fa fa-volume-up"></i>
                     <div class="home-tips-container">
                         @foreach($data->noticeList as $key =>$value)
