@@ -69,12 +69,12 @@
 						{{ session()->get('adminInfo')['name'] }}
 					</a>
 					<dl class="layui-nav-child">
+                        <dd><a href="javascript:;" onclick="editMe();">基本资料</a></dd>
 						<dd><a href="javascript:;" onclick="cacheFlush();">清空缓存</a></dd>
-						<dd><a href="javascript:;" onclick="editMe();">基本资料</a></dd>
-						<dd><a href="javascript:;" onclick="signOut();">安全退出</a></dd>
                         @if(session()->get('adminInfo')['id'] == 1)
                             <dd><a href="javascript:;" onclick="window.open('{{url('/Index/showPhpInfo')}}');">phpinfo</a></dd>
                         @endif
+                        <dd><a href="javascript:;" onclick="signOut();">安全退出</a></dd>
 					</dl>
 				</li>
 			</ul>
