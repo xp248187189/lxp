@@ -38,6 +38,7 @@
     </script>
 </head>
 <body>
+<canvas id="cas" style="margin: 0 auto;display: block;position: fixed;z-index:-1;"></canvas>
 @php
     //获取当前路由 格式:App\Http\Controllers\Admin\IndexController@index
    $action = request()->route()->getAction();
@@ -221,6 +222,7 @@
 <script src="{{asset('live_2d/live2d/assets/waifu-tips.js')}}"></script>
 <script src="{{asset('live_2d/live2d/assets/live2d.js')}}"></script>
 <script type="text/javascript">initModel("{{url('/live_2d/live2d/assets').'/'}}")</script>
+<script src="{{asset('Common/js/canvas.js')}}"></script>
 @section('script')
 
 @show
