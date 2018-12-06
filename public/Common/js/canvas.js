@@ -36,7 +36,6 @@ if ($os == 'mobile'){
 } else{
     var max_num = 150;
 }
-console.log(max_num);
 for (var i = 0; i < max_num; i++) {
     var x = Math.random() * canvas.width;
     var y = Math.random() * canvas.height;
