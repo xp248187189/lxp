@@ -22,8 +22,8 @@
             text-align: center;
         }
         .admin-header-lock-img {
-            width: 60px;
-            height: 60px;
+            width: 70px;
+            height: 70px;
             margin: 0 auto;
         }
         .admin-header-lock-name {
@@ -50,6 +50,12 @@
         }
         #unlock {
             float: left;
+        }
+        .admin-header-lock-img img {
+            width: 70px;
+            height: 70px;
+            border-radius: 100%;
+            box-shadow: 0 0 30px #44576b;
         }
 	</style>
 @endsection
@@ -349,7 +355,7 @@
         function lockView() {
             window.sessionStorage.setItem("lockcms",true);
             var str = '<div class="admin-header-lock" id="lock-box">';
-                str+=   '<div class="admin-header-lock-img"><img src="{{asset('favicon.ico')}}" style="width:100%"/></div>';
+                str+=   '<div class="admin-header-lock-img"><img src="{{asset('favicon.ico')}}"/></div>';
                 str+=   '<div class="admin-header-lock-name" id="lockUserName">{{ session()->get('adminInfo')['name'] }}</div>';
                 str+=   '<div class="input_btn">';
                 str+=       '<input type="password" class="admin-header-lock-input layui-input" autocomplete="off" placeholder="请输入密码解锁.." name="lockPwd" id="lockPwd" />';
