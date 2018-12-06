@@ -380,11 +380,12 @@
                 //解锁按钮
                 $('#unlock').attr("disabled",false);
             }else{
-                layer.msg('验证中，请稍后...');
+                var msg_index = layer.msg('验证中，请稍后...');
                 $.post('{{url('/Index/checkPassWord')}}',{passWord:$(this).siblings(".admin-header-lock-input").val()},function (result) {
                     $(this).siblings(".admin-header-lock-input").val('');
                     if (result.status){
                         window.sessionStorage.setItem("lockcms",false);
+                        layer.close(msg_index);
                         layer.closeAll("page");
                     } else{
                         layer.msg("密码错误，请重新输入！");
