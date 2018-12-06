@@ -391,9 +391,9 @@
                     } else{
                         layer.msg("密码错误，请重新输入！");
                         $(this).siblings(".admin-header-lock-input").val('').focus();
+                        //解锁按钮
+                        $('#unlock').attr("disabled",false);
                     }
-                    //解锁按钮
-                    $('#unlock').attr("disabled",false);
                 }).error(function(result){
                     if (result.responseJSON.echo){
                         layer.msg(result.responseJSON.echo);
