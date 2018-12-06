@@ -165,4 +165,20 @@ class IndexController extends Controller
         Cache::flush();
         return ['status' => true,'echo'  => '清空成功'];
     }
+
+    //验证密码 -- 锁屏
+    public function checkPassWord(Request $request){
+        $data = [
+            'echo' => '验证错误',
+            'status' => false
+        ];
+        if($request->ajax()){
+            if (md5($request->input('passWord')) === session()->get('adminInfo')['password']){
+                $data['echo'] = '验证正确';
+                $data['status'] = true;
+            }
+            return $data;
+        }
+        return $data;
+    }
 }

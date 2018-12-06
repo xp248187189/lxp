@@ -63,6 +63,8 @@ Route::domain(config('domin.admin_domin'))->namespace('Admin')->middleware('Admi
         Route::get('/showPhpInfo','IndexController@showPhpInfo');
         //清空缓存
         Route::get('/cacheFlush','IndexController@cacheFlush');
+        //验证密码 -- 锁屏
+        Route::post('/checkPassWord','IndexController@checkPassWord');
     });
     //Auth控制器
     Route::prefix('Auth')->group(function (){

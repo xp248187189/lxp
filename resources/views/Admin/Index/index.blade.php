@@ -11,6 +11,46 @@
 		.layui-tab-title li:first-child i {
 			display: none;
 		}
+        /**
+         * 锁屏弹出窗样式
+         */
+        .admin-header-lock {
+            width: 320px;
+            height: 170px;
+            padding: 20px;
+            position: relative;
+            text-align: center;
+        }
+        .admin-header-lock-img {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto;
+        }
+        .admin-header-lock-name {
+            color: #009688;
+            margin: 8px 0 15px 0;
+        }
+        .input_btn {
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+        #lock-box p {
+            color: #e60000;
+        }
+        .admin-header-lock-input {
+            width: 170px;
+            color: #fff;
+            background-color: #009688;
+            float: left;
+            margin: 0 10px 0 40px;
+            border: none;
+        }
+        input::-webkit-input-placeholder {
+            color: #fff;
+        }
+        #unlock {
+            float: left;
+        }
 	</style>
 @endsection
 {{--body内容--}}
@@ -21,6 +61,9 @@
 		<div class="layui-header">
 			<div class="layui-logo" style="cursor:pointer" onclick="window.location.reload();"><h2 id="blogName">{{$blogInfo->name}}</h2></div>
 			<ul class="layui-nav layui-layout-right" id="top_nav">
+                <li class="layui-nav-item">
+                    <a href="javascript:;" onclick="lockView();"><i class='fa fa-fw fa-lock'></i>锁屏</a>
+                </li>
 				<li class="layui-nav-item">
 					<a href="javascript:;" id="adminInfoName">
 						{{ session()->get('adminInfo')['name'] }}
@@ -301,5 +344,70 @@
                 });
             });
         }
+
+        //锁屏
+        function lockView() {
+            window.sessionStorage.setItem("lockcms",true);
+            var str = '<div class="admin-header-lock" id="lock-box">';
+                str+=   '<div class="admin-header-lock-img"><img src="{{asset('favicon.ico')}}" style="width:100%"/></div>';
+                str+=   '<div class="admin-header-lock-name" id="lockUserName">{{ session()->get('adminInfo')['name'] }}</div>';
+                str+=   '<div class="input_btn">';
+                str+=       '<input type="password" class="admin-header-lock-input layui-input" autocomplete="off" placeholder="请输入密码解锁.." name="lockPwd" id="lockPwd" />';
+                str+=       '<button class="layui-btn" id="unlock">解锁</button>';
+                str+=   '</div>';
+                // str+=   '<p>请输入密码解锁</p>';
+                str+= '</div>'
+            layer.open({
+                title : false,
+                type : 1,
+                content : str,
+                closeBtn : 0,
+                shade : 0.5
+            })
+            $(".admin-header-lock-input").focus();
+        }
+        // 判断是否显示锁屏
+        if(window.sessionStorage.getItem("lockcms") == "true"){
+            lockView();
+        }
+        // 解锁
+        $("body").on("click","#unlock",function(){
+            //锁定按钮
+            $('#unlock').attr('disabled',true);
+            if($(this).siblings(".admin-header-lock-input").val() == ''){
+                layer.msg("请输入解锁密码！");
+                $(this).siblings(".admin-header-lock-input").focus();
+                //解锁按钮
+                $('#unlock').attr("disabled",false);
+            }else{
+                layer.msg('验证中，请稍后...');
+                $.post('{{url('/Index/checkPassWord')}}',{passWord:$(this).siblings(".admin-header-lock-input").val()},function (result) {
+                    $(this).siblings(".admin-header-lock-input").val('');
+                    if (result.status){
+                        window.sessionStorage.setItem("lockcms",false);
+                        layer.closeAll("page");
+                    } else{
+                        layer.msg("密码错误，请重新输入！");
+                        $(this).siblings(".admin-header-lock-input").val('').focus();
+                    }
+                    //解锁按钮
+                    $('#unlock').attr("disabled",false);
+                }).error(function(result){
+                    if (result.responseJSON.echo){
+                        layer.msg(result.responseJSON.echo);
+                    }else{
+                        layer.msg('程序错误!');
+                    }
+                    //解锁按钮
+                    $('#unlock').attr("disabled",false);
+                });
+            }
+        });
+        $(document).on('keydown', function(event) {
+            var event = event || window.event;
+            if(event.keyCode == 13) {
+                $("#unlock").click();
+            }
+        });
 	</script>
 @endsection
