@@ -17,6 +17,7 @@ function playAnnouncement(interval) {
 //画canvas
 // DrawCanvas();
 function DrawCanvas() {
+    return false;
     var canvas = document.getElementById('canvas-banner');
     canvas.width = window.document.body.clientWidth;    //需要重新设置canvas宽度，因为dom加载完毕后有可能没有滚动条
     var ctx = canvas.getContext('2d');
