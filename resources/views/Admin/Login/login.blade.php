@@ -14,11 +14,12 @@
             padding: 0;
         }
         body{
-            background: #000;
+            background: #CCCCCC;
             overflow:hidden;
             background: url({{randGetBingEverydayImgForOnline()}}) no-repeat;
         　　background-size:cover;
         　　background-position: center center;
+            background-attachment: fixed;
         }
         canvas{
             margin: 0 auto;
