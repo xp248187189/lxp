@@ -6,6 +6,7 @@ use App\Model\Admin;
 use App\Model\Auth;
 use App\Model\Role;
 use Closure;
+use Illuminate\Support\Facades\Cookie;
 
 class AdminAuth
 {
@@ -25,6 +26,10 @@ class AdminAuth
         //已登录，每次执行操作都进行查询登录人信息并赋值给$_SESSION['adminInfo']
         $adminOrm = new Admin();
         $adminInfo = $adminOrm->find(\Cookie::get('admin_id'));
+        if (!$adminInfo){
+            Cookie::forget('admin_id');
+            return redirect('login');
+        }
         session()->put('adminInfo',$adminInfo->toarray());
         //如果不是超级管理员，就需要进行权限判断
         if (session()->get('adminInfo')['id'] !=1){
