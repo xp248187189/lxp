@@ -22,6 +22,10 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Model\AdminLogin whereTime($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Model\AdminLogin whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property int $account_id 登陆id
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Model\AdminLogin newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Model\AdminLogin query()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Model\AdminLogin whereAccountId($value)
  */
 class AdminLogin extends Model
 {
