@@ -10,22 +10,20 @@ use App\Http\Controllers\Controller;
 class BingImgController extends Controller
 {
     public function atlas(Request $request){
-        if (\Route::input('action') == 'getData'){
-            if ($request->ajax()) {
-                $data = Cache::remember(sha1($request->fullUrl() . '_atlas_cache'), 10, function () {
-                    return BingImg::orderBy('date', 'desc')
-                        ->paginate(20, ['*'], 'page')
-                        ->toArray();
-                });
-                $returnData = [
-                    'data' => $data['data'],
-                    'pages' => $data['last_page']
-                ];
-                return $returnData;
-            }else{
-                abort(403);
-            }
+        $bingImgList = Cache::remember(sha1($request->fullUrl() . '_atlas_cache'), 10, function () {
+            return BingImg::orderBy('date', 'desc')
+                ->paginate(20, ['*'], 'p');
+        });
+        $hasBingImgList = true;
+        if($bingImgList->isEmpty()){
+            $bingImgList = Cache::remember(sha1($request->fullUrl() . '_inRandomOrderList_cache'), 10, function () {
+                return BingImg::inRandomOrder()
+                    ->take(20)
+                    ->get();
+            });
+            $hasBingImgList = false;
         }
-        return view('Home.BingImg.atlas');
+        return view('Home.BingImg.atlas')->with('bingImgList',$bingImgList)
+            ->with('hasBingImgList',$hasBingImgList);
     }
 }

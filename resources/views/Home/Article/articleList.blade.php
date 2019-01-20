@@ -47,7 +47,9 @@
                         </div>
                     @endforeach
                     @if($hasArticleList)
-                        {{ $articleList->links() }}
+                        <div style="text-align: center;">
+                            {{ $articleList->links() }}
+                        </div>
                     @endif
                 </div>
                 <div class="blog-main-right">

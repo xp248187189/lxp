@@ -28,8 +28,22 @@
             <div class="blog-main">
                 <div class="timeline-box shadow">
                     <div class="layui-row" id="img_list">
-
+                        @if($hasBingImgList === false)
+                            <div class="shadow" style="text-align:center;font-size:16px;padding:40px 15px;background:#fff;margin-bottom:15px;">
+                                未找到有关的图集，随便看看吧
+                            </div>
+                        @endif
+                        @foreach($bingImgList as $key => $value)
+                            <div class="layui-col-sm3 img-partent" style="padding: 10px;">
+                                <img src="{{$value->url}}" width="100%">
+                            </div>
+                        @endforeach
                     </div>
+                    @if($hasBingImgList)
+                        <div style="text-align: center;">
+                            {{ $bingImgList->links() }}
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>
@@ -38,34 +52,9 @@
 {{--js内容--}}
 @section('script')
     <script type="text/javascript">
-        flow.load({
-            elem: '#img_list', {{--指定列表容器--}}
-            isLazyimg:false, {{--如果用懒加载，点快了的话相册弹窗会出问题--}}
-            // end:' ',
-            done: function(page, next){ {{--到达临界点（默认滚动触发），触发下一页--}}
-                var lis = [];
-                {{--以jQuery的Ajax请求为例，请求下一页数据（注意：page是从2开始返回）--}}
-                $.get('/atlas/getData?page='+page, function(res){
-                    {{--假设你的列表返回在data集合中--}}
-                    layui.each(res.data, function(index, item){
-                        lis.push('<div class="layui-col-sm3"><div style="padding: 10px;" class="img-partent"><img src="'+item.url+'" width="100%"></div></div>');
-                    });
-                    {{--执行下一页渲染，第二参数为：满足“加载更多”的条件，即后面仍有分页--}}
-                    {{--pages为Ajax返回的总页数，只有当前页小于总页数的情况下，才会继续出现加载更多--}}
-                    next(lis.join(''), page < res.pages);
-                    layer.photos({
-                        photos: '.img-partent',
-                        anim: 5
-                    });
-                }).error(function(result){
-                    layer.close(index);
-                    if (result.responseJSON.echo){
-                        layer.msg(result.responseJSON.echo);
-                    }else{
-                        layer.msg('程序错误!');
-                    }
-                });
-            }
+        layer.photos({
+            photos: '.img-partent',
+            anim: 5
         });
     </script>
 @endsection
