@@ -86,7 +86,7 @@
                         </div>
                     </div>
                     <div class="blog-module shadow">
-                        <div class="blog-module-title">最新发表</div>
+                        <div class="blog-module-title">最新发表111</div>
                         <ul class="fa-ul blog-module-ul">
                             @foreach($data->newestList as $key => $value)
                                 <li>
