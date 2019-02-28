@@ -353,27 +353,35 @@
 
         //锁屏
         function lockView() {
-            window.sessionStorage.setItem("lockcms",true);
-            var str = '<div class="admin-header-lock" id="lock-box">';
+            layer.msg('正在进行锁定，请稍后...');
+            $.post('{{url('/Index/lockView')}}',{},function (result) {
+                var str = '<div class="admin-header-lock" id="lock-box">';
                 str+=   '<div class="admin-header-lock-img"><img src="{{asset('favicon.ico')}}"/></div>';
                 str+=   '<div class="admin-header-lock-name" id="lockUserName">{{ session()->get('adminInfo')['name'] }}</div>';
                 str+=   '<div class="input_btn">';
                 str+=       '<input type="password" class="admin-header-lock-input layui-input" autocomplete="off" placeholder="请输入密码解锁.." name="lockPwd" id="lockPwd" />';
                 str+=       '<button class="layui-btn" id="unlock">解锁</button>';
                 str+=   '</div>';
-                // str+=   '<p>请输入密码解锁</p>';
-                str+= '</div>'
-            layer.open({
-                title : false,
-                type : 1,
-                content : str,
-                closeBtn : 0,
-                shade : 0.7
-            })
-            $(".admin-header-lock-input").focus();
+                str+= '</div>';
+                layer.open({
+                    title : false,
+                    type : 1,
+                    content : str,
+                    closeBtn : 0,
+                    shade : 0.7
+                });
+                $(".admin-header-lock-input").focus();
+            }).error(function(result){
+                if (result.responseJSON.echo){
+                    layer.msg(result.responseJSON.echo);
+                }else{
+                    layer.msg('程序错误!');
+                }
+            });
         }
         // 判断是否显示锁屏
-        if(window.sessionStorage.getItem("lockcms") == "true"){
+        var isLockView = {{ $isLockView }};
+        if (isLockView === 1){
             lockView();
         }
         // 解锁
@@ -390,7 +398,6 @@
                 $.post('{{url('/Index/checkPassWord')}}',{passWord:$(this).siblings(".admin-header-lock-input").val()},function (result) {
                     $(this).siblings(".admin-header-lock-input").val('');
                     if (result.status){
-                        window.sessionStorage.setItem("lockcms",false);
                         layer.msg('验证成功，正在为您解锁',function () {
                             layer.closeAll("page");
                         });

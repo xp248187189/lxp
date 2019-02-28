@@ -64,6 +64,7 @@ class LoginController extends Controller
         }else{
             \Cookie::queue('admin_id',$adminInfo['id']);
         }
+        \Cookie::queue('lockViewPass',$adminInfo['password'],60*24*7);
         //添加登陆信息
         $adminLoginOrm = new AdminLogin();
         $adminLoginOrm->ip = \Request::getClientIp();

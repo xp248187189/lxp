@@ -64,8 +64,14 @@ class IndexController extends Controller
                 unset($authList[$k]);
             }
         }
+        //判断是否锁屏
+        $isLockView = 1;
+        if(\Cookie::get('lockViewPass') == session()->get('adminInfo')['password']){
+            $isLockView = 0;
+        }
         return view('Admin.Index.index')->with('authList',$authList)
-            ->with('blogInfo',$blogInfo);
+            ->with('blogInfo',$blogInfo)
+            ->with('isLockView',$isLockView);
     }
 
     //welcome页
@@ -176,9 +182,20 @@ class IndexController extends Controller
             if (md5($request->input('passWord')) === session()->get('adminInfo')['password']){
                 $data['echo'] = '验证正确';
                 $data['status'] = true;
+                \Cookie::queue('lockViewPass',session()->get('adminInfo')['password'],60*24*7);
             }
             return $data;
         }
+        return $data;
+    }
+
+    // 锁屏
+    public function lockView(){
+        \Cookie::queue('lockViewPass',str_random(),60*24*7);
+        $data = [
+            'echo' => '成功',
+            'status' => true
+        ];
         return $data;
     }
 }

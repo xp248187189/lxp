@@ -65,6 +65,8 @@ Route::domain(config('domin.admin_domin'))->namespace('Admin')->middleware('Admi
         Route::get('/cacheFlush','IndexController@cacheFlush');
         //验证密码 -- 锁屏
         Route::post('/checkPassWord','IndexController@checkPassWord');
+        //锁屏
+        Route::post('/lockView','IndexController@lockView');
     });
     //Auth控制器
     Route::prefix('Auth')->group(function (){
