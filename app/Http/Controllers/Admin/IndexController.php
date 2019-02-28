@@ -65,10 +65,7 @@ class IndexController extends Controller
             }
         }
         //判断是否锁屏
-        $isLockView = 1;
-        if(\Cookie::get('lockViewPass') == session()->get('adminInfo')['password']){
-            $isLockView = 0;
-        }
+        $isLockView = $this->checkIsLockView()['isLockView'];
         return view('Admin.Index.index')->with('authList',$authList)
             ->with('blogInfo',$blogInfo)
             ->with('isLockView',$isLockView);
@@ -197,5 +194,15 @@ class IndexController extends Controller
             'status' => true
         ];
         return $data;
+    }
+
+    // 判断是否锁定
+    public function checkIsLockView(){
+        //判断是否锁屏
+        $isLockView = 1;
+        if(\Cookie::get('lockViewPass') == session()->get('adminInfo')['password']){
+            $isLockView = 0;
+        }
+        return ['status'=>true,'echo'=>'成功','isLockView'=>$isLockView];
     }
 }

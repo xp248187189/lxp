@@ -67,6 +67,8 @@ Route::domain(config('domin.admin_domin'))->namespace('Admin')->middleware('Admi
         Route::post('/checkPassWord','IndexController@checkPassWord');
         //锁屏
         Route::post('/lockView','IndexController@lockView');
+        //判断是否锁屏
+        Route::post('/checkIsLockView','IndexController@checkIsLockView');
     });
     //Auth控制器
     Route::prefix('Auth')->group(function (){

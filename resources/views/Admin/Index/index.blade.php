@@ -353,7 +353,10 @@
 
         //锁屏
         function lockView() {
-            layer.msg('正在进行锁定，请稍后...');
+            //判断锁屏框是否已经弹出
+            if ($('#lockUserName').length > 0){
+                return false;
+            }
             $.post('{{url('/Index/lockView')}}',{},function (result) {
                 var str = '<div class="admin-header-lock" id="lock-box">';
                 str+=   '<div class="admin-header-lock-img"><img src="{{asset('favicon.ico')}}"/></div>';
@@ -418,11 +421,24 @@
                 });
             }
         });
+        //回车解锁
         $(document).on('keydown', function(event) {
             var event = event || window.event;
             if(event.keyCode == 13) {
                 $("#unlock").click();
             }
         });
+        //每5秒判断一下是否锁定，避免多开
+        window.setInterval(function () {
+            $.post('{{url('/Index/checkIsLockView')}}',{},function (results) {
+                if (results.isLockView == 1){
+                    lockView();
+                }else if (results.isLockView == 0){
+                    if ($('#unlock').length > 0){
+                        layer.closeAll("page");
+                    }
+                }
+            });
+        },5000);
 	</script>
 @endsection
