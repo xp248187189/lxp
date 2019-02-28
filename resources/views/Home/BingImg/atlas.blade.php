@@ -35,7 +35,7 @@
                         @endif
                         @foreach($bingImgList as $key => $value)
                             <div class="layui-col-sm3 img-partent" style="padding: 10px;">
-                                <img src="{{$value->url}}" width="100%" date="{{$value->date}}"/>
+                                <img src="{{$value->base64}}" width="100%" date="{{$value->date}}"/>
                             </div>
                         @endforeach
                     </div>

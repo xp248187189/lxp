@@ -34,7 +34,11 @@ class Kernel extends ConsoleKernel
             $bingImgArr = $res['images'][0];
             $bingImg = new BingImg();
             $bingImg->date = date('Y-m-d',strtotime($bingImgArr['enddate']));
-            $bingImg->url = 'https://cn.bing.com'.$bingImgArr['url'];
+            $url = 'https://cn.bing.com'.$bingImgArr['url'];
+            $imgInfo = getimagesize($url);
+            $imgData = file_get_contents($url);
+            $base64_image = 'data:' . $imgInfo['mime'] . ';base64,' . chunk_split(base64_encode($imgData));
+            $bingImg->base64 = $base64_image;
             $bingImg->save();
         })->dailyAt('06:00')->timezone('PRC');
     }
