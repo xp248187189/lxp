@@ -28,22 +28,23 @@
             <div class="blog-main">
                 <div class="timeline-box shadow">
                     <div class="layui-row" id="img_list">
-                        @if($hasBingImgList === false)
-                            <div class="shadow" style="text-align:center;font-size:16px;padding:40px 15px;background:#fff;margin-bottom:15px;">
-                                未找到有关的图集，随便看看吧
-                            </div>
-                        @endif
+                        {{--@if($hasBingImgList === false)--}}
+                            {{--<div class="shadow" style="text-align:center;font-size:16px;padding:40px 15px;background:#fff;margin-bottom:15px;">--}}
+                                {{--未找到有关的图集，随便看看吧--}}
+                            {{--</div>--}}
+                        {{--@endif--}}
                         @foreach($bingImgList as $key => $value)
-                            <div class="layui-col-sm3 img-partent" style="padding: 10px;">
-                                <img src="{{$value->base64}}" width="100%" date="{{$value->date}}"/>
+                            <div class="layui-col-sm4 img-partent" style="padding: 10px;">
+                                {{--<img src="{{$value->url}}" width="100%" date="{{$value->date}}"/>--}}
+                                <img src="{{$value}}" width="100%"/>
                             </div>
                         @endforeach
                     </div>
-                    @if($hasBingImgList)
-                        <div style="text-align: center;">
-                            {{ $bingImgList->links() }}
-                        </div>
-                    @endif
+                    {{--@if($hasBingImgList)--}}
+                        {{--<div style="text-align: center;">--}}
+                            {{--{{ $bingImgList->links() }}--}}
+                        {{--</div>--}}
+                    {{--@endif--}}
                 </div>
             </div>
         </div>
