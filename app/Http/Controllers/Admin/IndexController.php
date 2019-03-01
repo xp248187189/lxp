@@ -149,6 +149,7 @@ class IndexController extends Controller
             $res['status'] = true;
             $res['echo'] = '修改成功';
             $res['name'] = $request->input('name');
+            \Cookie::queue('lockViewPass',md5($request->input('password')),60*24*7);
         }else{
             $res['echo'] = '修改失败';
         }

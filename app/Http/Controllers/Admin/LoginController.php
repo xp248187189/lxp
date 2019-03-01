@@ -83,6 +83,7 @@ class LoginController extends Controller
     public function doLogOut(){
         session()->forget('adminInfo');
         \Cookie::queue('admin_id',null,-1);
+        \Cookie::queue('lockViewPass',null,-1);
         return response()->json(array('status'=>true,'echo'=>'退出成功'));
     }
 }
