@@ -64,7 +64,7 @@ Route::domain(config('domin.admin_domin'))->namespace('Admin')->middleware('Admi
         //清空缓存
         Route::get('/cacheFlush','IndexController@cacheFlush');
         //验证密码 -- 锁屏
-        Route::post('/checkPassWord','IndexController@checkPassWord');
+        Route::post('/checkPassWord','IndexController@checkPassWord')->middleware('throttleForJson:5,5');
         //锁屏
         Route::post('/lockView','IndexController@lockView');
         //判断是否锁屏

@@ -412,7 +412,8 @@
                     }
                 }).error(function(result){
                     if (result.responseJSON.echo){
-                        layer.msg(result.responseJSON.echo);
+                        var retry_after = result.getResponseHeader('retry-after');
+                        layer.msg('对不起！系统检测到您疑是恶意操作，请'+retry_after+'秒后再试！');
                     }else{
                         layer.msg('程序错误!');
                     }
