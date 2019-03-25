@@ -386,7 +386,12 @@ function randGetBingEverydayImgForOnline(int $num = 1) {
             $res = curl($url, false, false, true);
             $res = json_decode($res, true);
             foreach ($res['images'] as $key => $value) {
-                $img[] = 'https://cn.bing.com' . $res['images'][$key]['url'];
+                $str = substr($value['url'], 0, 4);
+                if ($str == 'http'){
+                    $img[] = $value['url'];
+                }else{
+                    $img[] = 'https://cn.bing.com' . $value['url'];
+                }
             }
         }
         //去重后就是最近15天的图片了
