@@ -49,6 +49,10 @@
     $endArr = explode('@',$end);
     $endArr[0] = substr($endArr[0],0,-10);
     $controllerName = $endArr[0];
+    $debug = config('app.debug');
+    if ($debug){
+        echo '<script type="text/javascript">console.log=function(){}</script>';
+    }
 @endphp
 <nav class="blog-nav layui-header">
     <div class="blog-container">
