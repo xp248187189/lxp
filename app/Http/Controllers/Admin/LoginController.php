@@ -6,6 +6,7 @@ use App\Model\Admin;
 use App\Model\AdminLogin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Hash;
 
 class LoginController extends Controller
 {
@@ -55,7 +56,7 @@ class LoginController extends Controller
             return $res;
         }
         //判断密码是否正确
-        if($adminInfo->password != md5($request->input('password'))){
+        if (!Hash::check($request->input('password'),$adminInfo->password)){
             $res['echo'] = '用户名或密码错误';
             return $res;
         }

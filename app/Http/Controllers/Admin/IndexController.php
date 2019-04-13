@@ -13,6 +13,7 @@ use App\Model\UserLogin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Cache;
+use Hash;
 
 class IndexController extends Controller
 {
@@ -143,13 +144,13 @@ class IndexController extends Controller
         $adminOrm->phone = $request->input('phone');
         $adminOrm->email = $request->input('email');
         if ($request->input('password')) {
-            $adminOrm->password = md5($request->input('password'));
+            $adminOrm->password = Hash::make($request->input('password'));
         }
         if ($adminOrm->save()){
             $res['status'] = true;
             $res['echo'] = '修改成功';
             $res['name'] = $request->input('name');
-            \Cookie::queue('lockViewPass',md5($request->input('password')),60*24*7);
+            \Cookie::queue('lockViewPass',$adminOrm->password,60*24*7);
         }else{
             $res['echo'] = '修改失败';
         }
@@ -177,7 +178,7 @@ class IndexController extends Controller
             'status' => false
         ];
         if($request->ajax()){
-            if (md5($request->input('passWord')) === session()->get('adminInfo')['password']){
+            if (Hash::check($request->input('passWord'),session()->get('adminInfo')['password'])){
                 $data['echo'] = '验证正确';
                 $data['status'] = true;
                 \Cookie::queue('lockViewPass',session()->get('adminInfo')['password'],60*24*7);

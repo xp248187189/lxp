@@ -6,6 +6,7 @@ use App\Model\Admin;
 use App\Model\Role;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Hash;
 
 class AdminController extends Controller
 {
@@ -74,7 +75,7 @@ class AdminController extends Controller
         $adminOrm->account = $request->input('account');
         $adminOrm->role_id = $request->input('role_id');
         $adminOrm->role_name = '';
-        $adminOrm->password = md5($request->input('password'));
+        $adminOrm->password = Hash::make($request->input('password'));
         $adminOrm->name = $request->input('name');
         $adminOrm->sex = $request->input('sex');
         $adminOrm->phone = $request->input('phone');
@@ -126,7 +127,7 @@ class AdminController extends Controller
             $adminOrm->role_name = '';
         }
         if ($request->input('password')){
-            $adminOrm->password = md5($request->input('password'));
+            $adminOrm->password = Hash::make($request->input('password'));
         }
         if ($request->input('name')){
             $adminOrm->name = $request->input('name');

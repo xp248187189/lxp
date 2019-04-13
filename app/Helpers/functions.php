@@ -114,7 +114,7 @@ function showUEditorContent($UEditorContent=''){
  * @return array      地理信息
  */
 function getIpLookup($ip = ''){
-    if(empty($ip)){
+    if(empty($ip) || $ip == '127.0.0.1'){
         return false;
     }
     $url = "https://api.map.baidu.com/location/ip?ip=%s&ak=%s&sn=%s";
@@ -131,7 +131,7 @@ function getIpLookup($ip = ''){
     $target = sprintf($url, $ip, $ak, $sn);
     //发送请求 ($res 是 stdClass 对象)
     $res = json_decode(curl($target,false,false,true));
-    if ($res->status === 0){
+    if (is_object($res) && $res->status === 0){
         return $res;
     }
     return false;
