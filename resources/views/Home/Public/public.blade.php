@@ -50,6 +50,7 @@
     $endArr[0] = substr($endArr[0],0,-10);
     $controllerName = $endArr[0];
     $debug = config('app.debug');
+    echo '<script type="text/javascript">console.log("%c 记忆碎片 - 一个PHP程序员的个人博客", "font-size: 30px;font-weight: bold;font-family: KaiTi;");</script>';
     if ($debug == false){
         echo '<script type="text/javascript">console.log=function(){}</script>';
     }
