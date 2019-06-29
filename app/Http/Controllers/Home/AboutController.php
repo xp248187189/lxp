@@ -51,7 +51,7 @@ class AboutController extends Controller
             ->with('userComment',$userComment)
             ->with('userCommentArr',$userCommentArr)
             ->with('isLogin',$isLogin);
-    }
+    } 
 
     //提交留言
     public function userComment(Request $request){
