@@ -182,7 +182,8 @@
         <span class="fui-eye"></span>
         <span class="fui-user"></span>
         <span class="fui-photo"></span>
-        <span class="fui-info-circle"></span>
+        {{--取消关于按钮--}}
+        {{--<span class="fui-info-circle"></span>--}}
         <span class="fui-cross"></span>
     </div>
 </div>

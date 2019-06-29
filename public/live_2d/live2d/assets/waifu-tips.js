@@ -31,7 +31,6 @@ $(document).on('copy', function (){
 });
 
 $('.waifu-tool .fui-home').click(function (){
-    //window.location = 'https://www.yxiupei.cn/';
     window.location = window.location.protocol+'//'+window.location.hostname+'/'
 });
 
@@ -46,12 +45,12 @@ $('.waifu-tool .fui-chat').click(function (){
 $('.waifu-tool .fui-user').click(function (){
     loadRandModel();
 });
-
+/*
 $('.waifu-tool .fui-info-circle').click(function (){
     //关于按钮
     window.open('https://www.yxiupei.cn/');
 });
-
+*/
 $('.waifu-tool .fui-cross').click(function (){
     sessionStorage.setItem('waifu-dsiplay', 'none');
     showMessage('愿你有一天能与重要的人重逢', 1300, true);
@@ -136,11 +135,25 @@ function elseActed() {
 
 function showHitokoto(){
 	/* 增加 hitokoto.cn API */
+    /* 用下面的 jsonp
     $.getJSON('https://v1.hitokoto.cn',function(result){
         var text = '这句一言来自 <span style="color:#0099cc;">『{source}』</span>，是 <span style="color:#0099cc;">{creator}</span> 在 hitokoto.cn 投稿的。';
         text = text.render({source: result.from, creator: result.creator});
         showMessage(result.hitokoto, 5000);
         window.setTimeout(function() {showMessage(text, 3000);}, 5000);
+    });
+    */
+    $.ajax({
+        url:"https://v1.hitokoto.cn",
+        type:'get',
+        data:{},
+        dataType:'jsonp',
+        success:function(result){
+            var text = '这句一言来自 <span style="color:#0099cc;">『{source}』</span>，是 <span style="color:#0099cc;">{creator}</span> 在 hitokoto.cn 投稿的。';
+            text = text.render({source: result.from, creator: result.creator});
+            showMessage(result.hitokoto, 5000);
+            window.setTimeout(function() {showMessage(text, 3000);}, 5000);
+        }
     });
 	/*
 	$.getJSON('https://api.fghrsh.net/hitokoto/rand/?encode=jsc&uid=3335',function(result){
@@ -230,7 +243,10 @@ function loadModel(modelId, modelTexturesId){
     localStorage.setItem('modelId', modelId);
     if (modelTexturesId === undefined) modelTexturesId = 0;
     localStorage.setItem('modelTexturesId', modelTexturesId);
-    loadlive2d('live2d', 'https://www.yxiupei.cn/live_2d/live2dApi/get/?id='+modelId+'-'+modelTexturesId, console.log('live2d','模型 '+modelId+'-'+modelTexturesId+' 加载完成'));
+
+    var myHost = window.location.protocol+'//'+window.location.hostname;
+
+    loadlive2d('live2d', myHost+'/live_2d/live2dApi/get/?id='+modelId+'-'+modelTexturesId, console.log('live2d','模型 '+modelId+'-'+modelTexturesId+' 加载完成'));
 }
 
 function loadRandModel(){
@@ -238,10 +254,12 @@ function loadRandModel(){
     var modelTexturesId = localStorage.getItem('modelTexturesId');
     
     var modelTexturesRandMode = 'rand';     // 可选 'rand'(随机), 'switch'(顺序)
+
+    var myHost = window.location.protocol+'//'+window.location.hostname;
     
     $.ajax({
         cache: false,
-        url: 'https://www.yxiupei.cn/live_2d/live2dApi/'+modelTexturesRandMode+'_textures/?id='+modelId+'-'+modelTexturesId,
+        url: myHost+'/live_2d/live2dApi/'+modelTexturesRandMode+'_textures/?id='+modelId+'-'+modelTexturesId,
         dataType: "json",
         success: function (result){
             if (result.textures['id'] == 1 && (modelTexturesId == 1 || modelTexturesId == 0)) {
@@ -258,10 +276,12 @@ function loadOtherModel(){
     var modelId = localStorage.getItem('modelId');
     
     var modelTexturesRandMode = 'switch';     // 可选 'rand'(随机), 'switch'(顺序)
+
+    var myHost = window.location.protocol+'//'+window.location.hostname;
     
     $.ajax({
         cache: false,
-        url: 'https://www.yxiupei.cn/live_2d/live2dApi/'+modelTexturesRandMode+'/?id='+modelId,
+        url: myHost+'/live_2d/live2dApi/'+modelTexturesRandMode+'/?id='+modelId,
         dataType: "json",
         success: function (result){
             loadModel(result.model['id']);
