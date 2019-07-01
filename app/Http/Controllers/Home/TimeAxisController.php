@@ -14,7 +14,7 @@ class TimeAxisController extends Controller
         $yearGroup = Cache::remember(sha1($request->fullUrl().'_yearGroup_cache'),10,function (){
             //查询数据
             $timeAxisList = TimeAxis::where('status','=','1')
-                ->where('isHome','=','1')
+                //->where('isHome','=','1')
                 ->orderBy('year','desc')
                 ->orderBy('month','desc')
                 ->orderBy('day','desc')
