@@ -111,7 +111,7 @@ function showUEditorContent($UEditorContent=''){
 /**
  * 根据ip地址获取地理信息
  * @param  string $ip ip地址
- * @return array      地理信息
+ * @return mixed      地理信息
  */
 function getIpLookup($ip = ''){
     if(empty($ip) || $ip == '127.0.0.1'){
@@ -219,10 +219,10 @@ function caculateAKSN($ak, $sk, $uri, $querystring_arrays, $method = 'GET'){
 
 /**
  * 自己封装的 cURL 方法
- * @param $url 请求网址
- * @param bool $params 请求参数
- * @param bool $ispost 是否post请求
- * @param bool $https https协议
+ * @param string    $url    请求网址
+ * @param bool      $params 请求参数
+ * @param bool      $ispost 是否post请求
+ * @param bool      $https  https协议
  * @return bool|mixed
  */
 function curl($url, $params = false, $ispost = false, $https = false){
@@ -283,7 +283,7 @@ function curl($url, $params = false, $ispost = false, $https = false){
 }
 
 /**
- * @param $paramDate 日期 格式为2018-05-02 10:30:05
+ * @param  string   $paramDate 日期 格式为2018-05-02 10:30:05
  * @return string
  */
 function timeAgo(string $paramDate){
@@ -339,25 +339,14 @@ function timeAgo(string $paramDate){
 
 /**
  * 对数据进行编码转换
- * @param array/string  $data      数组/字符串
- * @param string        $output    转换后的编码
+ * @param string    $data       需要转换的字符串
+ * @param string    $output     转换后的编码
+ * @return string               转换后的字符串
  */
-function array_iconv($data,$output = 'utf-8') {
+function array_iconv(string $data,$output = 'utf-8') {
     $encode_arr = array('UTF-8','ASCII','GBK','GB2312','BIG5','JIS','eucjp-win','sjis-win','EUC-JP');
     $encoded = mb_detect_encoding($data, $encode_arr);//自动判断编码
-    if (!is_array($data)) {
-        return mb_convert_encoding($data, $output, $encoded);
-    }
-    else {
-        foreach ($data as $key=>$val) {
-            if(is_array($val)) {
-                $data[$key] = array_iconv($val, $input, $output);
-            } else {
-                $data[$key] = mb_convert_encoding($data, $output, $encoded);
-            }
-        }
-        return $data;
-    }
+    return mb_convert_encoding($data, $output, $encoded);
 }
 
 /**
@@ -412,4 +401,27 @@ function randGetBingEverydayImgForOnline(int $num = 1) {
         }
         return $imgList;
     }
+}
+
+/**
+ * 根据qq号获取qq名称
+ * @param string $qq
+ * @return mixed
+ */
+function getQQName(string $qq){
+    $param = [
+        'uins' => $qq
+    ];
+    $url = 'http://r.qzone.qq.com/fcg-bin/cgi_get_portrait.fcg';
+    $res = curl($url,$param);
+    $res = array_iconv($res);
+    $res = str_replace("\n", '', $res);
+    preg_match('/\{.*\}/',$res,$matches);
+    $qqInfo = json_decode($matches[0],true);
+    if (empty($qqInfo) || isset($qqInfo['error'])){
+        return isset($qqInfo['error']['msg']) ? $qqInfo['error']['msg'] : false;
+    }
+    $qqInfo = array_values($qqInfo);
+    $qqName = $qqInfo[0][6];
+    return $qqName;
 }
