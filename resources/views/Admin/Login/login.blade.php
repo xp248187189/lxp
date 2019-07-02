@@ -48,6 +48,7 @@
 @endsection
 {{--js内容--}}
 @section('script')
+    <script src="https://cdn.vaptcha.com/v2.js"></script>
     <script type="text/javascript">
         {{--自定义验证--}}
         form.verify({
@@ -72,6 +73,11 @@
         });
         {{--监听登陆提交--}}
         form.on('submit(login)', function (data) {
+            var form_data = data.field;
+            if (form_data.token == ''){
+                layer.msg('请进行人机验证');
+                return false;
+            }
             var index = layer.load(1);
             $.ajax({
                 url:'{{ url('/doLogin') }}',
@@ -114,8 +120,12 @@
                     {{--如果获取了焦点，因为layui表单自动绑定了Enter键提交表单，所以不用再模拟点击一次--}}
                     var accountInputIsFocus =  $('input[name="account"]').is(':focus');
                     var passwordInputIsFocus =  $('input[name="password"]').is(':focus');
-                    var verifyInputIsFocus =  $('input[name="verify"]').is(':focus');
-                    if (accountInputIsFocus==false && passwordInputIsFocus==false && verifyInputIsFocus==false){
+                    if (accountInputIsFocus==false && passwordInputIsFocus==false){
+                        var token = $('input[name="token"]').val();
+                        if (token == ''){
+                            layer.msg('请进行人机验证');
+                            return false;
+                        }
                         $('button[lay-filter=login]').click();
                     }
                 }
@@ -141,18 +151,18 @@
             loginHtml += '<input type="password" name="password" lay-verify="required|password" placeholder="请输入密码" value="" autocomplete="off" class="layui-input">';
             loginHtml += '</div>';
             loginHtml += '</div>';
-            loginHtml += '<div class="layui-form-item">';
-            loginHtml += '<div class="layui-inline">'
-            loginHtml += '<label class="layui-form-label">验证码</label>';
-            loginHtml += '<div class="layui-input-inline" style="width:156px;">';
-            loginHtml += '<input type="text" name="verify" lay-verify="required" placeholder="请输入验证码" value="" autocomplete="off" class="layui-input">';
+            loginHtml += '<input type="hidden" name="token" value="" >';
+            loginHtml += '<div id="vaptchaContainer" style="width: 300px;height: 150px;margin: auto;">';
+            loginHtml += '<div class="vaptcha-init-main">';
+            loginHtml += '<div class="vaptcha-init-loading">';
+            loginHtml += '<a href="https://www.vaptcha.com" target="_blank">';
+            loginHtml += '<img src="https://cdn.vaptcha.com/vaptcha-loading.gif" />';
+            loginHtml += '</a>';
+            loginHtml += '<span class="vaptcha-text">Vaptcha启动中...</span>';
             loginHtml += '</div>';
-            loginHtml += '<div class="layui-input-inline" style="width:114px;">';
-            loginHtml += '<img id="verify_img" src="{{captcha_src()}}" onclick="this.src=\'{{captcha_src()}}\'+Math.random()" style="height:38px;">';
             loginHtml += '</div>';
             loginHtml += '</div>';
-            loginHtml += '</div>';
-            loginHtml += '<div class="layui-form-item">';
+            loginHtml += '<div class="layui-form-item" style="margin-top: 10px;">';
             loginHtml += '<label class="layui-form-label">7天免登录</label>';
             loginHtml += '<div class="layui-input-inline pm-login-input">';
             loginHtml += '<input type="checkbox" name="online" title="确定" value="1">';
@@ -170,50 +180,26 @@
                 title: false,
                 shade: 0.4,
                 shadeClose: true,
-                area: ['480px', '330px'],
+                area: ['520px', '420px'],
                 closeBtn: 0,
                 // anim: 1,
                 skin: 'pm-layer-login',
                 content: loginHtml,
                 success: function(layero, index){
                     form.render();
+                    vaptcha({
+                        {{--配置参数--}}
+                        vid: '5cecb1aefc650e11d0273707', {{--验证单元id--}}
+                        type: 'embed', {{--展现类型 嵌入式--}}
+                        container: '#vaptchaContainer' {{--按钮容器，可为Element 或者 selector--}}
+                    }).then(function (vaptchaObj) {
+                        vaptchaObj.listen('pass', function() {
+                            $('input[name="token"]').val(vaptchaObj.getToken())
+                        });
+                        vaptchaObj.render() {{--调用验证实例 vaptchaObj 的 render 方法加载验证按钮--}}
+                    });
                 }
             });
         }
-        /*
-        {{--canvas动画--}}
-        var canvas = document.getElementById(`canvas`), {{--获取画布--}}
-            cxt = canvas.getContext(`2d`), {{--获得2d绘图环境--}}
-            size = 12;{{--设置字体大小和列宽--}}
-        {{--注意点：canvas不能在样式里设置宽高，那是对默认300*150的一个拉伸变形。--}}
-        {{--可以直接在标签上设置宽高，如：width="500" height="500"(像图片标签那样)。--}}
-        canvas.width = window.screen.width; {{--设置画布宽度--}}
-        canvas.height = window.screen.height;{{--设置画布高度--}}
-        var y = [], {{--用数组存储每一列更新后的y坐标--}}
-            cols = canvas.width/size; {{--根据每一列宽为size来计算列数--}}
-        {{--初始化每一列y值(随机)，取不同的值让雨点错开（不并排下落）--}}
-        for(var i=0;i<cols;i++){
-            y[i] = Math.random()*800;
-        }
-        {{--画图函数--}}
-        (function draw(){
-            {{--理解难点就是以下这个背景覆盖--}}
-            cxt.fillStyle = `rgba(0,0,0,.1)`; {{--设置背景颜色和透明度（将会叠加，形成渐变）--}}
-            cxt.fillRect(0,0,canvas.width,canvas.height); {{--描绘每一行背景--}}
-            cxt.fillStyle = `#33ff00`; {{--设置字体颜色--}}
-            cxt.font = `${size}px Microsoft yahei`; {{--设置字体--}}
-            for(var i=0;i<cols;i++){ {{--描绘所有列--}}
-                var num = Math.floor(Math.random()*10)+'';{{--获取0-9随机数--}}
-                var numX = i*size;{{--第i列的x坐标--}}
-                var numY = y[i];{{--第i列的y坐标--}}
-                cxt.fillText(num,numX,numY);{{--描绘数字--}}
-                y[i] += size;{{--增加size高度以写该列中下一个（行）数字的y坐标--}}
-                if(y[i]>=canvas.height && Math.random()>=.9){ {{--随机取值进一步控制雨点错开--}}
-                    y[i] = 0; {{--回到顶部再写--}}
-                }
-            }
-            window.requestAnimationFrame(draw);{{--帧动画函数--}}
-        })();
-        */
     </script>
 @endsection

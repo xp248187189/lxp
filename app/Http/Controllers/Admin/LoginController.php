@@ -24,26 +24,7 @@ class LoginController extends Controller
             'status' => false,
             'echo'  => ''
         );
-        //手动验证
-        $validator = \Validator::make($request->all(),[
-            //定义验证规则
-            'verify' => 'required|captcha'
-        ],[
-            //自定义规则说明
-            'required' => '必填',
-            'captcha' => '验证码错误',
-        ],[
-            //自定义字段说明
-            'verify' => '验证码',
-        ]);
-        //判断验证是否成功
-        if ($validator->fails()){
-            $errors = $validator->errors();
-            $res['echo'] = $errors->first();
-            return $res;
-        }
         //查询
-        //$postAccount = $request->input('account');
         $adminInfo = Admin::where('account',$request->input('account'))->first();
         //判断是否存在此管理员账号
         if (empty($adminInfo)) {
