@@ -51,7 +51,7 @@
                         <div class="layui-tab-item">
                             <div class="aboutinfo">
                                 <div class="aboutinfo-figure">
-                                    <img src="{{ asset('uploads').'/'.cache('about_cache')[0]->img }}" alt="{{cache('about_cache')[0]->name}}" style="width:100px;height: 100px;"/>
+                                    <img src="{{ cache('about_cache')[0]->img }}" alt="{{cache('about_cache')[0]->name}}" style="width:100px;height: 100px;"/>
                                 </div>
                                 <p class="aboutinfo-nickname">{{cache('about_cache')[0]->name}}</p>
                                 <p class="aboutinfo-introduce">{{cache('about_cache')[0]->introduce}}</p>

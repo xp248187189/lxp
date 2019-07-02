@@ -9,7 +9,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label">名称</label>
             <div class="layui-input-block">
-                <input type="text" name="name" lay-verify="required" autocomplete="off" class="layui-input" value="{{$info->name}}">
+                <input type="text" name="name" lay-verify="required" autocomplete="off" class="layui-input" value="{{ getQQName('248187189') }}" readonly="readonly" style="border: none">
             </div>
         </div>
         <div class="layui-form-item">
@@ -24,23 +24,30 @@
                 <input type="text" name="introduce" lay-verify="required" autocomplete="off" class="layui-input" value="{{$info->introduce}}">
             </div>
         </div>
+        {{--<div class="layui-form-item">--}}
+            {{--<label class="layui-form-label">主图</label>--}}
+            {{--<div class="layui-input-inline">--}}
+                {{--<button type="button" onclick="selImg();" class="layui-btn layui-btn-sm" style="margin-top: 4px;">--}}
+                    {{--<i class="fa fa-image"></i>--}}
+                    {{--浏览文件--}}
+                {{--</button>--}}
+                {{--<input type="file" name="img" id="img" style="display:none;">--}}
+                {{--<input type="hidden" id="checkCardPath" value="1" />--}}
+            {{--</div>--}}
+            {{--<div class="layui-form-mid layui-word-aux" id="showPath">--}}
+            {{--</div>--}}
+        {{--</div>--}}
+        {{--<div class="layui-form-item">--}}
+            {{--<label class="layui-form-label"></label>--}}
+            {{--<div class="layui-input-block">--}}
+                {{--<img style="width:150px;" id="show_img" src="@php echo asset('uploads').'/'.$info->img@endphp">--}}
+            {{--</div>--}}
+        {{--</div>--}}
         <div class="layui-form-item">
-            <label class="layui-form-label">主图</label>
-            <div class="layui-input-inline">
-                <button type="button" onclick="selImg();" class="layui-btn layui-btn-sm" style="margin-top: 4px;">
-                    <i class="fa fa-image"></i>
-                    浏览文件
-                </button>
-                <input type="file" name="img" id="img" style="display:none;">
-                <input type="hidden" id="checkCardPath" value="1" />
-            </div>
-            <div class="layui-form-mid layui-word-aux" id="showPath">
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label"></label>
+            <label class="layui-form-label">头像</label>
             <div class="layui-input-block">
-                <img style="width:150px;" id="show_img" src="@php echo asset('uploads').'/'.$info->img@endphp">
+                <img style="width:150px;" id="show_img" src="{{ getQQHeadPortrait('248187189') }}">
+                <input name="img" type="hidden" value="{{ getQQHeadPortrait('248187189') }}"/>
             </div>
         </div>
         <div class="layui-form-item">

@@ -425,3 +425,12 @@ function getQQName(string $qq){
     $qqName = $qqInfo[0][6];
     return $qqName;
 }
+
+/**
+ * 根据qq号获取qq头像url
+ * @param string $qq
+ * @return string
+ */
+function getQQHeadPortrait(string $qq){
+    return 'http://q1.qlogo.cn/g?b=qq&nk='.$qq.'&s=100';
+}

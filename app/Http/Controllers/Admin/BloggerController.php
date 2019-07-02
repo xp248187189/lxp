@@ -21,17 +21,18 @@ class BloggerController extends Controller
         $orm->label = $request->input('label');
         $orm->introduce = $request->input('introduce');
         $orm->detail = $request->input('detail');
-        if ($request->file('img')){
-            @unlink(public_path('uploads/').$orm->img);
-            $path = $request->file('img')->store('about/'.date('Y-m-d'),'myUploads');
-            $orm->img = $path;
+        $orm->img = $request->input('img');
+        // if ($request->file('img')){
+            // @unlink(public_path('uploads/').$orm->img);
+            // $path = $request->file('img')->store('about/'.date('Y-m-d'),'myUploads');
+            // $orm->img = $path;
             // $requestImg = $request->file('img');
             // $fileName = md5(time().str_random()).'.'.$requestImg->getClientOriginalExtension();
             // $path = public_path('uploads/about/'.date('Y-m-d').'/'.$fileName);
             // $requestImgRealPath = $requestImg->getRealPath();
             // \Image::make($requestImgRealPath)->insert(public_path('watermarkImg/watermark.png'),'bottom-right', 15, 10)->save($path);
             // $orm->img = 'about/'.date('Y-m-d').'/'.$fileName;
-        }
+        // }
         $orm->save();
         $res['status'] = true;
         $res['echo'] = '修改成功';

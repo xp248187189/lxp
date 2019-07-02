@@ -31,7 +31,13 @@ class BlackList
         if ($is_in){
             abort(403);
         }
-        Cache::add('about_cache',About::get(),60);
+        Cache::remember('about_cache',60,function (){
+            $info = About::find(1);
+            $info->name = getQQName('248187189');
+            $info->img = getQQHeadPortrait('248187189');
+            $info->save();
+            return About::get();
+        });
         return $next($request);
     }
 }
