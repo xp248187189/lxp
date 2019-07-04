@@ -19,5 +19,7 @@ return [
         ['title'=>'二次元动漫','url'=>'https://api.ixiaowai.cn/api/api.php'],
         ['title'=>'menhera酱','url'=>'https://api.ixiaowai.cn/mcapi/mcapi.php'],
         ['title'=>'风景','url'=>'https://api.ixiaowai.cn/gqapi/gqapi.php']
-    ]
+    ],
+    //vaptcha手势验证的vid
+    'vaptcha_vid' => env('VAPTCHA_VID')
 ];

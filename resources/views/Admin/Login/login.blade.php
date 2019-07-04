@@ -182,7 +182,7 @@
                     form.render();
                     vaptcha({
                         {{--配置参数--}}
-                        vid: '5cecb1aefc650e11d0273707', {{--验证单元id--}}
+                        vid: '{{ config('api.vaptcha_vid') }}', {{--验证单元id--}}
                         type: 'embed', {{--展现类型 嵌入式--}}
                         container: '#vaptchaContainer' {{--按钮容器，可为Element 或者 selector--}}
                     }).then(function (vaptchaObj) {
