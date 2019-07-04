@@ -17,8 +17,8 @@
             background: #CCCCCC;
             overflow:hidden;
             background: url({{randGetBingEverydayImgForOnline()}}) no-repeat;
-        　　background-size:cover;
-        　　background-position: center center;
+            background-size:cover;
+            background-position: center center;
             background-attachment: fixed;
         }
     </style>
