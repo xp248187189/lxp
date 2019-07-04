@@ -21,13 +21,6 @@
         　　background-position: center center;
             background-attachment: fixed;
         }
-        canvas{
-            margin: 0 auto;
-            display: block;
-            background-color: #FFF;
-            position: fixed;
-            z-index:-1;
-        }
     </style>
 @endsection
 {{--body内容--}}
