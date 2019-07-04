@@ -151,7 +151,7 @@
             loginHtml += '<a href="https://www.vaptcha.com" target="_blank">';
             loginHtml += '<img src="https://cdn.vaptcha.com/vaptcha-loading.gif" />';
             loginHtml += '</a>';
-            loginHtml += '<span class="vaptcha-text">Vaptcha启动中...</span>';
+            loginHtml += '<span class="vaptcha-text">验证系统启动中...</span>';
             loginHtml += '</div>';
             loginHtml += '</div>';
             loginHtml += '</div>';
