@@ -21,5 +21,6 @@ return [
         ['title'=>'风景','url'=>'https://api.ixiaowai.cn/gqapi/gqapi.php']
     ],
     //vaptcha手势验证的vid
-    'vaptcha_vid' => env('VAPTCHA_VID')
+    'vaptcha_vid' => env('VAPTCHA_VID'),
+    'vaptcha_key' => env('VAPTCHA_KEY'),
 ];

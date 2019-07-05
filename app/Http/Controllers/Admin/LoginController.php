@@ -24,6 +24,28 @@ class LoginController extends Controller
             'status' => false,
             'echo'  => ''
         );
+        //二次验证token
+        $checkTokenParam = [
+            'id' => config('api.vaptcha_vid'),
+            'secretkey' => config('api.vaptcha_key'),
+            'token' => $request->input('token'),
+            'ip' => \Request::getClientIp(),
+        ];
+        $api_return_key_val = [
+            'id-empty' => 'id为空',
+            'id-error' => 'id错误',
+            'scene-error' => '场景号错误',
+            'token-error' => 'token错误',
+            'token-expired' => 'token过期',
+            'over-user-limit' => '超过VIP用户自定义的频率上限',
+            'bad-request' => '请求错误',
+        ];
+        $api_res = curl('http://api.vaptcha.com/v2/validate',$checkTokenParam,true,true);
+        $api_res = json_decode($api_res,true);
+        if ($api_res['success'] == 0){
+            $res['echo'] = isset($api_return_key_val[$api_res['msg']]) ? $api_return_key_val[$api_res['msg']] : '未知错误';
+            return $res;
+        }
         //查询
         $adminInfo = Admin::where('account',$request->input('account'))->first();
         //判断是否存在此管理员账号

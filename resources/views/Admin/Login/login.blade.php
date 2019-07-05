@@ -86,8 +86,8 @@
                     }else{
                         layer.close(index);
                         layer.msg(data.echo,{icon:5});
-                        $('#verify_img').attr('src','{{captcha_src()}}'+Math.random());
-                        $('input[name=verify]').val('');
+                        $('.vp-refresh').click();
+                        $('input[name="token"]').val('');
                     }
                 },
                 error : function(data) {
@@ -163,7 +163,7 @@
             loginHtml += '</div>';
             loginHtml += '<div class="layui-form-item" style="margin-top:25px;margin-bottom:0;">';
             loginHtml += '<div class="layui-input-block">';
-            loginHtml += '<button class="layui-btn" style="width:230px;" lay-submit lay-filter="login">立即登录</button>';
+            loginHtml += '<button class="layui-btn layui-btn-disabled" style="width:230px;" lay-submit lay-filter="login" id="login_btn" disabled>立即登录</button>';
             loginHtml += '</div>';
             loginHtml += '</div>';
             loginHtml += '</form>';
@@ -187,7 +187,9 @@
                         container: '#vaptchaContainer' {{--按钮容器，可为Element 或者 selector--}}
                     }).then(function (vaptchaObj) {
                         vaptchaObj.listen('pass', function() {
-                            $('input[name="token"]').val(vaptchaObj.getToken())
+                            $('input[name="token"]').val(vaptchaObj.getToken());
+                            $('#login_btn').removeClass("layui-btn-disabled");
+                            $('#login_btn').removeAttr("disabled");
                         });
                         vaptchaObj.render() {{--调用验证实例 vaptchaObj 的 render 方法加载验证按钮--}}
                     });
