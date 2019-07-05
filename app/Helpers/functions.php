@@ -432,5 +432,5 @@ function getQQName(string $qq){
  * @return string
  */
 function getQQHeadPortrait(string $qq){
-    return 'http://q1.qlogo.cn/g?b=qq&nk='.$qq.'&s=100';
+    return 'https://q1.qlogo.cn/g?b=qq&nk='.$qq.'&s=100';
 }
