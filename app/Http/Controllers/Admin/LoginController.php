@@ -35,8 +35,8 @@ class LoginController extends Controller
             'id-empty' => 'id为空',
             'id-error' => 'id错误',
             'scene-error' => '场景号错误',
-            'token-error' => 'token错误',
-            'token-expired' => 'token过期',
+            'token-error' => 'token错误，请重新验证',
+            'token-expired' => 'token过期，请重新验证',
             'over-user-limit' => '超过VIP用户自定义的频率上限',
             'bad-request' => '请求错误',
         ];

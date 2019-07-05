@@ -43,32 +43,11 @@
 @section('script')
     <script src="https://cdn.vaptcha.com/v2.js"></script>
     <script type="text/javascript">
-        {{--自定义验证--}}
-        form.verify({
-            account: function(value, item){ {{--value：表单的值、item：表单的DOM对象--}}
-                if(value.length<=2){
-                    return '用户名不应该少于3位字符';
-                }
-                if(!new RegExp("^[a-zA-Z0-9_\u4e00-\u9fa5\\s·]+$").test(value)){
-                    return '用户名不能有特殊字符';
-                }
-                if(/(^\_)|(\__)|(\_+$)/.test(value)){
-                    return '用户名首尾不能出现下划线\'_\'';
-                }
-                if(/^\d+\d+\d$/.test(value)){
-                    return '用户名不能全为数字';
-                }
-            },
-            password: [
-                /^[\S]{6,16}$/,
-                '密码必须6到16位，且不能出现空格'
-            ]
-        });
         {{--监听登陆提交--}}
         form.on('submit(login)', function (data) {
             var form_data = data.field;
             if (form_data.token == ''){
-                layer.msg('请进行人机验证');
+                layer.msg('请进行手势验证');
                 return false;
             }
             var index = layer.load(1);
@@ -86,8 +65,9 @@
                     }else{
                         layer.close(index);
                         layer.msg(data.echo,{icon:5});
-                        $('.vp-refresh').click();
                         $('input[name="token"]').val('');
+                        {{--换一张图片验证--}}
+                        initializeVaptcha();
                     }
                 },
                 error : function(data) {
@@ -116,7 +96,7 @@
                     if (accountInputIsFocus==false && passwordInputIsFocus==false){
                         var token = $('input[name="token"]').val();
                         if (token == ''){
-                            layer.msg('请进行人机验证');
+                            layer.msg('请进行手势验证');
                             return false;
                         }
                         $('button[lay-filter=login]').click();
@@ -135,13 +115,13 @@
             loginHtml += '<div class="layui-form-item">';
             loginHtml += '<label class="layui-form-label">账号</label>';
             loginHtml += '<div class="layui-input-inline pm-login-input">';
-            loginHtml += '<input type="text" name="account" lay-verify="required|account" placeholder="请输入账号" value="" autocomplete="off" autofocus="autofocus" class="layui-input">';
+            loginHtml += '<input type="text" name="account" lay-verify="required" placeholder="请输入账号" value="" autocomplete="off" autofocus="autofocus" class="layui-input">';
             loginHtml += '</div>';
             loginHtml += '</div>';
             loginHtml += '<div class="layui-form-item">';
             loginHtml += '<label class="layui-form-label">密码</label>';
             loginHtml += '<div class="layui-input-inline pm-login-input">';
-            loginHtml += '<input type="password" name="password" lay-verify="required|password" placeholder="请输入密码" value="" autocomplete="off" class="layui-input">';
+            loginHtml += '<input type="password" name="password" lay-verify="required" placeholder="请输入密码" value="" autocomplete="off" class="layui-input">';
             loginHtml += '</div>';
             loginHtml += '</div>';
             loginHtml += '<input type="hidden" name="token" value="" >';
@@ -180,20 +160,25 @@
                 content: loginHtml,
                 success: function(layero, index){
                     form.render();
-                    vaptcha({
-                        {{--配置参数--}}
-                        vid: '{{ config('api.vaptcha_vid') }}', {{--验证单元id--}}
-                        type: 'embed', {{--展现类型 嵌入式--}}
-                        container: '#vaptchaContainer' {{--按钮容器，可为Element 或者 selector--}}
-                    }).then(function (vaptchaObj) {
-                        vaptchaObj.listen('pass', function() {
-                            $('input[name="token"]').val(vaptchaObj.getToken());
-                            $('#login_btn').removeClass("layui-btn-disabled");
-                            $('#login_btn').removeAttr("disabled");
-                        });
-                        vaptchaObj.render() {{--调用验证实例 vaptchaObj 的 render 方法加载验证按钮--}}
-                    });
+                    initializeVaptcha();
                 }
+            });
+        }
+
+        {{--初始化手势验证--}}
+        function initializeVaptcha() {
+            vaptcha({
+                {{--配置参数--}}
+                vid: '{{ config('api.vaptcha_vid') }}', {{--验证单元id--}}
+                type: 'embed', {{--展现类型 嵌入式--}}
+                container: '#vaptchaContainer' {{--按钮容器，可为Element 或者 selector--}}
+            }).then(function (vaptchaObj) {
+                vaptchaObj.listen('pass', function() {
+                    $('input[name="token"]').val(vaptchaObj.getToken());
+                    $('#login_btn').removeClass("layui-btn-disabled");
+                    $('#login_btn').removeAttr("disabled");
+                });
+                vaptchaObj.render() {{--调用验证实例 vaptchaObj 的 render 方法加载验证按钮--}}
             });
         }
     </script>
