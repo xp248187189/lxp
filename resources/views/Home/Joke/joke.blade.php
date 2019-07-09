@@ -66,6 +66,7 @@
                         <div class="layui-tab-item">
                             <div class="timeline-box shadow">
                                 <ul class="layui-timeline">
+                                    @if($data->todayonhistory)
                                     @foreach($data->todayonhistory->result as $key => $value)
                                         <li class="layui-timeline-item">
                                             <i class="layui-icon layui-timeline-axis">&#xe63f;</i>
@@ -75,6 +76,7 @@
                                             </div>
                                         </li>
                                     @endforeach
+                                    @endif
                                     <li class="layui-timeline-item">
                                         <i class="layui-icon layui-timeline-axis">&#xe63f;</i>
                                         <div class="layui-timeline-content layui-text">
