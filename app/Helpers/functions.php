@@ -283,7 +283,7 @@ function curl($url, $params = false, $ispost = false, $https = false){
 }
 
 /**
- * @param  string   $paramDate 日期 格式为2018-05-02 10:30:05 
+ * @param  string   $paramDate 日期 格式为2018-05-02 10:30:05
  * @return string
  */
 function timeAgo(string $paramDate){
