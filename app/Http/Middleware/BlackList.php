@@ -17,18 +17,11 @@ class BlackList
      */
     public function handle($request, Closure $next)
     {
-        $blackList = Cache::remember('home_blackList',10,function (){
-            return \App\Model\BlackList::where('status','=','1')->get();
+        $blackArr = Cache::remember('home_blackList',10,function (){
+            return \App\Model\BlackList::where('status','=','1')->pluck('ip')->toArray();
         });
         $ip = \Request::getClientIp();
-        $is_in = false;
-        foreach ($blackList as $key => $value){
-            if ($ip == $value->ip){
-                $is_in = true;
-                break;
-            }
-        }
-        if ($is_in){
+        if (!empty($blackArr) && in_array($ip,$blackArr)){
             abort(403);
         }
         Cache::remember('about_cache',60,function (){
