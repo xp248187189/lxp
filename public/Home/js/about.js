@@ -81,8 +81,7 @@ function extra(x) {
     //如果传入数字小于10，数字前补一位0。
     if (x < 10) {
         return "0" + x;
-    }
-    else {
+    }else {
         return x;
     }
 }
