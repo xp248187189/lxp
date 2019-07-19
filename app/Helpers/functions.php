@@ -434,3 +434,16 @@ function getQQName(string $qq){
 function getQQHeadPortrait(string $qq){
     return 'https://q1.qlogo.cn/g?b=qq&nk='.$qq.'&s=100';
 }
+
+/**
+ * 获取当前控制器与方法
+ * @return array
+ */
+function getCurrentAction(){
+    $action = \Route::getCurrentRoute()->getActionName();
+    list($class, $method) = explode('@', $action);
+    $tem = explode('\\',$class);
+    $tem = end($tem);
+    $className = substr($tem,0,-10);
+    return ['class'=>$class,'method'=>$method,'className'=>$className];
+}
