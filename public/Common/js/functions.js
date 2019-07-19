@@ -23,7 +23,7 @@ function getFormData(formId){
     var mode = true;//设置第二个参数的默认值为true
     if (arguments[1]===false) {
         var mode = false;
-    };
+    }
     var data = {};
     $('#'+formId).serializeArray().map(function(x){
         if (data[x.name] !== undefined) {
