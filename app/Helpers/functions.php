@@ -205,7 +205,7 @@ function deep_in_array(string $value,array $array) {
  * @param  string $ak                 应用ak
  * @param  string $sk                 应用sk
  * @param  string $uri                get请求uri前缀
- * @param  string $querystring_arrays 请求串数组
+ * @param  array $querystring_arrays 请求串数组
  * @param  string $method             请求类型
  * @return string                     sn
  */
