@@ -178,7 +178,7 @@ return [
         App\Providers\RouteServiceProvider::class,
 
         //laravel-ide-helper
-        Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
+        //Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
         //验证码
         Mews\Captcha\CaptchaServiceProvider::class,
         //图片处理工具
