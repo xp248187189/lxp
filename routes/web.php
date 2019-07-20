@@ -240,7 +240,7 @@ Route::domain(config('domin.admin_domin'))->namespace('Admin')->middleware('Admi
         //首页
         Route::any('/showList/{action?}','AdminLoginController@showList');
         //删除
-        Route::get('/ajaxDel','AdminLoginController@ajaxDel');
+        Route::post('/ajaxDel','AdminLoginController@ajaxDel');
     });
     //userLogin控制器
     Route::prefix('UserLogin')->group(function (){

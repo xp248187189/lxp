@@ -10,48 +10,43 @@ class AdminLoginController extends Controller
 {
     //列表
     public function showList(Request $request){
-        if (\Route::input('action')){
-            //返回数据格式
-            $return =array('code'=>0,'msg'=>'','count'=>0,'data'=>array());
-            $whereArray = array();
-            $orWhereArray = array();
-            if ($request->input('startTime')){
-                $whereArray[] = ['time','>=',strtotime($request->input('startTime'))];
+        if (\Route::input('action') == 'getData'){
+            //设置条件
+            $where = [];
+            $orWhere = [];
+            if ($request->filled('startTime')){
+                $startTime = $request->input('startTime') . ' 00:00:00';
+                $where[]   = ['time', '>=', strtotime($startTime)];
             }
-            if ($request->input('endTime')){
-                $whereArray[] = ['time','<=',strtotime($request->input('endTime'))+86400];
+            if ($request->filled('endTime')){
+                $endTime = $request->input('endTime') . ' 23:59:59';
+                $where[] = ['time', '<=', strtotime($endTime)];
             }
-            if ($request->input('keyWord')){
-                $orWhereArray[] = ['ip','like','%'.$request->input('keyWord').'%'];
-                $orWhereArray[] = ['account','like','%'.$request->input('keyWord').'%'];
+            if ($request->filled('keyWord')){
+                $orWhere[] = ['ip'     , 'like', '%'.$request->input('keyWord').'%'];
+                $orWhere[] = ['account', 'like', '%'.$request->input('keyWord').'%'];
             }
-            $data = AdminLogin::where($whereArray)
-                ->where(function ($query) use ($orWhereArray){
-                    foreach ($orWhereArray as $item) {
+            //根据条件查询数据
+            $data = AdminLogin::where($where)
+                ->where(function ($query) use ($orWhere){
+                    foreach ($orWhere as $item) {
                         $query->orWhere($item[0],$item[1],$item[2]);
                     }
                 })
                 ->orderBy('time','desc')
                 ->paginate($request->input('limit'))
                 ->toArray();
-            $return['count'] = $data['total'];
-            $return['data'] = $data['data'];
-            return $return;
+            //返回数据
+            return ['code'=>0,'msg'=>'','count'=>$data['total'],'data'=>$data['data']];
         }
         return view('Admin.AdminLogin.showList');
     }
 
     //删除
-    public function ajaxDel(){
-        $res = array(
-            'status' => false,
-            'echo'  => ''
-        );
-        $ids = $_GET['id'];
+    public function ajaxDel(Request $request){
+        $ids = $request->input('id');
         $ids = trim($ids,',');
         AdminLogin::destroy(explode(',',$ids));
-        $res['status'] = true;
-        $res['echo'] = '删除成功';
-        return $res;
+        return ['status' => true, 'echo' => '删除成功'];
     }
 }

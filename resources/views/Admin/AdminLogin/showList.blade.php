@@ -73,7 +73,7 @@
                     del_id += item.id+',';
                 });
                 del_id = del_id.substring(0,del_id.length-1);
-                $.get('{{url("/AdminLogin/ajaxDel")}}',{id:del_id},function(result){
+                $.post('{{url("/AdminLogin/ajaxDel")}}',{id:del_id},function(result){
                     layer.msg(result.echo);
                     if(result.status){
                         layer.close(index);
