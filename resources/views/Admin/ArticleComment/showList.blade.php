@@ -72,7 +72,7 @@
                 //删除
                 layer.confirm('真的删除行么', function(index) {
                     var del_id = data.id;
-                    $.get('{{url("/ArticleComment/ajaxDel")}}',{id:del_id},function(result){
+                    $.post('{{url("/ArticleComment/ajaxDel")}}',{id:del_id},function(result){
                         layer.msg(result.echo);
                         if(result.status){
                             obj.del(); //删除对应行（tr）的DOM结构
@@ -112,7 +112,7 @@
                     del_id += item.id+',';
                 });
                 del_id = del_id.substring(0,del_id.length-1);
-                $.get('{{url("/ArticleComment/ajaxDel")}}',{id:del_id},function(result){
+                $.post('{{url("/ArticleComment/ajaxDel")}}',{id:del_id},function(result){
                     layer.msg(result.echo);
                     if(result.status){
                         layer.close(index);

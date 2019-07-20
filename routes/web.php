@@ -167,7 +167,7 @@ Route::domain(config('domin.admin_domin'))->namespace('Admin')->middleware('Admi
         //首页
         Route::any('/showList/{action?}','ArticleCommentController@showList');
         //删除
-        Route::get('/ajaxDel','ArticleCommentController@ajaxDel');
+        Route::post('/ajaxDel','ArticleCommentController@ajaxDel');
     });
     //Link控制器
     Route::prefix('Link')->group(function (){
