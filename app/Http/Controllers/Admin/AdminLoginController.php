@@ -12,7 +12,7 @@ class AdminLoginController extends Controller
     public function showList(Request $request){
         if (\Route::input('action') == 'getData'){
             //设置条件
-            $where = [];
+            $where   = [];
             $orWhere = [];
             if ($request->filled('startTime')){
                 $startTime = $request->input('startTime') . ' 00:00:00';
@@ -23,8 +23,8 @@ class AdminLoginController extends Controller
                 $where[] = ['time', '<=', strtotime($endTime)];
             }
             if ($request->filled('keyWord')){
-                $orWhere[] = ['ip'     , 'like', '%'.$request->input('keyWord').'%'];
-                $orWhere[] = ['account', 'like', '%'.$request->input('keyWord').'%'];
+                $orWhere[] = ['ip'     , 'like', '%' . $request->input('keyWord') . '%'];
+                $orWhere[] = ['account', 'like', '%' . $request->input('keyWord') . '%'];
             }
             //根据条件查询数据
             $data = AdminLogin::where($where)
