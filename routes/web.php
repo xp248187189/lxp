@@ -98,7 +98,7 @@ Route::domain(config('domin.admin_domin'))->namespace('Admin')->middleware('Admi
         //执行修改
         Route::post('/ajaxEdit','AdminController@ajaxEdit');
         //删除
-        Route::get('/ajaxDel','AdminController@ajaxDel');
+        Route::post('/ajaxDel','AdminController@ajaxDel');
     });
     //Role控制器
     Route::prefix('Role')->group(function (){

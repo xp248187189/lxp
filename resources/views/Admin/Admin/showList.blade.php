@@ -13,14 +13,14 @@
             <form class="layui-form" id="searchForm">
                 <div style="display: inline-block;">
                     <select name="sex">
-                        <option value="0">性别不限</option>
+                        <option value="">性别不限</option>
                         <option value="男">男</option>
                         <option value="女">女</option>
                     </select>
                 </div>
                 <div style="display: inline-block;">
                     <select name="role_id">
-                        <option value="0">角色不限</option>
+                        <option value="">角色不限</option>
                         @foreach($roleList as $key => $value)
                             <option value="{{$value->id}}">{{$value->name}}</option>
                         @endforeach
@@ -126,7 +126,7 @@
                 //删除
                 layer.confirm('真的删除行么', function(index) {
                     var del_id = data.id;
-                    $.get('{{url("/Admin/ajaxDel")}}',{id:del_id},function(result){
+                    $.post('{{url("/Admin/ajaxDel")}}',{id:del_id},function(result){
                         layer.msg(result.echo);
                         if(result.status){
                             obj.del(); //删除对应行（tr）的DOM结构
@@ -184,7 +184,7 @@
                     del_id += item.id+',';
                 });
                 del_id = del_id.substring(0,del_id.length-1);
-                $.get('{{url("/Admin/ajaxDel")}}',{id:del_id},function(result){
+                $.post('{{url("/Admin/ajaxDel")}}',{id:del_id},function(result){
                     layer.msg(result.echo);
                     if(result.status){
                         layer.close(index);
