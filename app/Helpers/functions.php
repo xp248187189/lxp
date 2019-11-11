@@ -412,7 +412,7 @@ function getQQName(string $qq){
     $param = [
         'uins' => $qq
     ];
-    $url = 'http://r.qzone.qq.com/fcg-bin/cgi_get_portrait.fcg';
+    $url = 'https://r.qzone.qq.com/fcg-bin/cgi_get_portrait.fcg';
     $res = curl($url,$param);
     $res = array_iconv($res);
     $res = str_replace("\n", '', $res);
