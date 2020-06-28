@@ -12,6 +12,6 @@ use Illuminate\Support\Facades\Cache;
 
 class TestController extends Controller{
   public function test(Request $request){
-    system('/home/wwwroot/lxp/app/Http/Controllers/Home/git_ychat_pull.sh');
+    exec('/home/wwwroot/lxp/app/Http/Controllers/Home/git_ychat_pull.sh');
   }
 }
