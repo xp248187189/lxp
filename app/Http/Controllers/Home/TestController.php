@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Cache;
 
 class TestController extends Controller{
   public function test(Request $request){
-    $r = system('/home/wwwroot/lxp/app/Http/Controllers/Home/git_ychat_pull.sh 2>&1',$a);
+    $r = system('sudo /home/wwwroot/lxp/app/Http/Controllers/Home/git_ychat_pull.sh 2>&1',$a);
     var_dump($r,$a);
   }
 }
