@@ -32,6 +32,8 @@ Route::domain(config('domin.home_domin'))->namespace('Home')->middleware('BlackL
     Route::get('vip/{action?}','VipVideoController@vipVideo');
     //高清图集
     Route::get('atlas/{action?}','BingImgController@atlas');
+    
+    Route::get('test','TestController@test');
 });
 
 /**
