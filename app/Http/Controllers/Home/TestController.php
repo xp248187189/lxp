@@ -14,5 +14,8 @@ class TestController extends Controller{
   public function test(Request $request){
     $res = system('whoami 2>&1',$return_status);
     var_dump($res,$return_status);
+    
+    $res = system('sudo whoami 2>&1',$return_status);
+    var_dump($res,$return_status);
   }
 }
