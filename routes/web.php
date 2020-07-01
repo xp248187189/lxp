@@ -33,7 +33,7 @@ Route::domain(config('domin.home_domin'))->namespace('Home')->middleware('BlackL
     //高清图集
     Route::get('atlas/{action?}','BingImgController@atlas');
     
-    Route::post('test','TestController@test');
+    Route::get('test','TestController@test');
 });
 
 /**
