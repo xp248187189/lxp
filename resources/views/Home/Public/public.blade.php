@@ -118,7 +118,7 @@
 @show
 <footer class="blog-footer">
     <p><span>Copyright</span><span>&copy;</span><span>2017@php echo date("Y")==2017?'':'-'.date("Y");@endphp</span><a href="{{url('/')}}">记忆碎片</a><span>All Rights Reserved</span></p>
-    <p><a href="http://www.miitbeian.gov.cn/" target="_blank">蜀ICP备17041911号</a></p>
+    <p><a href="https://beian.miit.gov.cn" target="_blank">蜀ICP备17041911号-1</a></p>
 </footer>
 {{--侧边导航--}}
 <ul class="layui-nav layui-nav-tree layui-nav-side blog-nav-left layui-hide" lay-filter="nav">
