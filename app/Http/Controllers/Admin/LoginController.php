@@ -43,7 +43,6 @@ class LoginController extends Controller
         ];
         $api_res = curl('http://0.vaptcha.com/verify',$checkTokenParam,true,true);
         $api_res = json_decode($api_res,true);
-        var_dump($api_res);
         if ($api_res['success'] == 0){
             $res['echo'] = isset($api_return_key_val[$api_res['msg']]) ? $api_return_key_val[$api_res['msg']] : '未知错误';
             return $res;
