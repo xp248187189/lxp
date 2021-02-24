@@ -28,6 +28,7 @@ class LoginController extends Controller
         $checkTokenParam = [
             'id' => config('api.vaptcha_vid'),
             'secretkey' => config('api.vaptcha_key'),
+            'scene' => 'click',
             'token' => $request->input('token'),
             'ip' => \Request::getClientIp(),
         ];
@@ -40,7 +41,7 @@ class LoginController extends Controller
             'over-user-limit' => '超过VIP用户自定义的频率上限',
             'bad-request' => '请求错误',
         ];
-        $api_res = curl('http://api.vaptcha.com/v2/validate',$checkTokenParam,true,true);
+        $api_res = curl('http://0.vaptcha.com/verify',$checkTokenParam,true,true);
         $api_res = json_decode($api_res,true);
         if ($api_res['success'] == 0){
             $res['echo'] = isset($api_return_key_val[$api_res['msg']]) ? $api_return_key_val[$api_res['msg']] : '未知错误';
