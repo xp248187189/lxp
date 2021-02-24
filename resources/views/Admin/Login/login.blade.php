@@ -167,10 +167,26 @@
 
         {{--初始化手势验证--}}
         function initializeVaptcha() {
+            /*
             vaptcha({
                 {{--配置参数--}}
                 vid: '{{ config('api.vaptcha_vid') }}', {{--验证单元id--}}
                 type: 'embed', {{--展现类型 嵌入式--}}
+                container: '#vaptchaContainer' {{--按钮容器，可为Element 或者 selector--}}
+            }).then(function (vaptchaObj) {
+                vaptchaObj.listen('pass', function() {
+                    $('input[name="token"]').val(vaptchaObj.getToken());
+                    $('#login_btn').removeClass("layui-btn-disabled");
+                    $('#login_btn').removeAttr("disabled");
+                });
+                vaptchaObj.render() {{--调用验证实例 vaptchaObj 的 render 方法加载验证按钮--}}
+            });
+            */
+            vaptcha({
+                {{--配置参数--}}
+                vid: '{{ config('api.vaptcha_vid') }}', {{--验证单元id--}}
+                type: 'click', {{--显示类型 点击式--}}
+                scene: 0, {{--场景值 默认0--}}
                 container: '#vaptchaContainer' {{--按钮容器，可为Element 或者 selector--}}
             }).then(function (vaptchaObj) {
                 vaptchaObj.listen('pass', function() {
