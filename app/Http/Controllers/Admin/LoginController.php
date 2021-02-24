@@ -28,7 +28,7 @@ class LoginController extends Controller
         $checkTokenParam = [
             'id' => config('api.vaptcha_vid'),
             'secretkey' => config('api.vaptcha_key'),
-            'scene' => 'click',
+            'scene' => 0,
             'token' => $request->input('token'),
             'ip' => \Request::getClientIp(),
         ];
