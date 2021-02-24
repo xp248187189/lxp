@@ -41,7 +41,7 @@
 @endsection
 {{--js内容--}}
 @section('script')
-    <script src="https://cdn.vaptcha.com/v2.js"></script>
+    <script src="https://v.vaptcha.com/v3.js"></script>
     <script type="text/javascript">
         {{--监听登陆提交--}}
         form.on('submit(login)', function (data) {
